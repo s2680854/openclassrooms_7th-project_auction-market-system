@@ -16,7 +16,27 @@ CREATE TABLE IF NOT EXISTS users (
 ) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS trade (
-
+    trade_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    type VARCHAR(35) NOT NULL,
+    buyQuantity FLOAT NOT NULL,
+    sellQuantity FLOAT NOT NULL,
+    buyPrice FLOAT NOT NULL,
+    sellPrice FLOAT NOT NULL,
+    benchmark VARCHAR(35) NOT NULL,
+    tradeDate TIMESTAMP NOT NULL,
+    security VARCHAR(35) NOT NULL,
+    status VARCHAR(35) NOT NULL,
+    trader VARCHAR(35) NOT NULL,
+    book VARCHAR(35) NOT NULL,
+    creationName VARCHAR(35) NOT NULL,
+    creationDate TIMESTAMP NOT NULL,
+    revisionName VARCHAR(35) NOT NULL,
+    revisionDate TIMESTAMP NOT NULL,
+    dealName VARCHAR(35) NOT NULL,
+    dealType VARCHAR(35) NOT NULL,
+    sourceListId VARCHAR(35) NOT NULL,
+    side VARCHAR(35) NOT NULL,
+    PRIMARY KEY (trade_id)
 ) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS bidlist (
@@ -46,22 +66,22 @@ CREATE TABLE IF NOT EXISTS bidlist (
 ) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS curvepoint (
-id INT UNSIGNED NOT NULL AUTO_INCREMENT,
-curve_id INT NOT NULL,
-asOfDate TIMESTAMP NOT NULL,
-term FLOAT NOT NULL,
-value FLOAT NOT NULL,
-creationDate TIMESTAMP NOT NULL,
-PRIMARY KEY (id)
+    id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    curve_id INT NOT NULL,
+    asOfDate TIMESTAMP NOT NULL,
+    term FLOAT NOT NULL,
+    value FLOAT NOT NULL,
+    creationDate TIMESTAMP NOT NULL,
+    PRIMARY KEY (id)
 ) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS rating (
-id INT UNSIGNED NOT NULL AUTO_INCREMENT,
-moodysRating VARCHAR(35) NOT NULL,
-sandPRating VARCHAR(35) NOT NULL,
-fitchRating VARCHAR(35) NOT NULL,
-orderNumber INT NOT NULL,
-PRIMARY KEY (id)
+    id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    moodysRating VARCHAR(35) NOT NULL,
+    sandPRating VARCHAR(35) NOT NULL,
+    fitchRating VARCHAR(35) NOT NULL,
+    orderNumber INT NOT NULL,
+    PRIMARY KEY (id)
 ) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS rulename (
