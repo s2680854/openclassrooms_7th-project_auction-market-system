@@ -6,12 +6,12 @@ CREATE TABLE IF NOT EXISTS role (
 ) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS users (
-    users_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    user_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
     username VARCHAR(35) NOT NULL UNIQUE,
     password VARCHAR(72) NOT NULL,
     fullname VARCHAR(100) NOT NULL UNIQUE,
     role INT UNSIGNED NOT NULL,
-    PRIMARY KEY (users_id),
+    PRIMARY KEY (user_id),
     FOREIGN KEY (role) REFERENCES role(role_id)
 ) ENGINE=InnoDB;
 
@@ -20,7 +20,12 @@ CREATE TABLE IF NOT EXISTS trade (
 ) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS bidlist (
-
+    bidlist_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    account INT UNSIGNED NOT NULL,
+    type VARCHAR(35) NOT NULL,
+    bid_quantity SMALLINT NOT NULL,
+    PRIMARY KEY (bidlist_id),
+    FOREIGN KEY (account) REFERENCES users(user_id)
 ) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS curvepoint (
