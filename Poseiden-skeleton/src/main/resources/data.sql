@@ -21,11 +21,28 @@ CREATE TABLE IF NOT EXISTS trade (
 
 CREATE TABLE IF NOT EXISTS bidlist (
     bidlist_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
-    account INT UNSIGNED NOT NULL,
+    account VARCHAR(50) NOT NULL,
     type VARCHAR(35) NOT NULL,
-    bid_quantity SMALLINT NOT NULL,
-    PRIMARY KEY (bidlist_id),
-    FOREIGN KEY (account) REFERENCES users(user_id)
+    bid_quantity FLOAT NOT NULL,
+    ask_quantity FLOAT NOT NULL,
+    bid FLOAT NOT NULL,
+    ask FLOAT NOT NULL,
+    benchmark VARCHAR(35) NOT NULL,
+    bidListDate TIMESTAMP NOT NULL,
+    commentary VARCHAR(35) NOT NULL,
+    security VARCHAR(35) NOT NULL,
+    status VARCHAR(35) NOT NULL,
+    trader VARCHAR(35) NOT NULL,
+    book VARCHAR(35) NOT NULL,
+    creationName VARCHAR(35) NOT NULL,
+    creationDate TIMESTAMP NOT NULL,
+    revisionName VARCHAR(35) NOT NULL,
+    revisionDate TIMESTAMP NOT NULL,
+    dealName VARCHAR(35) NOT NULL,
+    dealType VARCHAR(35) NOT NULL,
+    sourceListId VARCHAR(35) NOT NULL,
+    side VARCHAR(35) NOT NULL,
+    PRIMARY KEY (bidlist_id)
 ) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS curvepoint (
