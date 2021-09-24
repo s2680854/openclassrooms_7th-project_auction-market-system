@@ -1,7 +1,10 @@
 package com.nnk.springboot.domain;
 
+import lombok.Data;
+
 import javax.persistence.*;
 
+@Data
 @Entity
 @Table(name = "rule")
 public class Rule {
