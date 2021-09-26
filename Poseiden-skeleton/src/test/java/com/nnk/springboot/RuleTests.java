@@ -10,6 +10,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.List;
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 @SpringBootTest
 public class RuleTests {
 
@@ -22,22 +24,21 @@ public class RuleTests {
 
 		// Save
 		rule = ruleNameRepository.save(rule);
-		Assert.assertNotNull(rule.getId());
-		Assert.assertTrue(rule.getName().equals("Rule Name"));
+		assertEquals(rule.getName(), "Rule Name");
 
 		// Update
 		rule.setName("Rule Name Update");
 		rule = ruleNameRepository.save(rule);
-		Assert.assertTrue(rule.getName().equals("Rule Name Update"));
+		assertEquals(rule.getName(), "Rule Name Update");
 
 		// Find
 		List<RuleName> listResult = ruleNameRepository.findAll();
-		Assert.assertTrue(listResult.size() > 0);
+		assertTrue(listResult.size() > 0);
 
 		// Delete
 		Integer id = rule.getId();
 		ruleNameRepository.delete(rule);
 		Optional<RuleName> ruleList = ruleNameRepository.findById(id);
-		Assert.assertFalse(ruleList.isPresent());
+		assertFalse(ruleList.isPresent());
 	}
 }
