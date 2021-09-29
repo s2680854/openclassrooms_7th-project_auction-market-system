@@ -1,4 +1,4 @@
-package com.nnk.springboot.service.bidslist.rating;
+package com.nnk.springboot.service.rating;
 
 import com.nnk.springboot.domain.Rating;
 import com.nnk.springboot.repositories.RatingRepository;
@@ -8,18 +8,18 @@ import org.springframework.stereotype.Service;
 import java.util.Collection;
 
 @Service
-public class RatingReadService {
+public class RatingCreationgService {
 
     @Autowired
     private RatingRepository ratingRepository;
 
-    public Rating getRating(Long id) {
+    public Rating createRating(Rating rating) {
 
-        return ratingRepository.getById(id);
+        return ratingRepository.save(rating);
     }
 
-    public Collection<Rating> getRatings() {
+    public Collection<Rating> createRatings(Collection<Rating> ratings) {
 
-        return ratingRepository.findAll();
+        return ratingRepository.saveAll(ratings);
     }
 }

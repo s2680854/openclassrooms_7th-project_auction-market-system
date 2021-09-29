@@ -1,4 +1,4 @@
-package com.nnk.springboot.service.bidslist.rating;
+package com.nnk.springboot.service.rating;
 
 import com.nnk.springboot.domain.Rating;
 import com.nnk.springboot.repositories.RatingRepository;

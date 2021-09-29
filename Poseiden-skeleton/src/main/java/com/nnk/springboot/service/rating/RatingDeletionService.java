@@ -1,4 +1,4 @@
-package com.nnk.springboot.service.bidslist.rating;
+package com.nnk.springboot.service.rating;
 
 import com.nnk.springboot.repositories.RatingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
