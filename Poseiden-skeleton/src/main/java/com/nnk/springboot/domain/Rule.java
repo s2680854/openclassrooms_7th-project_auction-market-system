@@ -15,10 +15,16 @@ public class Rule {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
 
+    @NotBlank(message = "Name Rating is mandatory")
     private String name;
+    @NotBlank(message = "Description Rating is mandatory")
     private String description;
+    @NotBlank(message = "JSON is mandatory")
     private String json;
+    @NotBlank(message = "Template is mandatory")
     private String template;
+    @NotBlank(message = "SQL String is mandatory")
     private String sqlStr;
+    @NotBlank(message = "SQL Part is mandatory")
     private String sqlPart;
 }
