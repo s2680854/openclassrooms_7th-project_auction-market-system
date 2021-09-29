@@ -19,7 +19,7 @@ public class Trade {
     private String account;
     @NotBlank(message = "Type is mandatory")
     private String type;
-    
+
     private double buyQuantity;
     private double sellQuantity;
     private double buyPrice;

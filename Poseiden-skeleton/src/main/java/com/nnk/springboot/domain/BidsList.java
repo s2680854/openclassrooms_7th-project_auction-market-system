@@ -43,4 +43,12 @@ public class BidsList {
     private String dealType;
     private String sourceListId;
     private String side;
+
+    public BidsList(@NotBlank(message = "Account is mandatory") String account,
+                    @NotBlank(message = "Type is mandatory") String type,
+                    @NotBlank(message = "Quantity is mandatory") double bidQuantity) {
+        this.account = account;
+        this.type = type;
+        this.bidQuantity = bidQuantity;
+    }
 }

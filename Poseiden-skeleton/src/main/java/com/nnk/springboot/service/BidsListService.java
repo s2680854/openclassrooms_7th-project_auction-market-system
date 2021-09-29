@@ -37,11 +37,11 @@ public class BidsListService {
     public BidsList updateBidsList(BidsList bidsList) {
 
         Optional<BidsList> optionalBidsList =
-                bidsListRepository.findById(bidsList.getBidListId());
+                bidsListRepository.findById(bidsList.getId());
 
         if (!optionalBidsList.isPresent()) {
 
-            return new BidsList();
+            return new BidsList(bidsList.getAccount(), bidsList.getType(), bidsList.getBidQuantity());
         }
         return bidsListRepository.save(bidsList);
     }
