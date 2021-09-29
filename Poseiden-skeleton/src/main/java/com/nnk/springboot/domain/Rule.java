@@ -27,4 +27,18 @@ public class Rule {
     private String sqlStr;
     @NotBlank(message = "SQL Part is mandatory")
     private String sqlPart;
+
+    public Rule(@NotBlank(message = "Name Rating is mandatory") String name,
+                @NotBlank(message = "Description Rating is mandatory") String description,
+                @NotBlank(message = "JSON is mandatory") String json,
+                @NotBlank(message = "Template is mandatory") String template,
+                @NotBlank(message = "SQL String is mandatory") String sqlStr,
+                @NotBlank(message = "SQL Part is mandatory") String sqlPart) {
+        this.name = name;
+        this.description = description;
+        this.json = json;
+        this.template = template;
+        this.sqlStr = sqlStr;
+        this.sqlPart = sqlPart;
+    }
 }

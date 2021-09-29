@@ -17,7 +17,7 @@ public class RuleTests {
 	@Autowired
 	private RuleRepository ruleRepository;
 
-	/*@Test
+	@Test
 	public void ruleTest() {
 		Rule rule = new Rule("Rule Name", "Description", "Json", "Template", "SQL", "SQL Part");
 
@@ -35,9 +35,9 @@ public class RuleTests {
 		assertTrue(listResult.size() > 0);
 
 		// Delete
-		Integer id = rule.getId();
+		Long id = rule.getId();
 		ruleRepository.delete(rule);
 		Optional<Rule> ruleList = ruleRepository.findById(id);
 		assertFalse(ruleList.isPresent());
-	}*/
+	}
 }

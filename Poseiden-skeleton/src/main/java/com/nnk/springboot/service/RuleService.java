@@ -41,7 +41,8 @@ public class RuleService {
 
         if (!optionalRule.isPresent()) {
 
-            return new Rule();
+            return new Rule(rule.getName(), rule.getDescription(), rule.getJson(),
+                    rule.getTemplate(), rule.getSqlStr(), rule.getSqlPart());
         }
         return ruleRepository.save(rule);
     }
