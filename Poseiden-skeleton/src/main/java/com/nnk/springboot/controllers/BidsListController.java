@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 
-@RestController
+@Controller
 public class BidsListController {
-    // TODO: Inject Bid service
 
+    // TODO: Inject Bid service
     @RequestMapping("/bidList/list")
     public String home(Model model)
     {
