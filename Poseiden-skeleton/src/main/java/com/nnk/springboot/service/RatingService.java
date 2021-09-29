@@ -41,7 +41,8 @@ public class RatingService {
 
         if (!optionalRating.isPresent()) {
 
-            return new Rating();
+            return new Rating(rating.getMoodysRating(), rating.getSandPRating(),
+                    rating.getFitchRating(), rating.getOrderNumber());
         }
         return ratingRepository.save(rating);
     }

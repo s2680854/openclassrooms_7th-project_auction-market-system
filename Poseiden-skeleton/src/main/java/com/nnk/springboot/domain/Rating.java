@@ -24,4 +24,14 @@ public class Rating {
     private String fitchRating;
     @NotBlank(message = "Order Number is mandatory")
     private int orderNumber;
+
+    public Rating(@NotBlank(message = "Moody's Rating is mandatory") String moodysRating,
+                  @NotBlank(message = "Standard & Poor's Rating is mandatory") String sandPRating,
+                  @NotBlank(message = "Fitch Rating is mandatory") String fitchRating,
+                  @NotBlank(message = "Order Number is mandatory") int orderNumber) {
+        this.moodysRating = moodysRating;
+        this.sandPRating = sandPRating;
+        this.fitchRating = fitchRating;
+        this.orderNumber = orderNumber;
+    }
 }
