@@ -25,7 +25,7 @@ public class BidsList {
     private double bid;
     private double ask;
     private String benchmark;
-    private Timestamp bidListDate;
+    private Timestamp bidsListDate;
     private String commentary;
     private String security;
     private String status;
