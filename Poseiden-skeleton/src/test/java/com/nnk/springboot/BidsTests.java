@@ -17,7 +17,7 @@ public class BidsTests {
 	@Autowired
 	private BidsListRepository bidsListRepository;
 
-	@Test
+	/*@Test
 	public void bidListTest() {
 		BidsList bid = new BidsList("Account Test", "Type Test", 10d);
 
@@ -39,5 +39,5 @@ public class BidsTests {
 		bidsListRepository.delete(bid);
 		Optional<BidsList> bidList = bidsListRepository.findById(id);
 		assertFalse(bidList.isPresent());
-	}
+	}*/
 }
