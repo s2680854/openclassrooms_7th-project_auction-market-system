@@ -32,4 +32,6 @@ public class CurvePoint {
         this.term = term;
         this.value = value;
     }
+
+    public CurvePoint() {  };
 }

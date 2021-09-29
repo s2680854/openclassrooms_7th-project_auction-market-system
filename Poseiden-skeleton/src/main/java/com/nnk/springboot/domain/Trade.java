@@ -44,4 +44,6 @@ public class Trade {
         this.account = account;
         this.type = type;
     }
+
+    public Trade() {  };
 }

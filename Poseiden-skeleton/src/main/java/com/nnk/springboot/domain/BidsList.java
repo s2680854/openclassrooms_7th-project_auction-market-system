@@ -51,4 +51,6 @@ public class BidsList {
         this.type = type;
         this.bidQuantity = bidQuantity;
     }
+
+    public BidsList() {  }
 }

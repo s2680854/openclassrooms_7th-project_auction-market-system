@@ -41,4 +41,6 @@ public class Rule {
         this.sqlStr = sqlStr;
         this.sqlPart = sqlPart;
     }
+
+    public Rule() {  };
 }
