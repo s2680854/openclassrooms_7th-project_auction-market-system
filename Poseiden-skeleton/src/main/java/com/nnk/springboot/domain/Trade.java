@@ -38,4 +38,10 @@ public class Trade {
     private String dealType;
     private String sourceListId;
     private String side;
+
+    public Trade(@NotBlank(message = "Account is mandatory") String account,
+                 @NotBlank(message = "Type is mandatory") String type) {
+        this.account = account;
+        this.type = type;
+    }
 }

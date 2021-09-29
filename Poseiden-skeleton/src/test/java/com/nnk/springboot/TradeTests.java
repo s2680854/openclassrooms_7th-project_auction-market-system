@@ -18,7 +18,7 @@ public class TradeTests {
 	@Autowired
 	private TradeRepository tradeRepository;
 
-	/*@Test
+	@Test
 	public void tradeTest() {
 		Trade trade = new Trade("Trade Account", "Type");
 
@@ -36,9 +36,9 @@ public class TradeTests {
 		assertTrue(listResult.size() > 0);
 
 		// Delete
-		Integer id = trade.getTradeId();
+		Long id = trade.getId();
 		tradeRepository.delete(trade);
 		Optional<Trade> tradeList = tradeRepository.findById(id);
 		assertTrue(tradeList.isPresent());
-	}*/
+	}
 }

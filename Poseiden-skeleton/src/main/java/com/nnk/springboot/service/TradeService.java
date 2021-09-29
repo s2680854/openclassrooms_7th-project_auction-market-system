@@ -37,11 +37,11 @@ public class TradeService {
     public Trade updateTrade(Trade trade) {
 
         Optional<Trade> optionalTrade =
-                tradeRepository.findById(trade.getTradeId());
+                tradeRepository.findById(trade.getId());
 
         if (!optionalTrade.isPresent()) {
 
-            return new Trade();
+            return new Trade(trade.getAccount(), trade.getType());
         }
         return tradeRepository.save(trade);
     }
