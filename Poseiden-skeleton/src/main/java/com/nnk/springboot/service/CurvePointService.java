@@ -24,12 +24,12 @@ public class CurvePointService {
         return curvePointRepository.findAll();
     }
 
-    public CurvePoint creatCurvePoint(CurvePoint curvePoint) {
+    public CurvePoint createCurvePoint(CurvePoint curvePoint) {
 
         return curvePointRepository.save(curvePoint);
     }
 
-    public Collection<CurvePoint> creatCurvePoints(Collection<CurvePoint> curvePoints) {
+    public Collection<CurvePoint> createCurvePoints(Collection<CurvePoint> curvePoints) {
 
         return curvePointRepository.saveAll(curvePoints);
     }
