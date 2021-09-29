@@ -14,6 +14,11 @@ public class BidsListService {
     @Autowired
     private BidsListRepository bidsListRepository;
 
+    public BidsList getBidsList(Long id) {
+
+        return bidsListRepository.getById(id);
+    }
+
     public Collection<BidsList> getBidsLists() {
 
         return bidsListRepository.findAll();
@@ -22,6 +27,11 @@ public class BidsListService {
     public BidsList creatBidsList(BidsList bidsList) {
 
         return bidsListRepository.save(bidsList);
+    }
+
+    public Collection<BidsList> creatBidsLists(Collection<BidsList> bidsLists) {
+
+        return bidsListRepository.saveAll(bidsLists);
     }
 
     public BidsList updateBidsList(BidsList bidsList) {
@@ -36,8 +46,13 @@ public class BidsListService {
         return bidsListRepository.save(bidsList);
     }
 
-    public void deleteBidById(Long id) {
+    public void deleteBidsListById(Long id) {
 
         bidsListRepository.deleteById(id);
+    }
+
+    public void deleteBidsLists() {
+
+        bidsListRepository.deleteAll();
     }
 }
