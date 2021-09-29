@@ -13,7 +13,7 @@ public class Trade {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    private int tradeId;
+    private Long tradeId;
 
     private String account;
     private String type;

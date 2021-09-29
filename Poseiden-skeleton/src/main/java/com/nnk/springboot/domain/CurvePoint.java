@@ -15,15 +15,15 @@ public class CurvePoint {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    private Integer id;
+    private Long id;
 
-    private Integer curveId;
+    private int curveId;
     private Timestamp asOfDate;
     private double term;
     private double value;
     private Timestamp creationDate;
 
-    public CurvePoint(Integer curveId, double term, double value) {
+    public CurvePoint(Integer curveId, Double term, Double value) {
         this.curveId = curveId;
         this.term = term;
         this.value = value;
