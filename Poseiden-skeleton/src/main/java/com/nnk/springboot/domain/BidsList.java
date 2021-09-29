@@ -16,7 +16,7 @@ public class BidsList {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    private int bidListId;
+    private Long bidListId;
 
     private String account;
     private String type;
@@ -39,10 +39,4 @@ public class BidsList {
     private String dealType;
     private String sourceListId;
     private String side;
-
-    public BidsList(String account, String type, double bidQuantity) {
-        this.account = account;
-        this.type = type;
-        this.bidQuantity = bidQuantity;
-    }
 }
