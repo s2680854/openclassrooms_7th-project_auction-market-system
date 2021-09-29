@@ -15,8 +15,11 @@ public class Trade {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
 
+    @NotBlank(message = "Account is mandatory")
     private String account;
+    @NotBlank(message = "Type is mandatory")
     private String type;
+    
     private double buyQuantity;
     private double sellQuantity;
     private double buyPrice;
