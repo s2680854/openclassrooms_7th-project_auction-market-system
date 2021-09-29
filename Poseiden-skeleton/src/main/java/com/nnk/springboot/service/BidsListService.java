@@ -5,7 +5,6 @@ import com.nnk.springboot.repositories.BidsListRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.validation.Valid;
 import java.util.Collection;
 import java.util.Optional;
 
