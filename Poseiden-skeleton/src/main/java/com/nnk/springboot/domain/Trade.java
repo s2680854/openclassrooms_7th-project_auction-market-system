@@ -11,10 +11,9 @@ import java.sql.Timestamp;
 @Table(name = "trade")
 public class Trade {
 
-    // TODO: Map columns in data table TRADE with corresponding java fields
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    private int tradeId;
+    private Long tradeId;
 
     private String account;
     private String type;
@@ -36,9 +35,4 @@ public class Trade {
     private String dealType;
     private String sourceListId;
     private String side;
-
-    public Trade(String account, String type) {
-        this.account = account;
-        this.type = type;
-    }
 }
