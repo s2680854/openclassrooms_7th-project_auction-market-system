@@ -24,4 +24,12 @@ public class CurvePoint {
 
     private Timestamp asOfDate;
     private Timestamp creationDate;
+
+    public CurvePoint(@NotBlank(message = "ID is mandatory") int curveId,
+                      @NotBlank(message = "Term is mandatory") double term,
+                      @NotBlank(message = "Value is mandatory") double value) {
+        this.curveId = curveId;
+        this.term = term;
+        this.value = value;
+    }
 }

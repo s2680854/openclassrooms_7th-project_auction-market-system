@@ -41,7 +41,7 @@ public class CurvePointService {
 
         if (!optionalCurvePoint.isPresent()) {
 
-            return new CurvePoint();
+            return new CurvePoint(curvePoint.getCurveId(), curvePoint.getTerm(), curvePoint.getValue());
         }
         return curvePointRepository.save(curvePoint);
     }
