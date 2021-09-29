@@ -16,8 +16,12 @@ public class Rating {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
 
+    @NotBlank(message = "Moody's Rating is mandatory")
     private String moodysRating;
+    @NotBlank(message = "Standard & Poor's Rating is mandatory")
     private String sandPRating;
+    @NotBlank(message = "Fitch Rating is mandatory")
     private String fitchRating;
+    @NotBlank(message = "Order Number is mandatory")
     private int orderNumber;
 }
