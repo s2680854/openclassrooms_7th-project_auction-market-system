@@ -14,9 +14,6 @@
 
 	<div class="row">
 		<form action="#" th:action="@{/bidsList/update/{id}(id=${bid.id})}" th:object="${bid}" method="post" class="form-horizontal" style="width: 100%">
-			<!--
-			TODO: Create a form to edit the values of Bid, there are 2 buttons: Update data and Cancel to the list Bid
-			 -->
 			<div>
 				<input type="text" placeholder="Entrez une description..." th:field="*{commentary}" class="form-control" required />
 				<input type="text" placeholder="Entrez une quantité..." th:field="*{bidQuantity}" class="form-control" required />
