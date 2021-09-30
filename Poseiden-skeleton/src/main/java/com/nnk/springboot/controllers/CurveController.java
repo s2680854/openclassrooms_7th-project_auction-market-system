@@ -68,8 +68,12 @@ public class CurveController {
     }
 
     @GetMapping("/curvePoint/update/{id}")
-    public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
-        // TODO: get CurvePoint by Id and to model then show to the form
+    public String showUpdateForm(@PathVariable("id") Long id, Model model) {
+
+        CurvePoint curvePoint = curvePointReadService.getCurvePoint(id);
+        logger.debug("[get update] curve point: " + curvePoint);
+        model.addAttribute("curve point", curvePoint);
+
         return "curvePoint/update";
     }
 
