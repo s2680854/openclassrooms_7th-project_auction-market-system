@@ -52,6 +52,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
         http.httpBasic()
+                .authenticationEntryPoint(new NoPopupBasicAuthenticationEntryPoint())
                 .and()
                 .authorizeRequests()
                 .antMatchers("/**").authenticated()
