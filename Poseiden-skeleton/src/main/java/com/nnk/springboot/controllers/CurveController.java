@@ -1,11 +1,6 @@
 package com.nnk.springboot.controllers;
 
-import com.nnk.springboot.domain.BidsList;
 import com.nnk.springboot.domain.CurvePoint;
-import com.nnk.springboot.service.bidslist.BidsListCreationService;
-import com.nnk.springboot.service.bidslist.BidsListDeletionService;
-import com.nnk.springboot.service.bidslist.BidsListReadService;
-import com.nnk.springboot.service.bidslist.BidsListUpdateService;
 import com.nnk.springboot.service.curvepoint.CurvePointCreationService;
 import com.nnk.springboot.service.curvepoint.CurvePointDeletionService;
 import com.nnk.springboot.service.curvepoint.CurvePointReadService;
@@ -38,7 +33,7 @@ public class CurveController {
     @RequestMapping("/curvePoint/list")
     public String home(Model model)
     {
-        Collection<CurvePoint> curvePoints = bidsListReadService.getBidsListByEmail(authentication.getName());
+        Collection<CurvePoint> curvePoints = curvePointReadService.getCurvePoints();
         model.addAttribute("curvePoints", curvePoints);
         logger.debug("[home] curvePoints: " + curvePoints);
 
@@ -47,6 +42,7 @@ public class CurveController {
 
     @GetMapping("/curvePoint/add")
     public String addBidForm(CurvePoint bid) {
+        
         return "curvePoint/add";
     }
 
