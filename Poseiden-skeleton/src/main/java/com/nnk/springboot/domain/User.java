@@ -3,6 +3,7 @@ package com.nnk.springboot.domain;
 import lombok.Data;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
@@ -15,6 +16,7 @@ public class User {
     private Long id;
 
     @NotBlank(message = "Username is mandatory")
+    @Email
     private String username;
     @NotBlank(message = "Password is mandatory")
     @Size(min=8)
