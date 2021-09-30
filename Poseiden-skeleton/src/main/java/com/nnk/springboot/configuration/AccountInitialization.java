@@ -24,6 +24,9 @@ public class AccountInitialization {
         user.setFullname("Application");
         user.setUsername("app@test.com");
         user.setPassword("12345678");
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String encodedPassword = passwordEncoder.encode(user.getPassword());
+        user.setPassword(encodedPassword);
         user.setRole("ADMIN");
         userRepository.save(user);
     }
