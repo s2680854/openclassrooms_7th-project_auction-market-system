@@ -14,7 +14,7 @@
 	</div>
 
 	<div class="row">
-		<form action="#" th:action="@{/bidsList/validate}" th:object="${bidsList}" method="post" class="form-horizontal" style="width: 100%">
+		<form action="#" th:action="@{/bidList/validate}" th:object="${bidsList}" method="post" class="form-horizontal" style="width: 100%">
 			<div>
 				<input type="text" placeholder="Entrez une description..." th:field="*{commentary}" class="form-control" required />
 				<input type="text" placeholder="Entrez une quantité..." th:field="*{bidQuantity}" class="form-control" required />

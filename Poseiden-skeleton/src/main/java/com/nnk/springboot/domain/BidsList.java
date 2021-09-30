@@ -13,7 +13,7 @@ import java.sql.Timestamp;
 
 @Data
 @Entity
-@Table(name = "bids_list")
+@Table(name = "bidlist")
 public class BidsList {
 
     @Id
