@@ -1,11 +1,6 @@
 package com.nnk.springboot.controllers;
 
-import com.nnk.springboot.domain.BidsList;
 import com.nnk.springboot.domain.Rating;
-import com.nnk.springboot.service.bidslist.BidsListCreationService;
-import com.nnk.springboot.service.bidslist.BidsListDeletionService;
-import com.nnk.springboot.service.bidslist.BidsListReadService;
-import com.nnk.springboot.service.bidslist.BidsListUpdateService;
 import com.nnk.springboot.service.rating.RatingCreationgService;
 import com.nnk.springboot.service.rating.RatingDeletionService;
 import com.nnk.springboot.service.rating.RatingReadService;
@@ -71,8 +66,13 @@ public class RatingController {
     }
 
     @GetMapping("/rating/update/{id}")
-    public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
-        // TODO: get Rating by Id and to model then show to the form
+    public String showUpdateForm(@PathVariable("id") Long id, Model model) {
+
+        // TODO: check if I have to update
+        Rating rating = ratingReadService.getRatingById(id);
+        logger.debug("[get update] rating: " + rating);
+        model.addAttribute("rating", rating);
+
         return "rating/update";
     }
 

@@ -13,7 +13,7 @@ public class RatingReadService {
     @Autowired
     private RatingRepository ratingRepository;
 
-    public Rating getRating(Long id) {
+    public Rating getRatingById(Long id) {
 
         return ratingRepository.getById(id);
     }
