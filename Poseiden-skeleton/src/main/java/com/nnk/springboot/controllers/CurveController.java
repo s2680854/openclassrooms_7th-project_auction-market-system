@@ -78,9 +78,16 @@ public class CurveController {
     }
 
     @PostMapping("/curvePoint/update/{id}")
-    public String updateBid(@PathVariable("id") Integer id, @Valid CurvePoint curvePoint,
+    public String updateBid(@PathVariable("id") Long id, @Valid CurvePoint curvePoint,
                              BindingResult result, Model model) {
-        // TODO: check required fields, if valid call service to update Curve and return Curve list
+
+        if (result.hasErrors()) {
+            return "curvePoint/add";
+        }
+
+        logger.debug("[post update] curve point: " + curvePoint);
+        curvePointUpdateService.updateCurvePoint(curvePoint);
+
         return "redirect:/curvePoint/list";
     }
 
