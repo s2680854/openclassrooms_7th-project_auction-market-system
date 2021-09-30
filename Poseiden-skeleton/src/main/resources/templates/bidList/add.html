@@ -14,13 +14,11 @@
 	</div>
 
 	<div class="row">
-		<form th:action="@{/bidsList/validate}" th:object="${bidsList}" method="post" class="form-horizontal" style="width: 100%">
-			<!--
-			TODO: Save data and Cancel to the list Bid
-			 -->
+		<form action="#" th:action="@{/bidsList/validate}" th:object="${bidsList}" method="post" class="form-horizontal" style="width: 100%">
 			<div>
-				<input type="text" placeholder="Entrez le montant..." th:field="*{amount}" class="form-control" required />
-				<input type="text" placeholder="Entrez une description..." th:field="*{description}" class="form-control" required />
+				<input type="text" placeholder="Entrez une description..." th:field="*{commentary}" class="form-control" required />
+				<input type="text" placeholder="Entrez une quantité..." th:field="*{bidQuantity}" class="form-control" required />
+				<input type="text" placeholder="Entrez une action..." th:field="*{dealName}" class="form-control" required />
 			</div>
 			<div>
 				<input type="submit" class="btn btn-primary btn-sm" value="Enregistrer" />

@@ -45,16 +45,16 @@ public class BidsListController {
     }
 
     @GetMapping("/bidList/add")
-    public String addBidForm(BidsList bid) {
+    public String addBidForm(Model model) {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String authenticationName = authentication.getName();
         logger.debug("[home] authentication name: " + authenticationName);
 
-        BidsList bidsList = new BidsList();
-        bidsList.setAccount();
-        model.addAttribute("bidsList", bidsList);
-        logger.debug("[home] bids list: " + bidsList);
+        BidsList bid = new BidsList();
+        bid.setAccount(authenticationName);
+        model.addAttribute(bid);
+        logger.debug("[add] bid: " + bid);
 
         return "bidList/add";
     }
