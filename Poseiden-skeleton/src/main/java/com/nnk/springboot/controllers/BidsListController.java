@@ -35,11 +35,12 @@ public class BidsListController {
     @GetMapping("/bidList/list")
     public String home(Model model) {
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        /*Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String authenticationName = authentication.getName();
         logger.debug("[home] authentication name: " + authenticationName);
 
-        Collection<BidsList> bidsList = bidsListReadService.getBidsListByEmail(authentication.getName());
+        Collection<BidsList> bidsList = bidsListReadService.getBidsListByEmail(authentication.getName());*/
+        Collection<BidsList> bidsList = bidsListReadService.getBidsLists();
         model.addAttribute("bidsList", bidsList);
         logger.debug("[home] bids list: " + bidsList);
 
