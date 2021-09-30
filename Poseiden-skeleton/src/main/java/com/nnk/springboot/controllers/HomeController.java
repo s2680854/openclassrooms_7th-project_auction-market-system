@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @Controller
-public class HomeController
-{
+public class HomeController {
+
 	@RequestMapping("/")
 	public String home(Model model)
 	{
