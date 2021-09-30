@@ -37,7 +37,16 @@
 				</tr>
 			</thead>
 			<tbody>
-			<!-- TODO: Show all Trade to the table, the Action column will have Edit & Delete buttons -->
+				<tr th:each="trade: ${trades}">
+					<td th:text="${trade.id}">Id</td>
+					<td th:text="${trade.account}">Account</td>
+					<td th:text="${trade.type}">Type</td>
+					<td th:text="${trade.buyQuantity}">Buy Quantity</td>
+					<td th:text="${trade.dealName}">Action</td>
+
+					<td><input th:action="@{/trade/update/${trade.id}}" class="btn btn-primary btn-sm" value="Modifier" /></td>
+					<td><input th:action="@{/trade/delete/${trade.id}}" class="btn btn-primary btn-sm" value="Supprimer" /></td>
+				</tr>
 			</tbody>
 		</table>
 	</div>

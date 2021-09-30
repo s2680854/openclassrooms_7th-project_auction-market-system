@@ -5,7 +5,9 @@ import org.springframework.beans.factory.annotation.Required;
 
 import javax.persistence.*;
 import javax.validation.constraints.Digits;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.sql.Date;
 import java.sql.Timestamp;
 
@@ -16,16 +18,23 @@ public class BidsList {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    private Long bidListId;
+    private Long id;
 
+    @NotBlank(message = "Account is mandatory")
+    @Size(min=50)
+    @Email
     private String account;
+    @NotBlank(message = "Type is mandatory")
+    @Size(min=35)
     private String type;
+    @NotBlank(message = "Quantity is mandatory")
     private double bidQuantity;
+
     private double askQuantity;
     private double bid;
     private double ask;
     private String benchmark;
-    private Timestamp bidListDate;
+    private Timestamp bidsListDate;
     private String commentary;
     private String security;
     private String status;
@@ -39,4 +48,14 @@ public class BidsList {
     private String dealType;
     private String sourceListId;
     private String side;
+
+    public BidsList(@NotBlank(message = "Account is mandatory") String account,
+                    @NotBlank(message = "Type is mandatory") String type,
+                    @NotBlank(message = "Quantity is mandatory") double bidQuantity) {
+        this.account = account;
+        this.type = type;
+        this.bidQuantity = bidQuantity;
+    }
+
+    public BidsList() {  }
 }

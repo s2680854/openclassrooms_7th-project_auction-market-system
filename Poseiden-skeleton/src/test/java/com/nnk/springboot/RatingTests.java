@@ -19,7 +19,7 @@ public class RatingTests {
 	@Autowired
 	private RatingRepository ratingRepository;
 
-	/*@Test
+	@Test
 	public void ratingTest() {
 		Rating rating = new Rating("Moodys Rating", "Sand PRating", "Fitch Rating", 10);
 
@@ -37,9 +37,9 @@ public class RatingTests {
 		assertTrue(listResult.size() > 0);
 
 		// Delete
-		Integer id = rating.getId();
+		Long id = rating.getId();
 		ratingRepository.delete(rating);
 		Optional<Rating> ratingList = ratingRepository.findById(id);
 		assertFalse(ratingList.isPresent());
-	}*/
+	}
 }

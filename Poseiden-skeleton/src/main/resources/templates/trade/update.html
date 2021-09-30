@@ -13,10 +13,16 @@
 	</div>
 
 	<div class="row">
-		<form action="#" th:action="@{/trade/update/{id}(id=${trade.tradeId})}" th:object="${trade}" method="post" class="form-horizontal" style="width: 100%">
-			<!--
-			TODO: Create a form to edit the values of Trade, there are 2 buttons: Update data and Cancel to the Trade List
-			 -->
+		<form action="#" th:action="@{/trade/update/{id}(id=${trade.id})}" th:object="${trade}" method="post" class="form-horizontal" style="width: 100%">
+			<div>
+				<input type="text" placeholder="Entrez le JSON..." th:field="*{type}" class="form-control" required />
+				<input type="text" placeholder="Entrez une quantité..." th:field="*{buyQuantity}" class="form-control" required />
+				<input type="text" placeholder="Entrez une action..." th:field="*{dealName}" class="form-control" required />
+			</div>
+			<div>
+				<input type="submit" class="btn btn-primary btn-sm" value="Enregistrer" />
+				<a href="/trade/add" class="btn btn-secondary btn-sm">Annuler</a>
+			</div>
 		</form>
 	</div>
 

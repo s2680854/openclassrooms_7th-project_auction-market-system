@@ -40,7 +40,20 @@
 				</tr>
 			</thead>
 			<tbody>
-			<!-- TODO: Show all RuleName to the table, the Action column will have Edit & Delete buttons -->
+				<tr th:each="rule: ${rules}">
+					<td th:text="${rule.id}">Id</td>
+					<td th:text="${rule.name}">Name</td>
+					<td th:text="${rule.description}">Description</td>
+					<td th:text="${rule.json}">json</td>
+					<td th:text="${rule.template}">template</td>
+					<td th:text="${rule.sqlStr}">SQL String</td>
+					<td th:text="${rule.sqlPart}">SQL Part</td>
+					<!-- Todo: Add action later by model multiplicity
+					<td th:text="${rule.action}">Action</td> -->
+
+					<td><input th:action="@{/ruleName/update/${rule.id}}" class="btn btn-primary btn-sm" value="Modifier" /></td>
+					<td><input th:action="@{/ruleName/delete/${rule.id}}" class="btn btn-primary btn-sm" value="Supprimer" /></td>
+				</tr>
 			</tbody>
 		</table>
 	</div>

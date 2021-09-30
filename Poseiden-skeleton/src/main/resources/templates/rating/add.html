@@ -15,10 +15,16 @@
 
 	<div class="row">
 		<form action="#" th:action="@{/rating/validate}" th:object="${rating}" method="post" class="form-horizontal" style="width: 100%">
-			<!--
-			TODO: Create a form to input the values of Rating, there are 2 buttons: Save data and Cancel to the list Rating
-			 -->
-
+			<div>
+				<input type="text" placeholder="Entrez une taux..." th:field="*{moodysRating}" class="form-control" required />
+				<input type="text" placeholder="Entrez une taux..." th:field="*{sandPRating}" class="form-control" required />
+				<input type="text" placeholder="Entrez un taux..." th:field="*{fitchRating}" class="form-control" required />
+				<input type="text" placeholder="Entrez un N° de commande..." th:field="*{orderNumber}" class="form-control" required />
+			</div>
+			<div>
+				<input type="submit" class="btn btn-primary btn-sm" value="Enregistrer" />
+				<a href="/ratings/list" class="btn btn-secondary btn-sm">Annuler</a>
+			</div>
 		</form>
 	</div>
 
