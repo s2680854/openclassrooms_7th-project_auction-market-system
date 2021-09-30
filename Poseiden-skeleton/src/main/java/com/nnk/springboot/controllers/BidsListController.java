@@ -64,15 +64,20 @@ public class BidsListController {
     @PostMapping("/bidList/validate")
     public String validate(@Valid BidsList bid, BindingResult result, Model model) {
 
-        // TODO: check data valid and save to db, after saving return bid list
-        if (result) {
-            bidsListCreationService.createBidsList(bid);
+        if (result.hasErrors()) {
+            return "form";
         }
+
+        model.addAttribute(bid);
+        logger.debug("[validate] bid: " + bid);
+        bidsListCreationService.createBidsList(bid);
+
         return "bidList/add";
     }
 
     @GetMapping("/bidList/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
+
         // TODO: get Bid by Id and to model then show to the form
         return "bidList/update";
     }
