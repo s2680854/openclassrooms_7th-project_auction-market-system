@@ -44,6 +44,9 @@
 					<td th:text="${bid.commentary}">Type</td>
 					<td th:text="${bid.bidQuantity}">Bid Quantity</td>
 					<td th:text="${bid.dealName}">Action</td>
+
+					<td><input th:action="@{/curvePoint/update/${bid.id}}" class="btn btn-primary btn-sm" value="Modifier" /></td>
+					<td><input th:action="@{/curvePoint/delete/${bid.id}}" class="btn btn-primary btn-sm" value="Supprimer" /></td>
 				</tr>
 			</tbody>
 		</table>
