@@ -69,7 +69,7 @@ public class CurveController {
 
         CurvePoint curvePoint = curvePointReadService.getCurvePoint(id);
         logger.debug("[get update] curve point: " + curvePoint);
-        model.addAttribute("curve point", curvePoint);
+        model.addAttribute("curvePoint", curvePoint);
 
         return "curvePoint/update";
     }
