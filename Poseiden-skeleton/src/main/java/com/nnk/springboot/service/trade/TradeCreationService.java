@@ -18,7 +18,7 @@ public class TradeCreationService {
         return tradeRepository.save(trade);
     }
 
-    public Collection<Trade> createRules(Collection<Trade> trades) {
+    public Collection<Trade> createTrades(Collection<Trade> trades) {
 
         return tradeRepository.saveAll(trades);
     }

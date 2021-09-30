@@ -46,18 +46,28 @@ public class TradeController {
     }
 
     @GetMapping("/trade/add")
-    public String addUser(Trade bid) {
+    public String addUser(Model model) {
 
         Trade trade = new Trade();
+        model.addAttribute("trade", trade);
         logger.debug("[add] trade: " + trade);
-        
+
         return "trade/add";
     }
 
     @PostMapping("/trade/validate")
     public String validate(@Valid Trade trade, BindingResult result, Model model) {
-        // TODO: check data valid and save to db, after saving return Trade list
-        return "trade/add";
+
+        // TODO: check if we must return to add
+        if (result.hasErrors()) {
+            return "trade/add";
+        }
+
+        model.addAttribute(trade);
+        logger.debug("[validate] trade: " + trade);
+        tradeCreationService.createTrade(trade);
+
+        return "redirect:/trade/add";
     }
 
     @GetMapping("/trade/update/{id}")
