@@ -1,5 +1,6 @@
 package com.nnk.springboot.controllers;
 
+import com.nnk.springboot.domain.BidsList;
 import com.nnk.springboot.domain.Rule;
 import com.nnk.springboot.service.bidslist.BidsListCreationService;
 import com.nnk.springboot.service.bidslist.BidsListDeletionService;
@@ -18,6 +19,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Collection;
 
 @Controller
 public class RuleController {
@@ -36,12 +38,16 @@ public class RuleController {
     @GetMapping("/ruleName/list")
     public String home(Model model) {
 
-        // TODO: find all RuleName, add to model
+        Collection<Rule> rules = ruleReadService.getRules();
+        model.addAttribute("rules", rules);
+        logger.debug("[home] rules list: " + rules);
+
         return "ruleName/list";
     }
 
     @GetMapping("/ruleName/add")
     public String addRuleForm(Rule bid) {
+        
         return "ruleName/add";
     }
 
