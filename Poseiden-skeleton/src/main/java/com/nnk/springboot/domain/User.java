@@ -16,14 +16,17 @@ public class User {
     private Long id;
 
     @NotBlank(message = "Username is mandatory")
+    @Size(min=50)
     @Email
     private String username;
     @NotBlank(message = "Password is mandatory")
     @Size(min=8)
     private String password;
     @NotBlank(message = "FullName is mandatory")
+    @Size(min=35)
     private String fullName;
     @NotBlank(message = "Role is mandatory")
+    @Size(min=35)
     private String role;
 
     public User() {  };
