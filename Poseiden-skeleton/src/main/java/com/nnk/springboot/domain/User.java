@@ -13,6 +13,7 @@ import javax.validation.constraints.Size;
 public class User {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
+    @Column(name = "id")
     private Long id;
 
     @NotBlank(message = "Username is mandatory")
@@ -24,7 +25,7 @@ public class User {
     private String password;
     @NotBlank(message = "FullName is mandatory")
     @Size(min=35)
-    private String fullName;
+    private String fullname;
     @NotBlank(message = "Role is mandatory")
     @Size(min=35)
     private String role;

@@ -21,7 +21,7 @@ public class AccountInitialization {
         userRepository.deleteAll();
 
         User user = new User();
-        user.setFullName("Application");
+        user.setFullname("Application");
         user.setUsername("app@test.com");
         user.setPassword("12345678");
         user.setRole("ADMIN");
