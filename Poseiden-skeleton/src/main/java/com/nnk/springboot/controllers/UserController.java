@@ -32,7 +32,7 @@ public class UserController {
     @GetMapping("/user/add")
     public String addUser(Model model) {
 
-        User user = new User user();
+        User user = new User();
         model.addAttribute("user", user);
         logger.debug("[add] user: " + user);
 
