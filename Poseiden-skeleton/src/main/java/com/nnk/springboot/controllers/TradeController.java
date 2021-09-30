@@ -41,7 +41,7 @@ public class TradeController {
     }
 
     @GetMapping("/trade/add")
-    public String addUser(Model model) {
+    public String addTrade(Model model) {
 
         Trade trade = new Trade();
         model.addAttribute("trade", trade);
@@ -77,9 +77,16 @@ public class TradeController {
     }
 
     @PostMapping("/trade/update/{id}")
-    public String updateTrade(@PathVariable("id") Integer id, @Valid Trade trade,
+    public String updateTrade(@PathVariable("id") Long id, @Valid Trade trade,
                              BindingResult result, Model model) {
-        // TODO: check required fields, if valid call service to update Trade and return Trade list
+
+        if (result.hasErrors()) {
+            return "trade/add";
+        }
+
+        logger.debug("[post update] trade: " + trade);
+        tradeUpdateService.updateTrade(trade);
+
         return "redirect:/trade/list";
     }
 
