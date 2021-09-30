@@ -13,9 +13,10 @@ import javax.validation.Valid;
 public class BidsListController {
 
     // TODO: Inject Bid service
-    @RequestMapping("/bidList/list")
-    public String home(Model model)
-    {
+    @GetMapping("/bidList/list")
+
+    public String home(Model model) {
+
         // TODO: call service find all bids to show to the view
         return "bidList/list";
     }
