@@ -55,7 +55,15 @@ public class CurveController {
 
     @PostMapping("/curvePoint/validate")
     public String validate(@Valid CurvePoint curvePoint, BindingResult result, Model model) {
-        // TODO: check data valid and save to db, after saving return Curve list
+
+        if (result.hasErrors()) {
+            return "curvePoint/add";
+        }
+
+        model.addAttribute(curvePoint);
+        logger.debug("[validate] curve point: " + curvePoint);
+        curvePointCreationService.createCurvePoint(curvePoint);
+
         return "curvePoint/add";
     }
 
