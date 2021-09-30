@@ -30,7 +30,7 @@ public class CurveController {
     @Autowired
     private CurvePointDeletionService curvePointDeletionService;
 
-    @RequestMapping("/curvePoint/list")
+    @GetMapping("/curvePoint/list")
     public String home(Model model)
     {
         Collection<CurvePoint> curvePoints = curvePointReadService.getCurvePoints();
@@ -42,7 +42,7 @@ public class CurveController {
 
     @GetMapping("/curvePoint/add")
     public String addBidForm(CurvePoint bid) {
-        
+
         return "curvePoint/add";
     }
 
