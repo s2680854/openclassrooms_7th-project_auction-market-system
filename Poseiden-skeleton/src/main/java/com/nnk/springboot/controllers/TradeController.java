@@ -1,5 +1,6 @@
 package com.nnk.springboot.controllers;
 
+import com.nnk.springboot.domain.BidsList;
 import com.nnk.springboot.domain.Trade;
 import com.nnk.springboot.service.bidslist.BidsListCreationService;
 import com.nnk.springboot.service.bidslist.BidsListDeletionService;
@@ -18,6 +19,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Collection;
 
 @Controller
 public class TradeController {
@@ -36,7 +38,10 @@ public class TradeController {
     @GetMapping("/trade/list")
     public String home(Model model)
     {
-        // TODO: find all Trade, add to model
+        Collection<Trade> trades = tradeReadService.getTrades();
+        model.addAttribute("trades", trades);
+        logger.debug("[home] trades list: " + trades);
+
         return "trade/list";
     }
 
