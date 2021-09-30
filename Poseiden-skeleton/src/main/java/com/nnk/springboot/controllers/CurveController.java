@@ -1,21 +1,29 @@
 package com.nnk.springboot.controllers;
 
+import com.nnk.springboot.domain.BidsList;
 import com.nnk.springboot.domain.CurvePoint;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Collection;
 
 @Controller
 public class CurveController {
-    // TODO: Inject Curve Point service
+
+    private Logger logger = LogManager.getLogger(LoginController.class);
 
     @RequestMapping("/curvePoint/list")
     public String home(Model model)
     {
-        // TODO: find all Curve Point, add to model
+        Collection<CurvePoint> curvePoints = bidsListReadService.getBidsListByEmail(authentication.getName());
+        model.addAttribute("curvePoints", curvePoints);
+        logger.debug("[home] curvePoints: " + curvePoints);
+
         return "curvePoint/list";
     }
 
