@@ -39,7 +39,7 @@ public class RatingController {
     public String home(Model model) {
 
         Collection<Rating> ratings = ratingReadService.getRatings();
-        model.addAttribute("rating", ratings);
+        model.addAttribute("ratings", ratings);
         logger.debug("[home] rating list: " + ratings);
 
         return "rating/list";

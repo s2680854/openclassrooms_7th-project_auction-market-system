@@ -38,7 +38,17 @@
 				</tr>
 			</thead>
 			<tbody>
-			<!-- TODO: Show all Rating to the table, the Action column will have Edit & Delete buttons -->
+			<tr th:each="rating: ${ratings}">
+				<td th:text="${rating.id}">Id</td>
+				<td th:text="${rating.moodysRating}">Account</td>
+				<td th:text="${rating.sandPRating}">Type</td>
+				<td th:text="${rating.fitchRating}">Bid Quantity</td>
+				<td th:text="${rating.orderNumber}">Action</td>
+				<!-- Todo: add Action later after figuring what it corresponds to... -->
+
+				<td><input th:action="@{/rating/update/${rating.id}}" class="btn btn-primary btn-sm" value="Modifier" /></td>
+				<td><input th:action="@{/rating/delete/${rating.id}}" class="btn btn-primary btn-sm" value="Supprimer" /></td>
+			</tr>
 			</tbody>
 		</table>
 	</div>
