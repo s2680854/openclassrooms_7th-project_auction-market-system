@@ -13,12 +13,12 @@ public class BidsListCreationService {
     @Autowired
     private BidsListRepository bidsListRepository;
 
-    public BidsList creatBidsList(BidsList bidsList) {
+    public BidsList createBidsList(BidsList bidsList) {
 
         return bidsListRepository.save(bidsList);
     }
 
-    public Collection<BidsList> creatBidsLists(Collection<BidsList> bidsLists) {
+    public Collection<BidsList> createBidsLists(Collection<BidsList> bidsLists) {
 
         return bidsListRepository.saveAll(bidsLists);
     }

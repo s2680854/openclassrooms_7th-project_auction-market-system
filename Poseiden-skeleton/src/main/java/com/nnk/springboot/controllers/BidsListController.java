@@ -1,7 +1,9 @@
 package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.domain.BidsList;
+import com.nnk.springboot.service.bidslist.BidsListCreationService;
 import com.nnk.springboot.service.bidslist.BidsListReadService;
+import com.nnk.springboot.service.user.UserCreationService;
 import com.nnk.springboot.service.user.UserReadService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -24,11 +26,11 @@ public class BidsListController {
     @Autowired
     private UserReadService userReadService;
     @Autowired
-    private UserReadService userCreationService;
+    private UserCreationService userCreationService;
     @Autowired
     private BidsListReadService bidsListReadService;
     @Autowired
-    private BidsListReadService bidsListCreationService;
+    private BidsListCreationService bidsListCreationService;
 
     @GetMapping("/bidList/list")
     public String home(Model model) {
@@ -61,7 +63,11 @@ public class BidsListController {
 
     @PostMapping("/bidList/validate")
     public String validate(@Valid BidsList bid, BindingResult result, Model model) {
+
         // TODO: check data valid and save to db, after saving return bid list
+        if (result) {
+            bidsListCreationService.createBidsList(bid);
+        }
         return "bidList/add";
     }
 

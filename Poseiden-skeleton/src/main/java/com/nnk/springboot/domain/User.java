@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 @Data
 @Entity
@@ -16,6 +17,7 @@ public class User {
     @NotBlank(message = "Username is mandatory")
     private String username;
     @NotBlank(message = "Password is mandatory")
+    @Size(min=8)
     private String password;
     @NotBlank(message = "FullName is mandatory")
     private String fullName;
