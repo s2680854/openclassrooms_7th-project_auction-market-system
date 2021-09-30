@@ -57,7 +57,16 @@ public class RuleController {
 
     @PostMapping("/ruleName/validate")
     public String validate(@Valid Rule rule, BindingResult result, Model model) {
-        // TODO: check data valid and save to db, after saving return RuleName list
+
+        // TODO: check if we must return to add
+        if (result.hasErrors()) {
+            return "bidList/add";
+        }
+
+        model.addAttribute(rule);
+        logger.debug("[validate] rule: " + rule);
+        ruleCreationService.createRule(rule);
+
         return "ruleName/add";
     }
 
