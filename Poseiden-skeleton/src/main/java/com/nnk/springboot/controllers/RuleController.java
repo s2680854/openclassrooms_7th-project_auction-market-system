@@ -77,9 +77,16 @@ public class RuleController {
     }
 
     @PostMapping("/ruleName/update/{id}")
-    public String updateRuleName(@PathVariable("id") Integer id, @Valid Rule rule,
+    public String updateRuleName(@PathVariable("id") Long id, @Valid Rule rule,
                              BindingResult result, Model model) {
-        // TODO: check required fields, if valid call service to update RuleName and return RuleName list
+
+        if (result.hasErrors()) {
+            return "ruleName/add";
+        }
+
+        logger.debug("[post update] rule: " + rule);
+        ruleUpdateService.updateRule(rule);
+
         return "redirect:/ruleName/list";
     }
 
