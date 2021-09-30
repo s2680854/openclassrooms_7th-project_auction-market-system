@@ -65,20 +65,23 @@ public class BidsListController {
     public String validate(@Valid BidsList bid, BindingResult result, Model model) {
 
         if (result.hasErrors()) {
-            return "form";
+            return "bidList/add";
         }
 
         model.addAttribute(bid);
         logger.debug("[validate] bid: " + bid);
         bidsListCreationService.createBidsList(bid);
 
-        return "bidList/add";
+        return "redirect:/bidList/add";
     }
 
     @GetMapping("/bidList/update/{id}")
-    public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
+    public String showUpdateForm(@PathVariable("id") Long id, Model model) {
 
-        // TODO: get Bid by Id and to model then show to the form
+        // TODO: check if I have to update
+        BidsList bid = bidsListReadService.getBidsListById(id);
+        model.addAttribute("bid", bid);
+
         return "bidList/update";
     }
 
