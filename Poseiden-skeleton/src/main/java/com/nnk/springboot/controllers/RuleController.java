@@ -46,8 +46,12 @@ public class RuleController {
     }
 
     @GetMapping("/ruleName/add")
-    public String addRuleForm(Rule bid) {
-        
+    public String addRuleForm(Model model) {
+
+        Rule rule = new Rule();
+        model.addAttribute(rule);
+        logger.debug("[add] rule: " + rule);
+
         return "ruleName/add";
     }
 
