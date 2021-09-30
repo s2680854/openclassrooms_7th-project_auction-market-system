@@ -18,6 +18,7 @@ public class AccountInitialization {
 
     @PostConstruct
     private void postConstruct() {
+
         userRepository.deleteAll();
 
         User user = new User();
