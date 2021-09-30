@@ -2,6 +2,7 @@ package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.domain.BidsList;
 import com.nnk.springboot.service.bidslist.BidsListReadService;
+import com.nnk.springboot.service.user.UserReadService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,13 @@ public class BidsListController {
     private Logger logger = LogManager.getLogger(LoginController.class);
 
     @Autowired
+    private UserReadService userReadService;
+    @Autowired
+    private UserReadService userCreationService;
+    @Autowired
     private BidsListReadService bidsListReadService;
+    @Autowired
+    private BidsListReadService bidsListCreationService;
 
     @GetMapping("/bidList/list")
     public String home(Model model) {
@@ -39,6 +46,16 @@ public class BidsListController {
 
     @GetMapping("/bidList/add")
     public String addBidForm(BidsList bid) {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String authenticationName = authentication.getName();
+        logger.debug("[home] authentication name: " + authenticationName);
+
+        BidsList bidsList = new BidsList();
+        bidsList.setAccount();
+        model.addAttribute("bidsList", bidsList);
+        logger.debug("[home] bids list: " + bidsList);
+
         return "bidList/add";
     }
 
