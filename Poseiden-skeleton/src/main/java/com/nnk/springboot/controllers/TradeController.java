@@ -33,7 +33,7 @@ public class TradeController {
     @Autowired
     private TradeDeletionService tradeDeletionService;
 
-    @RequestMapping("/trade/list")
+    @GetMapping("/trade/list")
     public String home(Model model)
     {
         // TODO: find all Trade, add to model
