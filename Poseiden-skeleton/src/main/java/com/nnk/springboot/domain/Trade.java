@@ -3,6 +3,7 @@ package com.nnk.springboot.domain;
 import lombok.Data;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import java.sql.Timestamp;
 
@@ -16,6 +17,7 @@ public class Trade {
     private Long id;
 
     @NotBlank(message = "Account is mandatory")
+    @Email
     private String account;
     @NotBlank(message = "Type is mandatory")
     private String type;

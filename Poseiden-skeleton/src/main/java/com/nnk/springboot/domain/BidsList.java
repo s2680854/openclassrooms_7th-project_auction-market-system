@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Required;
 
 import javax.persistence.*;
 import javax.validation.constraints.Digits;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import java.sql.Date;
 import java.sql.Timestamp;
@@ -19,6 +20,7 @@ public class BidsList {
     private Long id;
 
     @NotBlank(message = "Account is mandatory")
+    @Email
     private String account;
     @NotBlank(message = "Type is mandatory")
     private String type;
