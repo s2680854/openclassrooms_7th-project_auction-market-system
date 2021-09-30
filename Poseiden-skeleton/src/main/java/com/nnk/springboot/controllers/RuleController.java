@@ -1,8 +1,17 @@
 package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.domain.Rule;
+import com.nnk.springboot.service.bidslist.BidsListCreationService;
+import com.nnk.springboot.service.bidslist.BidsListDeletionService;
+import com.nnk.springboot.service.bidslist.BidsListReadService;
+import com.nnk.springboot.service.bidslist.BidsListUpdateService;
+import com.nnk.springboot.service.rule.RuleCreationService;
+import com.nnk.springboot.service.rule.RuleDeleteService;
+import com.nnk.springboot.service.rule.RuleReadService;
+import com.nnk.springboot.service.rule.RuleUpdateService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,9 +24,18 @@ public class RuleController {
 
     private Logger logger = LogManager.getLogger(LoginController.class);
 
-    @RequestMapping("/ruleName/list")
-    public String home(Model model)
-    {
+    @Autowired
+    private RuleCreationService ruleCreationService;
+    @Autowired
+    private RuleReadService ruleReadService;
+    @Autowired
+    private RuleUpdateService ruleUpdateService;
+    @Autowired
+    private RuleDeleteService ruleDeleteService;
+
+    @GetMapping("/ruleName/list")
+    public String home(Model model) {
+
         // TODO: find all RuleName, add to model
         return "ruleName/list";
     }
