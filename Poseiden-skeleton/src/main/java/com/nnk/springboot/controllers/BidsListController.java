@@ -2,9 +2,9 @@ package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.domain.BidsList;
 import com.nnk.springboot.service.bidslist.BidsListCreationService;
+import com.nnk.springboot.service.bidslist.BidsListDeletionService;
 import com.nnk.springboot.service.bidslist.BidsListReadService;
-import com.nnk.springboot.service.user.UserCreationService;
-import com.nnk.springboot.service.user.UserReadService;
+import com.nnk.springboot.service.bidslist.BidsListUpdateService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,13 +24,13 @@ public class BidsListController {
     private Logger logger = LogManager.getLogger(LoginController.class);
 
     @Autowired
-    private UserReadService userReadService;
-    @Autowired
-    private UserCreationService userCreationService;
+    private BidsListCreationService bidsListCreationService;
     @Autowired
     private BidsListReadService bidsListReadService;
     @Autowired
-    private BidsListCreationService bidsListCreationService;
+    private BidsListUpdateService bidsListUpdateService;
+    @Autowired
+    private BidsListDeletionService bidsListDeletionService;
 
     @GetMapping("/bidList/list")
     public String home(Model model) {
@@ -64,6 +64,7 @@ public class BidsListController {
     @PostMapping("/bidList/validate")
     public String validate(@Valid BidsList bid, BindingResult result, Model model) {
 
+        // TODO: check if we must return to add
         if (result.hasErrors()) {
             return "bidList/add";
         }
@@ -80,6 +81,7 @@ public class BidsListController {
 
         // TODO: check if I have to update
         BidsList bid = bidsListReadService.getBidsListById(id);
+        logger.debug("[get update] bid: " + bid);
         model.addAttribute("bid", bid);
 
         return "bidList/update";
@@ -88,13 +90,22 @@ public class BidsListController {
     @PostMapping("/bidList/update/{id}")
     public String updateBid(@PathVariable("id") Integer id, @Valid BidsList bidsList,
                              BindingResult result, Model model) {
-        // TODO: check required fields, if valid call service to update Bid and return list Bid
+
+        if (result.hasErrors()) {
+            return "bidList/add";
+        }
+
+        logger.debug("[post update] bid: " + bidsList);
+        bidsListUpdateService.updateBidsList(bidsList);
+
         return "redirect:/bidList/list";
     }
 
     @GetMapping("/bidList/delete/{id}")
-    public String deleteBid(@PathVariable("id") Integer id, Model model) {
-        // TODO: Find Bid by Id and delete the bid, return to Bid list
+    public String deleteBid(@PathVariable("id") Long id, Model model) {
+
+        bidsListDeletionService.deleteBidsListById(id);
+
         return "redirect:/bidList/list";
     }
 }
