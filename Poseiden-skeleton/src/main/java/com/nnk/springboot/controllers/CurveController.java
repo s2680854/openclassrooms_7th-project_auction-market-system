@@ -1,5 +1,6 @@
 package com.nnk.springboot.controllers;
 
+import com.nnk.springboot.domain.BidsList;
 import com.nnk.springboot.domain.CurvePoint;
 import com.nnk.springboot.service.curvepoint.CurvePointCreationService;
 import com.nnk.springboot.service.curvepoint.CurvePointDeletionService;
@@ -8,6 +9,8 @@ import com.nnk.springboot.service.curvepoint.CurvePointUpdateService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -31,8 +34,8 @@ public class CurveController {
     private CurvePointDeletionService curvePointDeletionService;
 
     @GetMapping("/curvePoint/list")
-    public String home(Model model)
-    {
+    public String home(Model model) {
+
         Collection<CurvePoint> curvePoints = curvePointReadService.getCurvePoints();
         model.addAttribute("curvePoints", curvePoints);
         logger.debug("[home] curvePoints: " + curvePoints);
@@ -41,7 +44,11 @@ public class CurveController {
     }
 
     @GetMapping("/curvePoint/add")
-    public String addBidForm(CurvePoint bid) {
+    public String addBidForm(Model model) {
+
+        CurvePoint curvePoint = new CurvePoint();
+        model.addAttribute(curvePoint);
+        logger.debug("[add] curve point: " + curvePoint);
 
         return "curvePoint/add";
     }
