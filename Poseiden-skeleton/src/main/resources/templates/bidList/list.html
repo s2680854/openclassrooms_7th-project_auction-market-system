@@ -10,11 +10,11 @@
 <div class="container">
 	<div class="row">
 		<div class="col-6">
-			<a href="/bidsList/list">Bid List</a>&nbsp;|&nbsp;
+			<a href="/bidList/list">Bid List</a>&nbsp;|&nbsp;
 			<a href="/curvePoint/list">Curve Points</a>&nbsp;|&nbsp;
 			<a href="/rating/list">Ratings</a>&nbsp;|&nbsp;
 			<a href="/trade/list">Trade</a>&nbsp;|&nbsp;
-			<a href="/rule/list">Rule</a>
+			<a href="/ruleName/list">Rule</a>
 		</div>
 		<div class="col-6 text-right">
 			Logged in user: <b th:inline="text"  class="user"> [[${#httpServletRequest.remoteUser}]] </b>
@@ -25,7 +25,7 @@
 	</div>
 	<div class="row"><h2>Bid List</h2></div>
 	<div class="row">
-		<a href="/bidsList/add" class="btn btn-primary btn-sm">Add New</a>
+		<a href="/bidList/add" class="btn btn-primary btn-sm">Add New</a>
 		<table class="table table-bordered">
 			<thead>
 				<tr>
@@ -44,8 +44,8 @@
 					<td th:text="${bid.bidQuantity}">Bid Quantity</td>
 					<td th:text="${bid.dealName}">Action</td>
 
-					<td><input th:action="@{/bidsList/update/${bid.id}}" class="btn btn-primary btn-sm" value="Modifier" /></td>
-					<td><input th:action="@{/bidsList/delete/${bid.id}}" class="btn btn-primary btn-sm" value="Supprimer" /></td>
+					<td><input th:action="@{/bidList/update/${bid.id}}" class="btn btn-primary btn-sm" value="Modifier" /></td>
+					<td><input th:action="@{/bidList/delete/${bid.id}}" class="btn btn-primary btn-sm" value="Supprimer" /></td>
 				</tr>
 			</tbody>
 		</table>
