@@ -5,6 +5,7 @@ import lombok.Data;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.sql.Timestamp;
 
 @Data
@@ -20,6 +21,7 @@ public class Trade {
     @Email
     private String account;
     @NotBlank(message = "Type is mandatory")
+    @Size(min=35)
     private String type;
 
     private double buyQuantity;

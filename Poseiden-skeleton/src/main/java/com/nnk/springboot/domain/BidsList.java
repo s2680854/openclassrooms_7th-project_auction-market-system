@@ -7,6 +7,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.sql.Date;
 import java.sql.Timestamp;
 
@@ -20,9 +21,11 @@ public class BidsList {
     private Long id;
 
     @NotBlank(message = "Account is mandatory")
+    @Size(min=50)
     @Email
     private String account;
     @NotBlank(message = "Type is mandatory")
+    @Size(min=35)
     private String type;
     @NotBlank(message = "Quantity is mandatory")
     private double bidQuantity;

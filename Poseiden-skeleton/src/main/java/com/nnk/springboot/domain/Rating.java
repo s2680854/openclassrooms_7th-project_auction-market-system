@@ -5,6 +5,7 @@ import lombok.Data;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.sql.Timestamp;
 
 @Data
@@ -17,12 +18,16 @@ public class Rating {
     private Long id;
 
     @NotBlank(message = "Moody's Rating is mandatory")
+    @Size(min=50)
     private String moodysRating;
     @NotBlank(message = "Standard & Poor's Rating is mandatory")
+    @Size(min=50)
     private String sandPRating;
     @NotBlank(message = "Fitch Rating is mandatory")
+    @Size(min=50)
     private String fitchRating;
     @NotBlank(message = "Order Number is mandatory")
+    @Size(min=50)
     private int orderNumber;
 
     public Rating(@NotBlank(message = "Moody's Rating is mandatory") String moodysRating,
