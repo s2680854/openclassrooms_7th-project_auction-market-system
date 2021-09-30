@@ -13,7 +13,7 @@ public class TradeReadService {
     @Autowired
     private TradeRepository tradeRepository;
 
-    public Trade getTrade(Long id) {
+    public Trade getTradeById(Long id) {
 
         return tradeRepository.getById(id);
     }

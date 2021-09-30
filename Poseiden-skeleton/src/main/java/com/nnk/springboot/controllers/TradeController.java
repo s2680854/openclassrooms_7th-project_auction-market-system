@@ -1,11 +1,6 @@
 package com.nnk.springboot.controllers;
 
-import com.nnk.springboot.domain.BidsList;
 import com.nnk.springboot.domain.Trade;
-import com.nnk.springboot.service.bidslist.BidsListCreationService;
-import com.nnk.springboot.service.bidslist.BidsListDeletionService;
-import com.nnk.springboot.service.bidslist.BidsListReadService;
-import com.nnk.springboot.service.bidslist.BidsListUpdateService;
 import com.nnk.springboot.service.trade.TradeCreationService;
 import com.nnk.springboot.service.trade.TradeDeletionService;
 import com.nnk.springboot.service.trade.TradeReadService;
@@ -71,8 +66,13 @@ public class TradeController {
     }
 
     @GetMapping("/trade/update/{id}")
-    public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
-        // TODO: get Trade by Id and to model then show to the form
+    public String showUpdateForm(@PathVariable("id") Long id, Model model) {
+
+        // TODO: check if I have to update
+        Trade trade = tradeReadService.getTradeById(id);
+        logger.debug("[get update] trade: " + trade);
+        model.addAttribute("trade", trade);
+
         return "trade/update";
     }
 
