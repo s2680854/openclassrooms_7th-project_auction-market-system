@@ -13,7 +13,7 @@ public class RuleReadService {
     @Autowired
     private RuleRepository ruleRepository;
 
-    public Rule getRule(Long id) {
+    public Rule getRuleById(Long id) {
 
         return ruleRepository.getById(id);
     }

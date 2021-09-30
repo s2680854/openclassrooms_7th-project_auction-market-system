@@ -1,11 +1,6 @@
 package com.nnk.springboot.controllers;
 
-import com.nnk.springboot.domain.BidsList;
 import com.nnk.springboot.domain.Rule;
-import com.nnk.springboot.service.bidslist.BidsListCreationService;
-import com.nnk.springboot.service.bidslist.BidsListDeletionService;
-import com.nnk.springboot.service.bidslist.BidsListReadService;
-import com.nnk.springboot.service.bidslist.BidsListUpdateService;
 import com.nnk.springboot.service.rule.RuleCreationService;
 import com.nnk.springboot.service.rule.RuleDeleteService;
 import com.nnk.springboot.service.rule.RuleReadService;
@@ -71,9 +66,12 @@ public class RuleController {
     }
 
     @GetMapping("/ruleName/update/{id}")
-    public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
+    public String showUpdateForm(@PathVariable("id") Long id, Model model) {
 
-
+        // TODO: check if I have to update
+        Rule rule = ruleReadService.getRuleById(id);
+        logger.debug("[get update] rule: " + rule);
+        model.addAttribute("rule", rule);
 
         return "ruleName/update";
     }
