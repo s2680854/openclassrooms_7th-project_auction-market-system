@@ -59,7 +59,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authenticated()
                 .and()
                 .formLogin()
-                .defaultSuccessUrl("/bidsList")
+                .defaultSuccessUrl("/bidList/list")
                 .usernameParameter("email")
                 .permitAll()
                 .and()
