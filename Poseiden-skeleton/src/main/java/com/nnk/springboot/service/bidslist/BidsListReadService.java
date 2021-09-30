@@ -13,9 +13,14 @@ public class BidsListReadService {
     @Autowired
     private BidsListRepository bidsListRepository;
 
-    public BidsList getBidsList(Long id) {
+    public BidsList getBidsListById(Long id) {
 
         return bidsListRepository.getById(id);
+    }
+
+    public Collection<BidsList> getBidsListByEmail(String email) {
+
+        return bidsListRepository.findByEmail(email);
     }
 
     public Collection<BidsList> getBidsLists() {

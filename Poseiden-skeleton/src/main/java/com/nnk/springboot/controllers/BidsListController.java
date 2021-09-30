@@ -1,23 +1,39 @@
 package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.domain.BidsList;
+import com.nnk.springboot.service.bidslist.BidsListReadService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-
+import java.util.Collection;
 
 @Controller
 public class BidsListController {
 
-    // TODO: Inject Bid service
-    @GetMapping("/bidList/list")
+    private Logger logger = LogManager.getLogger(LoginController.class);
 
+    @Autowired
+    private BidsListReadService bidsListReadService;
+
+    @GetMapping("/bidList/list")
     public String home(Model model) {
 
-        // TODO: call service find all bids to show to the view
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String authenticationName = authentication.getName();
+        logger.debug("[home] authentication name: " + authenticationName);
+
+        Collection<BidsList> bidsList = bidsListReadService.getBidsListByEmail(authentication.getName());
+        model.addAttribute("bidsList", bidsList);
+        logger.debug("[home] bids list: " + bidsList);
+
         return "bidList/list";
     }
 
