@@ -77,15 +77,24 @@ public class RatingController {
     }
 
     @PostMapping("/rating/update/{id}")
-    public String updateRating(@PathVariable("id") Integer id, @Valid Rating rating,
+    public String updateRating(@PathVariable("id") Long id, @Valid Rating rating,
                              BindingResult result, Model model) {
-        // TODO: check required fields, if valid call service to update Rating and return Rating list
+
+        if (result.hasErrors()) {
+            return "rating/add";
+        }
+
+        logger.debug("[post update] rating: " + rating);
+        ratingUpdateService.updateRating(rating);
+
         return "redirect:/rating/list";
     }
 
     @GetMapping("/rating/delete/{id}")
-    public String deleteRating(@PathVariable("id") Integer id, Model model) {
-        // TODO: Find Rating by Id and delete the Rating, return to Rating list
+    public String deleteRating(@PathVariable("id") Long id, Model model) {
+
+        ratingDeletionService.deleteRatingById(id);
+
         return "redirect:/rating/list";
     }
 }

@@ -89,7 +89,7 @@ public class BidsListController {
     }
 
     @PostMapping("/bidList/update/{id}")
-    public String updateBid(@PathVariable("id") Integer id, @Valid BidsList bidsList,
+    public String updateBid(@PathVariable("id") Long id, @Valid BidsList bidsList,
                              BindingResult result, Model model) {
 
         if (result.hasErrors()) {
