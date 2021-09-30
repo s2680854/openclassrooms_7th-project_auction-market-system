@@ -1,8 +1,17 @@
 package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.domain.Rating;
+import com.nnk.springboot.service.bidslist.BidsListCreationService;
+import com.nnk.springboot.service.bidslist.BidsListDeletionService;
+import com.nnk.springboot.service.bidslist.BidsListReadService;
+import com.nnk.springboot.service.bidslist.BidsListUpdateService;
+import com.nnk.springboot.service.rating.RatingCreationgService;
+import com.nnk.springboot.service.rating.RatingDeletionService;
+import com.nnk.springboot.service.rating.RatingReadService;
+import com.nnk.springboot.service.rating.RatingUpdateService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,6 +23,15 @@ import javax.validation.Valid;
 public class RatingController {
 
     private Logger logger = LogManager.getLogger(LoginController.class);
+
+    @Autowired
+    private RatingCreationgService ratingCreationgService;
+    @Autowired
+    private RatingReadService ratingReadService;
+    @Autowired
+    private RatingUpdateService ratingUpdateService;
+    @Autowired
+    private RatingDeletionService ratingDeletionService;
 
     @RequestMapping("/rating/list")
     public String home(Model model) {
