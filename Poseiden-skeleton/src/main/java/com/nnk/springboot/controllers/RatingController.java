@@ -35,7 +35,7 @@ public class RatingController {
     @Autowired
     private RatingDeletionService ratingDeletionService;
 
-    @RequestMapping("/rating/list")
+    @GetMapping("/rating/list")
     public String home(Model model) {
 
         Collection<Rating> ratings = ratingReadService.getRatings();
@@ -47,6 +47,7 @@ public class RatingController {
 
     @GetMapping("/rating/add")
     public String addRatingForm(Rating rating) {
+
         return "rating/add";
     }
 
