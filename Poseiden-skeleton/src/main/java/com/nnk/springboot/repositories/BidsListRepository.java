@@ -10,6 +10,4 @@ import java.util.Collection;
 @Repository
 public interface BidsListRepository extends JpaRepository<BidsList, Long> {
 
-    @Query("SELECT b FROM bids_list b WHERE b.account = ?1")
-    Collection<BidsList> findByEmail(String email);
 }

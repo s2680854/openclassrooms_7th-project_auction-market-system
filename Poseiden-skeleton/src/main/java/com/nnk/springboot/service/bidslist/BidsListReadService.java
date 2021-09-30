@@ -18,11 +18,6 @@ public class BidsListReadService {
         return bidsListRepository.getById(id);
     }
 
-    public Collection<BidsList> getBidsListByEmail(String email) {
-
-        return bidsListRepository.findByEmail(email);
-    }
-
     public Collection<BidsList> getBidsLists() {
 
         return bidsListRepository.findAll();
