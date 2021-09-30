@@ -72,7 +72,9 @@ public class RuleController {
 
     @GetMapping("/ruleName/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
-        // TODO: get RuleName by Id and to model then show to the form
+
+
+
         return "ruleName/update";
     }
 
