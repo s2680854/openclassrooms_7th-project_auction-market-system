@@ -64,6 +64,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .usernameParameter("email")
                 .permitAll()
                 .and()
+                .oauth2Login()
+                .and()
                 .logout().logoutSuccessUrl("/").permitAll()
                 .and()
                 .csrf().disable(); // Enabling Postman POST requests
