@@ -5,6 +5,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.security.Principal;
+
 @Controller
 public class HomeController {
 
@@ -25,5 +27,12 @@ public class HomeController {
 	public String getGithub(){
 
 		return "redirect:/bidList/list";
+	}
+
+	@RequestMapping("/*")
+	public String getUserInfo(Principal user) {
+		StringBuffer userInfo= new StringBuffer;
+
+		return userInfo.toString();
 	}
 }

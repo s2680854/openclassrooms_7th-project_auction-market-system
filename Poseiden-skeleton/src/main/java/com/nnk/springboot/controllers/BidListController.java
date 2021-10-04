@@ -65,11 +65,13 @@ public class BidListController {
     @PostMapping("/bidList/validate")
     public String validate(@Valid BidsList bid, BindingResult result, Model model) {
 
+
+        model.addAttribute(bid);
+
         if (result.hasErrors()) {
             return "bidList/add";
         }
 
-        model.addAttribute(bid);
         logger.debug("[validate] bid: " + bid);
         bidsListCreationService.createBidsList(bid);
 
