@@ -28,11 +28,4 @@ public class HomeController {
 
 		return "redirect:/bidList/list";
 	}
-
-	@RequestMapping("/*")
-	public String getUserInfo(Principal user) {
-		StringBuffer userInfo= new StringBuffer;
-
-		return userInfo.toString();
-	}
 }
