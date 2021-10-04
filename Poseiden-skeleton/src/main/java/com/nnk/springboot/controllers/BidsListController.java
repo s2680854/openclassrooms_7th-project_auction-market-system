@@ -102,7 +102,7 @@ public class BidsListController {
         return "redirect:/bidList/list";
     }
 
-    @GetMapping("/bidList/delete/{id}")
+    @DeleteMapping("/bidList/delete/{id}")
     public String deleteBid(@PathVariable("id") Long id, Model model) {
 
         bidsListDeletionService.deleteBidsListById(id);
