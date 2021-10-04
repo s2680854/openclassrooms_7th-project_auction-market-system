@@ -17,7 +17,7 @@ import javax.validation.Valid;
 import java.util.Collection;
 
 @Controller
-public class RuleController {
+public class RuleNameController {
 
     private Logger logger = LogManager.getLogger(LoginController.class);
 

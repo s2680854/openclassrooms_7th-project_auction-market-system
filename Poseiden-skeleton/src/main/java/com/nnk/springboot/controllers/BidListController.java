@@ -19,7 +19,7 @@ import javax.validation.Valid;
 import java.util.Collection;
 
 @Controller
-public class BidsListController {
+public class BidListController {
 
     private Logger logger = LogManager.getLogger(LoginController.class);
 
@@ -65,7 +65,6 @@ public class BidsListController {
     @PostMapping("/bidList/validate")
     public String validate(@Valid BidsList bid, BindingResult result, Model model) {
 
-        // TODO: check if we must return to add
         if (result.hasErrors()) {
             return "bidList/add";
         }
