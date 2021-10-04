@@ -22,8 +22,8 @@ public class AccountInitialization {
         userRepository.deleteAll();
 
         User user = new User();
-        user.setFullname("Application");
-        user.setUsername("app@test.com");
+        user.setFullname("David Z.");
+        user.setUsername("d6797125@pm.me");
         user.setPassword("12345678");
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String encodedPassword = passwordEncoder.encode(user.getPassword());

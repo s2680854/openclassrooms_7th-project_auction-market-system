@@ -42,10 +42,14 @@ public class BidListController {
     public String home(Model model) {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
-        OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
-
-        model.addAttribute("username", oAuth2User.getAttributes().get("email"));
+        String username = authentication.getName();
+        if (username.contains("@")) {
+            model.addAttribute("username", username);
+        } else {
+            OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
+            model.addAttribute("username", oAuth2User.getAttributes().get("email"));
+        }
+        logger.debug("[add bidList] authentication name: " + username);
 
         /*Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String authenticationName = authentication.getName();
@@ -63,11 +67,17 @@ public class BidListController {
     public String addBidForm(Model model) {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String authenticationName = authentication.getName();
-        logger.debug("[home] authentication name: " + authenticationName);
+        String username = authentication.getName();
+        if (!username.contains("@")) {
+            OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
+            username = oAuth2User.getAttributes().get("email").toString();
+        }
+        model.addAttribute("username", username);
+        logger.debug("[add bidList] authentication name: " + username);
 
         BidsList bid = new BidsList();
-        bid.setAccount(authenticationName);
+        bid.setAccount(username);
+        logger.debug("[add bidList] account: " + username);
         model.addAttribute(bid);
         logger.debug("[add] bid: " + bid);
 
@@ -78,6 +88,7 @@ public class BidListController {
     public String validate(@Valid BidsList bid, BindingResult result, Model model) {
 
 
+        logger.debug("[validate bid] account: " + bid.getAccount());
         model.addAttribute(bid);
 
         if (result.hasErrors()) {
