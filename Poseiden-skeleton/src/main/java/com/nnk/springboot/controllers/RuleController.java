@@ -90,7 +90,7 @@ public class RuleController {
         return "redirect:/ruleName/list";
     }
 
-    @GetMapping("/ruleName/delete/{id}")
+    @DeleteMapping("/ruleName/delete/{id}")
     public String deleteRuleName(@PathVariable("id") Long id, Model model) {
 
         ruleDeleteService.deleteRuleById(id);

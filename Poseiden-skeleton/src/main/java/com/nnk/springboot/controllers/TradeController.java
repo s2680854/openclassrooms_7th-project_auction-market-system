@@ -90,7 +90,7 @@ public class TradeController {
         return "redirect:/trade/list";
     }
 
-    @GetMapping("/trade/delete/{id}")
+    @DeleteMapping("/trade/delete/{id}")
     public String deleteTrade(@PathVariable("id") Long id, Model model) {
 
         tradeDeletionService.deleteTradeById(id);

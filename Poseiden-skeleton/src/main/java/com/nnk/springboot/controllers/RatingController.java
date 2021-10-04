@@ -90,7 +90,7 @@ public class RatingController {
         return "redirect:/rating/list";
     }
 
-    @GetMapping("/rating/delete/{id}")
+    @DeleteMapping("/rating/delete/{id}")
     public String deleteRating(@PathVariable("id") Long id, Model model) {
 
         ratingDeletionService.deleteRatingById(id);
