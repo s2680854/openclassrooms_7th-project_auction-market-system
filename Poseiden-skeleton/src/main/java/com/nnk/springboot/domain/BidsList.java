@@ -22,11 +22,11 @@ public class BidsList {
     private Long id;
 
     @NotBlank(message = "Account is mandatory")
-    @Size(min=50)
+    @Size(max=50)
     @Email
     private String account;
     @NotBlank(message = "Type is mandatory")
-    @Size(min=35)
+    @Size(max=35)
     private String type;
     @NotBlank(message = "Quantity is mandatory")
     private double bidQuantity;
