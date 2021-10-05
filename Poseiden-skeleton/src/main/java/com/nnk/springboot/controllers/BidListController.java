@@ -131,4 +131,12 @@ public class BidListController {
 
         return "redirect:/bidList/list";
     }
+
+    @DeleteMapping("/bidList/delete")
+    public String deleteBid() {
+
+        bidsListDeletionService.deleteBidsLists();
+
+        return "redirect:/bidList/list";
+    }
 }
