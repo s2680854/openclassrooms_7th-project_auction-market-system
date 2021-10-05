@@ -98,7 +98,7 @@ public class BidListController {
         logger.debug("[validate] bid: " + bid);
         bidsListCreationService.createBidsList(bid);
 
-        return "redirect:/bidList/add";
+        return "redirect:/bidList/list";
     }
 
     @GetMapping("/bidList/update/{id}")
