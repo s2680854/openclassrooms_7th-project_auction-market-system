@@ -104,7 +104,6 @@ public class BidListController {
     @GetMapping("/bidList/update/{id}")
     public String showUpdateForm(@PathVariable("id") Long id, Model model) {
 
-        // TODO: check if I have to update
         BidsList bid = bidsListReadService.getBidsListById(id);
         logger.debug("[get update] bid: " + bid);
         model.addAttribute("bid", bid);
