@@ -77,7 +77,6 @@ public class BidListController {
 
         BidsList bid = new BidsList();
         bid.setAccount(username);
-        logger.debug("[add bidList] account: " + username);
         model.addAttribute(bid);
         logger.debug("[add] bid: " + bid);
 
