@@ -43,7 +43,6 @@
 					<td th:text="${bid.commentary}">Type</td>
 					<td th:text="${bid.bidQuantity}">Bid Quantity</td>
 					<td th:text="${bid.dealName}">Action</td>
-
 					<td><input th:action="@{/bidList/update/${bid.id}}" class="btn btn-primary btn-sm" value="Modifier" /></td>
 					<td><input th:action="@{/bidList/delete/${bid.id}}" class="btn btn-primary btn-sm" value="Supprimer" /></td>
 				</tr>

@@ -18,6 +18,7 @@ public class BidsList {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
+    @Column(name = "bidlist_id")
     private Long id;
 
     @NotBlank(message = "Account is mandatory")

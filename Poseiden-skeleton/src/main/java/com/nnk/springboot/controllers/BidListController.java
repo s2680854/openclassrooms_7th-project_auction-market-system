@@ -47,7 +47,7 @@ public class BidListController {
             model.addAttribute("username", username);
         } else {
             OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
-            model.addAttribute("username", oAuth2User.getAttributes().get("email"));
+            model.addAttribute("username", oAuth2User.getAttributes().get("huemail"));
         }
         logger.debug("[add bidList] authentication name: " + username);
 
@@ -73,7 +73,7 @@ public class BidListController {
             username = oAuth2User.getAttributes().get("email").toString();
         }
         model.addAttribute("username", username);
-        logger.debug("[add bidList] authentication name: " + username);
+        logger.debug("[add bidList] username: " + username);
 
         BidsList bid = new BidsList();
         bid.setAccount(username);
