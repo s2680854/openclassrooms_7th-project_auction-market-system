@@ -23,7 +23,7 @@ public class AccountInitialization {
 
         User user = new User();
         user.setFullname("David Z.");
-        user.setUsername("david@test.me");
+        user.setUsername("david@test.com");
         user.setPassword("12345678");
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String encodedPassword = passwordEncoder.encode(user.getPassword());

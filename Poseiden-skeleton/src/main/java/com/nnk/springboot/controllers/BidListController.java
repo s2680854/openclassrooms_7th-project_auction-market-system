@@ -125,7 +125,7 @@ public class BidListController {
     }
 
     @DeleteMapping("/bidList/delete/{id}")
-    public String deleteBid(@PathVariable("id") Long id, Model model) {
+    public String deleteBid(@PathVariable("id") Long id) {
 
         bidsListDeletionService.deleteBidsListById(id);
 
