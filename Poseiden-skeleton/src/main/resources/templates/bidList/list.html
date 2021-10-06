@@ -5,6 +5,18 @@
 <meta charset="utf-8"/>
 <title>Home</title>
 <link rel="stylesheet" href="../../css/bootstrap.min.css" >
+	<script th:inline="javascript">
+		function sendDelete(url) {
+			var xhttp = new XMLHttpRequest();
+			xhttp.open("DELETE", url, true);
+			xhttp.onload = function () {
+				let responseURL = xhttp.responseURL;
+				console.log("Redirecting to:", responseURL);
+				window.location.replace(responseURL);
+			};
+			xhttp.send();
+		}
+	</script>
 </head>
 <body>
 <div class="container">
@@ -47,10 +59,17 @@
 					<td th:text="${bid.type}">Action</td>
 					<td style="width: 15%" class="text-center">
 						<a th:href="@{/bidList/update/{id}(id=${bid.id})}" class="btn btn-primary btn-sm">Edit</a>
-						<a th:href="@{'/bidList/delete/{id}'(id=${bid.id})}" class="btn btn-danger btn-sm">Delete</a>
-						<form th:action="@{'/bidList/delete/{id}'(id=${bid.id})}" th:method="delete" >
+						<!--<a th:href="@{'/bidList/delete/{id}'(id=${bid.id})}" class="btn btn-danger btn-sm">Delete</a>
+						<a type="button" th:with="url = @{'/bidList/delete/{id}'(id=${bid.id})}" th:onclick="sendDelete(${url})">Delete</a>-->
+						<form action="#" th:action="@{'/bidList/delete/{id}'(id=${bid.id})}" th:method="delete" >
 							<input type="hidden" name="_method" value="delete" />
 							<button type="submit" id="submitButton"> </button>
+						</form>
+
+						<form action="#" th:action="@{'/bidList/delete/{id}'(id=${bid.id})}" th:method="delete" >
+							<button type="submit" class="btn">
+								Delete
+							</button>
 						</form>
 					</td>
 				</tr>

@@ -124,11 +124,24 @@ public class BidListController {
         return "redirect:/bidList/list";
     }
 
-    @DeleteMapping("/bidList/delete/{id}")
+    /*@DeleteMapping("/bidList/delete/{id}")
     public String deleteBid(@PathVariable("id") Long id) {
 
         bidsListDeletionService.deleteBidsListById(id);
 
+        return "";
+    }*/
+
+    /*4
+
+The th:method="delete" creates the hidden input field automatically for you. If you add it manually as well you will have it twice. Check the source code.
+
+I still got the POST Error message after the recommendations here. I found out Spring ignores those hidden fields by default. The solution is to activate it in your application.properties file:
+*/
+
+    @RequestMapping(value="/bidList/delete/{id}", method = RequestMethod.DELETE)
+    public String deleteBid(@PathVariable Long id) {
+        bidsListDeletionService.deleteBidsListById(id);
         return "redirect:/bidList/list";
     }
 
