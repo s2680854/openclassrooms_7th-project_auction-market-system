@@ -47,9 +47,13 @@
 					<td th:text="${trade.type}">Type</td>
 					<td th:text="${trade.buyQuantity}">Buy Quantity</td>
 					<td th:text="${trade.dealName}">Action</td>
-
-					<td><input th:action="@{/trade/update/${trade.id}}" class="btn btn-primary btn-sm" value="Modifier" /></td>
-					<td><input th:action="@{/trade/delete/${trade.id}}" class="btn btn-primary btn-sm" value="Supprimer" /></td>
+					<td style="width: 15%" class="text-center">
+						<form action="#" th:action="@{'/trade/delete/{id}'(id=${trade.id})}" th:method="delete" >
+							<a th:href="@{/trade/update/{id}(id=${trade.id})}" class="btn btn-primary btn-sm">Edit</a>
+							<input type="hidden" name="_method" value="delete" />
+							<button type="submit" id="submitButton" class="btn btn-danger btn-sm">Delete</button>
+						</form>
+					</td>
 				</tr>
 			</tbody>
 		</table>
