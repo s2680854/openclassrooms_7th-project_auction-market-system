@@ -18,7 +18,7 @@
 			<a href="/ruleName/list">Rule</a></b>
 		</div>
 		<div class="col-6 text-right">
-			Logged in user: <b th:inline="text"  class="user"> [[${#httpServletRequest.remoteUser}]] </b>
+			Logged in user: <b th:inline="text"  class="user"> [[${username}]] </b>
 			<form th:action="@{/logout}" method="POST">
 				<a th:method="GET" th:href="@{/}" class="btn btn-primary btn-sm">Home</a>
 				<input type="submit" class="btn badge-secondary btn-sm" value="Logout"/>
