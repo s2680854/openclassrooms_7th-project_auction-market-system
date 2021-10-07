@@ -58,18 +58,10 @@
 					<td th:text="${bid.bidQuantity}">Bid Quantity</td>
 					<td th:text="${bid.type}">Action</td>
 					<td style="width: 15%" class="text-center">
-						<a th:href="@{/bidList/update/{id}(id=${bid.id})}" class="btn btn-primary btn-sm">Edit</a>
-						<!--<a th:href="@{'/bidList/delete/{id}'(id=${bid.id})}" class="btn btn-danger btn-sm">Delete</a>
-						<a type="button" th:with="url = @{'/bidList/delete/{id}'(id=${bid.id})}" th:onclick="sendDelete(${url})">Delete</a>-->
 						<form action="#" th:action="@{'/bidList/delete/{id}'(id=${bid.id})}" th:method="delete" >
+							<a th:href="@{/bidList/update/{id}(id=${bid.id})}" class="btn btn-primary btn-sm">Edit</a>
 							<input type="hidden" name="_method" value="delete" />
-							<button type="submit" id="submitButton"> </button>
-						</form>
-
-						<form action="#" th:action="@{'/bidList/delete/{id}'(id=${bid.id})}" th:method="delete" >
-							<button type="submit" class="btn">
-								Delete
-							</button>
+							<button type="submit" id="submitButton" class="btn btn-danger btn-sm">Delete</button>
 						</form>
 					</td>
 				</tr>
