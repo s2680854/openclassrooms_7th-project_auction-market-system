@@ -95,4 +95,12 @@ public class CurveController {
 
         return "redirect:/curvePoint/list";
     }
+
+    @DeleteMapping("/curvePoint/delete")
+    public String deleteAll() {
+
+        curvePointDeletionService.deleteCurvePoints();
+
+        return "redirect:/curvePoint/list";
+    }
 }

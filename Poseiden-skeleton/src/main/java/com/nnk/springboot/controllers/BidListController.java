@@ -146,7 +146,7 @@ I still got the POST Error message after the recommendations here. I found out S
     }
 
     @DeleteMapping("/bidList/delete")
-    public String deleteBid() {
+    public String deleteAll() {
 
         bidsListDeletionService.deleteBidsLists();
 
