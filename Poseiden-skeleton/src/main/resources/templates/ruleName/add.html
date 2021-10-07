@@ -14,7 +14,7 @@
 	</div>
 
 	<div class="row">
-		<form action="#" th:action="@{/rule/validate}" th:object="${rule}" method="post" class="form-horizontal" style="width: 100%">
+		<form action="#" th:action="@{/ruleName/validate}" th:object="${rule}" method="post" class="form-horizontal" style="width: 100%">
 			<div>
 				<input type="text" placeholder="Entrez une nom..." th:field="*{name}" class="form-control" required />
 				<input type="text" placeholder="Entrez une description..." th:field="*{description}" class="form-control" required />
