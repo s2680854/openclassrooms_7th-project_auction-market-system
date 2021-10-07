@@ -32,14 +32,18 @@
 		<div class="col-6 text-right">
 			Logged in user: <b th:inline="text"  class="user"> [[${username}]] </b>
 			<form th:action="@{/app-logout}" method="POST">
+				<a th:method="GET" th:href="@{/}" class="btn btn-primary btn-sm">Home</a>
 				<input type="submit" class="btn badge-secondary btn-sm" value="Logout"/>
 			</form>
 		</div>
 	</div>
 	<div class="row"><h2>Bid List</h2></div>
 	<div class="row">
-		<a href="/bidList/add" class="btn btn-primary btn-sm" style="margin-right: 10px;margin-bottom: 10px;">Add New</a>
-		<a href="/bidList/delete" class="btn btn-danger btn-sm" style="margin-bottom: 10px;">Delete All</a>
+		<form action="#" th:action="@{'/bidList/delete'}" th:method="delete" >
+			<a href="/bidList/add" class="btn btn-primary btn-sm" style="margin-right: 10px;margin-bottom: 10px;">Add New</a>
+			<input type="hidden" name="_method" value="delete" />
+			<button type="submit" id="submitAllButton" class="btn btn-danger btn-sm" style="margin-right: 10px;margin-bottom: 10px;">Delete All</button>
+		</form>
 		<table class="table table-striped">
 			<thead>
 				<tr>
