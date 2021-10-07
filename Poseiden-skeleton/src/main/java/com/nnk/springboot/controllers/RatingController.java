@@ -75,7 +75,7 @@ public class RatingController {
         logger.debug("[validate] rating: " + rating);
         ratingCreationgService.createRating(rating);
 
-        return "rating/add";
+        return "redirect:/rating/list";
     }
 
     @GetMapping("/rating/update/{id}")

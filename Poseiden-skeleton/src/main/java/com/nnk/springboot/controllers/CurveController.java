@@ -74,7 +74,7 @@ public class CurveController {
         logger.debug("[validate] curve point: " + curvePoint);
         curvePointCreationService.createCurvePoint(curvePoint);
 
-        return "curvePoint/add";
+        return "redirect:/curvePoint/list";
     }
 
     @GetMapping("/curvePoint/update/{id}")

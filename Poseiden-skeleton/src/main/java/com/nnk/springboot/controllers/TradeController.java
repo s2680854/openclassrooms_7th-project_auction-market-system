@@ -75,7 +75,7 @@ public class TradeController {
         logger.debug("[validate] trade: " + trade);
         tradeCreationService.createTrade(trade);
 
-        return "redirect:/trade/add";
+        return "redirect:/trade/list";
     }
 
     @GetMapping("/trade/update/{id}")

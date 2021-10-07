@@ -59,7 +59,7 @@ public class UserController {
             model.addAttribute("users", userReadService.getUsers());
             return "redirect:/user/list";
         }
-        return "user/add";
+        return "redirect:/user/list";
     }
 
     @GetMapping("/user/update/{id}")

@@ -75,7 +75,7 @@ public class RuleNameController {
         logger.debug("[validate] rule: " + rule);
         ruleCreationService.createRule(rule);
 
-        return "ruleName/add";
+        return "redirect:/ruleName/list";
     }
 
     @GetMapping("/ruleName/update/{id}")
