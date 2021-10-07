@@ -97,4 +97,12 @@ public class RatingController {
 
         return "redirect:/rating/list";
     }
+
+    @DeleteMapping("/rating/delete")
+    public String deleteAll() {
+
+        ratingDeletionService.deleteRatings();
+
+        return "redirect:/rating/list";
+    }
 }
