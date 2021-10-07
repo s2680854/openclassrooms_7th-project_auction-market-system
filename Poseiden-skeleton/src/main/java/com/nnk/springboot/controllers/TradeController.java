@@ -97,4 +97,12 @@ public class TradeController {
 
         return "redirect:/trade/list";
     }
+
+    @DeleteMapping("/trade/delete")
+    public String deleteAll() {
+
+        tradeDeletionService.deleteTrades();
+
+        return "redirect:/trade/list";
+    }
 }
