@@ -46,9 +46,13 @@
 				<td th:text="${curvePoint.curveId}">CurvePointId</td>
 				<td th:text="${curvePoint.term}">Term</td>
 				<td th:text="${curvePoint.value}">Value</td>
-				<!-- <td th:text="${curvePoint.???}">Action</td> -->
-				<td><input th:action="@{/curvePoint/update/${curvePoint.id}}" class="btn btn-primary btn-sm" value="Modifier" /></td>
-				<td><input th:action="@{/curvePoint/delete/${curvePoint.id}}" class="btn btn-primary btn-sm" value="Supprimer" /></td>
+				<td style="width: 15%" class="text-center">
+					<form action="#" th:action="@{'/curvePoint/delete/{id}'(id=${bid.id})}" th:method="delete" >
+						<a th:href="@{/curvePoint/update/{id}(id=${bid.id})}" class="btn btn-primary btn-sm">Edit</a>
+						<input type="hidden" name="_method" value="delete" />
+						<button type="submit" id="submitButton" class="btn btn-danger btn-sm">Delete</button>
+					</form>
+				</td>
 			</tr>
 			</tbody>
 		</table>
