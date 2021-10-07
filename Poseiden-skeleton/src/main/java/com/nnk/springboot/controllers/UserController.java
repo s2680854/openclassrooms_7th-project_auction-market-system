@@ -96,6 +96,7 @@ public class UserController {
     @DeleteMapping("/user/delete")
     public String deleteAll() {
 
+        userDeletionService.deleteUsers();
 
         return "redirect:/user/list";
     }
