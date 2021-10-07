@@ -97,4 +97,12 @@ public class RuleNameController {
 
         return "redirect:/ruleName/list";
     }
+
+    @DeleteMapping("/ruleName/delete")
+    public String deleteAll() {
+
+        ruleDeleteService.deleteRules();
+
+        return "redirect:/ruleName/list";
+    }
 }
