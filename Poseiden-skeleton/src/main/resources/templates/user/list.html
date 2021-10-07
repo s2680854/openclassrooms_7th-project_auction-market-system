@@ -12,8 +12,11 @@
 		<div class="col-6">
 
 		</div>
-		<div class="col-6 text-right">
-			<a href="/">Home</a>&nbsp;|&nbsp;<a href="/login">Login</a>
+		<div class="col-6 text-right" style="margin-top: 10px;">
+			<form th:action="@{/login}" method="GET">
+				<input type="submit" class="btn badge-primary btn-sm" value="Login"/>
+				<a th:href="@{/}" class="btn btn-secondary btn-sm">Home</a>
+			</form>
 		</div>
 	</div>
 	<div class="row"><h2>User List</h2></div>
