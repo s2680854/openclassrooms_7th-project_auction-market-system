@@ -18,7 +18,11 @@
 	</div>
 	<div class="row"><h2>User List</h2></div>
 	<div class="row">
-		<a href="/user/add" class="btn btn-primary btn-sm">Add New</a>
+		<form action="#" th:action="@{'/user/delete'}" th:method="delete" >
+			<a href="/user/add" class="btn btn-primary btn-sm" style="margin-right: 10px;margin-bottom: 10px;">Add New</a>
+			<input type="hidden" name="_method" value="delete" />
+			<button type="submit" id="submitAllButton" class="btn btn-danger btn-sm" style="margin-right: 10px;margin-bottom: 10px;">Delete All</button>
+		</form>
 		<table class="table table-bordered">
 			<thead>
 				<tr>
