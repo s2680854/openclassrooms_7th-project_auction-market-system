@@ -13,15 +13,15 @@
 	</div>
 
 	<div class="row">
-		<form action="#" th:action="@{/bidsList/update/{id}(id=${bid.id})}" th:object="${bid}" method="post" class="form-horizontal" style="width: 100%">
+		<form action="#" th:action="@{/bidList/update/{id}(id=${bid.id})}" th:object="${bid}" method="post" class="form-horizontal" style="width: 100%">
 			<div>
 				<input type="text" placeholder="Entrez une description..." th:field="*{commentary}" class="form-control" required />
 				<input type="text" placeholder="Entrez une quantité..." th:field="*{bidQuantity}" class="form-control" required />
-				<input type="text" placeholder="Entrez une action..." th:field="*{dealName}" class="form-control" required />
+				<input type="text" placeholder="Entrez une type..." th:field="*{type}" class="form-control" required />
 			</div>
 			<div>
 				<input type="submit" class="btn btn-primary btn-sm" value="Enregistrer" />
-				<a href="/bidsList/add" class="btn btn-secondary btn-sm">Annuler</a>
+				<a href="/bidList/list" class="btn btn-secondary btn-sm">Annuler</a>
 			</div>
 		</form>
 	</div>

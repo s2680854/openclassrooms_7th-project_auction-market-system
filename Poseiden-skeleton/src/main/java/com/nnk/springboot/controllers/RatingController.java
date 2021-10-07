@@ -8,6 +8,9 @@ import com.nnk.springboot.service.rating.RatingUpdateService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -32,6 +35,16 @@ public class RatingController {
 
     @GetMapping("/rating/list")
     public String home(Model model) {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        if (username.contains("@")) {
+            model.addAttribute("username", username);
+        } else {
+            OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
+            model.addAttribute("username", oAuth2User.getAttributes().get("email"));
+        }
+        logger.debug("[add bidList] authentication name: " + username);
 
         Collection<Rating> ratings = ratingReadService.getRatings();
         model.addAttribute("ratings", ratings);
@@ -62,7 +75,7 @@ public class RatingController {
         logger.debug("[validate] rating: " + rating);
         ratingCreationgService.createRating(rating);
 
-        return "rating/add";
+        return "redirect:/rating/list";
     }
 
     @GetMapping("/rating/update/{id}")
@@ -90,10 +103,18 @@ public class RatingController {
         return "redirect:/rating/list";
     }
 
-    @GetMapping("/rating/delete/{id}")
+    @DeleteMapping("/rating/delete/{id}")
     public String deleteRating(@PathVariable("id") Long id, Model model) {
 
         ratingDeletionService.deleteRatingById(id);
+
+        return "redirect:/rating/list";
+    }
+
+    @DeleteMapping("/rating/delete")
+    public String deleteAll() {
+
+        ratingDeletionService.deleteRatings();
 
         return "redirect:/rating/list";
     }

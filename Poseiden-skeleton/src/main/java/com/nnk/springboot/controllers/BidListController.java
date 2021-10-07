@@ -1,6 +1,7 @@
 package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.domain.BidsList;
+import com.nnk.springboot.domain.User;
 import com.nnk.springboot.service.bidslist.BidsListCreationService;
 import com.nnk.springboot.service.bidslist.BidsListDeletionService;
 import com.nnk.springboot.service.bidslist.BidsListReadService;
@@ -8,18 +9,23 @@ import com.nnk.springboot.service.bidslist.BidsListUpdateService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.Collection;
+import java.util.Map;
 
 @Controller
-public class BidsListController {
+public class BidListController {
 
     private Logger logger = LogManager.getLogger(LoginController.class);
 
@@ -34,6 +40,16 @@ public class BidsListController {
 
     @GetMapping("/bidList/list")
     public String home(Model model) {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        if (username.contains("@")) {
+            model.addAttribute("username", username);
+        } else {
+            OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
+            model.addAttribute("username", oAuth2User.getAttributes().get("email"));
+        }
+        logger.debug("[add bidList] authentication name: " + username);
 
         /*Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String authenticationName = authentication.getName();
@@ -51,11 +67,16 @@ public class BidsListController {
     public String addBidForm(Model model) {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String authenticationName = authentication.getName();
-        logger.debug("[home] authentication name: " + authenticationName);
+        String username = authentication.getName();
+        if (!username.contains("@")) {
+            OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
+            username = oAuth2User.getAttributes().get("email").toString();
+        }
+        model.addAttribute("username", username);
+        logger.debug("[add bidList] username: " + username);
 
         BidsList bid = new BidsList();
-        bid.setAccount(authenticationName);
+        bid.setAccount(username);
         model.addAttribute(bid);
         logger.debug("[add] bid: " + bid);
 
@@ -65,22 +86,23 @@ public class BidsListController {
     @PostMapping("/bidList/validate")
     public String validate(@Valid BidsList bid, BindingResult result, Model model) {
 
-        // TODO: check if we must return to add
+
+        logger.debug("[validate bid] account: " + bid.getAccount());
+        model.addAttribute(bid);
+
         if (result.hasErrors()) {
             return "bidList/add";
         }
 
-        model.addAttribute(bid);
         logger.debug("[validate] bid: " + bid);
         bidsListCreationService.createBidsList(bid);
 
-        return "redirect:/bidList/add";
+        return "redirect:/bidList/list";
     }
 
     @GetMapping("/bidList/update/{id}")
     public String showUpdateForm(@PathVariable("id") Long id, Model model) {
 
-        // TODO: check if I have to update
         BidsList bid = bidsListReadService.getBidsListById(id);
         logger.debug("[get update] bid: " + bid);
         model.addAttribute("bid", bid);
@@ -102,10 +124,31 @@ public class BidsListController {
         return "redirect:/bidList/list";
     }
 
-    @GetMapping("/bidList/delete/{id}")
-    public String deleteBid(@PathVariable("id") Long id, Model model) {
+    /*@DeleteMapping("/bidList/delete/{id}")
+    public String deleteBid(@PathVariable("id") Long id) {
 
         bidsListDeletionService.deleteBidsListById(id);
+
+        return "";
+    }*/
+
+    /*4
+
+The th:method="delete" creates the hidden input field automatically for you. If you add it manually as well you will have it twice. Check the source code.
+
+I still got the POST Error message after the recommendations here. I found out Spring ignores those hidden fields by default. The solution is to activate it in your application.properties file:
+*/
+
+    @RequestMapping(value="/bidList/delete/{id}", method = RequestMethod.DELETE)
+    public String deleteBid(@PathVariable Long id) {
+        bidsListDeletionService.deleteBidsListById(id);
+        return "redirect:/bidList/list";
+    }
+
+    @DeleteMapping("/bidList/delete")
+    public String deleteAll() {
+
+        bidsListDeletionService.deleteBidsLists();
 
         return "redirect:/bidList/list";
     }

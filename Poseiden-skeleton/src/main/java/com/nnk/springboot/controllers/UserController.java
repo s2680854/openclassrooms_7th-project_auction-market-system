@@ -3,6 +3,10 @@ package com.nnk.springboot.controllers;
 import com.nnk.springboot.domain.Trade;
 import com.nnk.springboot.domain.User;
 import com.nnk.springboot.repositories.UserRepository;
+import com.nnk.springboot.service.user.UserCreationService;
+import com.nnk.springboot.service.user.UserDeletionService;
+import com.nnk.springboot.service.user.UserReadService;
+import com.nnk.springboot.service.user.UserUpdateService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,12 +24,19 @@ public class UserController {
     private Logger logger = LogManager.getLogger(LoginController.class);
 
     @Autowired
-    private UserRepository userRepository;
+    private UserCreationService userCreationService;
+    @Autowired
+    private UserReadService userReadService;
+    @Autowired
+    private UserUpdateService userUpdateService;
+    @Autowired
+    private UserDeletionService userDeletionService;
+
 
     @RequestMapping("/user/list")
     public String home(Model model)
     {
-        model.addAttribute("users", userRepository.findAll());
+        model.addAttribute("users", userReadService.getUsers());
         return "user/list";
     }
 
@@ -44,16 +55,16 @@ public class UserController {
         if (!result.hasErrors()) {
             BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
             user.setPassword(encoder.encode(user.getPassword()));
-            userRepository.save(user);
-            model.addAttribute("users", userRepository.findAll());
+            userCreationService.createUser(user);
+            model.addAttribute("users", userReadService.getUsers());
             return "redirect:/user/list";
         }
-        return "user/add";
+        return "redirect:/user/list";
     }
 
     @GetMapping("/user/update/{id}")
     public String showUpdateForm(@PathVariable("id") Long id, Model model) {
-        User user = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
+        User user = userReadService.getUser(id);
         user.setPassword("");
         model.addAttribute("user", user);
         return "user/update";
@@ -69,16 +80,24 @@ public class UserController {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         user.setPassword(encoder.encode(user.getPassword()));
         user.setId(id);
-        userRepository.save(user);
-        model.addAttribute("users", userRepository.findAll());
+        userUpdateService.updateUser(user);
+        model.addAttribute("users", userReadService.getUsers());
         return "redirect:/user/list";
     }
 
-    @GetMapping("/user/delete/{id}")
+    @DeleteMapping("/user/delete/{id}")
     public String deleteUser(@PathVariable("id") Long id, Model model) {
-        User user = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
-        userRepository.delete(user);
-        model.addAttribute("users", userRepository.findAll());
+        User user = userReadService.getUser(id);
+        userDeletionService.deleteUserById(user.getId());
+        model.addAttribute("users", userReadService.getUsers());
+        return "redirect:/user/list";
+    }
+
+    @DeleteMapping("/user/delete")
+    public String deleteAll() {
+
+        userDeletionService.deleteUsers();
+
         return "redirect:/user/list";
     }
 }

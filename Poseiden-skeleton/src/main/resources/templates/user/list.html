@@ -12,14 +12,21 @@
 		<div class="col-6">
 
 		</div>
-		<div class="col-6 text-right">
-			<a href="/">Home</a>&nbsp;|&nbsp;<a href="/login">Login</a>
+		<div class="col-6 text-right" style="margin-top: 10px;">
+			<form th:action="@{/login}" method="GET">
+				<input type="submit" class="btn badge-primary btn-sm" value="Login"/>
+				<a th:href="@{/}" class="btn btn-secondary btn-sm">Home</a>
+			</form>
 		</div>
 	</div>
 	<div class="row"><h2>User List</h2></div>
 	<div class="row">
-		<a href="/user/add" class="btn btn-primary btn-sm">Add New</a>
-		<table class="table table-bordered">
+		<form action="#" th:action="@{'/user/delete'}" th:method="delete" >
+			<a href="/user/add" class="btn btn-primary btn-sm" style="margin-right: 10px;margin-bottom: 10px;">Add New</a>
+			<input type="hidden" name="_method" value="delete" />
+			<button type="submit" id="submitAllButton" class="btn btn-danger btn-sm" style="margin-right: 10px;margin-bottom: 10px;">Delete All</button>
+		</form>
+		<table class="table table-striped">
 			<thead>
 				<tr>
 					<th>Id</th>
@@ -32,12 +39,15 @@
 			<tbody>
 				<tr th:each="user : ${users}">
 					<td style="width: 10%" th:text="${user.id}"></td>
-					<td th:text="${user.fullName}"></td>
+					<td th:text="${user.fullname}"></td>
 					<td th:text="${user.username}"></td>
 					<td style="width: 25%" th:text="${user.role}"></td>
 					<td style="width: 15%" class="text-center">
-						<a th:href="@{/user/update/{id}(id=${user.id})}">Edit</a>&nbsp;|&nbsp;
-						<a th:href="@{/user/delete/{id}(id=${user.id})}">Delete</a>
+						<form action="#" th:action="@{'/user/delete/{id}'(id=${user.id})}" th:method="delete" >
+							<a th:href="@{/user/update/{id}(id=${user.id})}" class="btn btn-primary btn-sm">Edit</a>
+							<input type="hidden" name="_method" value="delete" />
+							<button type="submit" id="submitButton" class="btn btn-danger btn-sm">Delete</button>
+						</form>
 					</td>
 				</tr>
 			</tbody>

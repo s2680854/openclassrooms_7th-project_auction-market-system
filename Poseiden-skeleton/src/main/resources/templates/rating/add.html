@@ -16,9 +16,9 @@
 	<div class="row">
 		<form action="#" th:action="@{/rating/validate}" th:object="${rating}" method="post" class="form-horizontal" style="width: 100%">
 			<div>
-				<input type="text" placeholder="Entrez une taux..." th:field="*{moodysRating}" class="form-control" required />
-				<input type="text" placeholder="Entrez une taux..." th:field="*{sandPRating}" class="form-control" required />
-				<input type="text" placeholder="Entrez un taux..." th:field="*{fitchRating}" class="form-control" required />
+				<input type="text" placeholder="Entrez une taux Moody..." th:field="*{moodysRating}" class="form-control" required />
+				<input type="text" placeholder="Entrez une taux SandP..." th:field="*{sandPRating}" class="form-control" required />
+				<input type="text" placeholder="Entrez un taux Fitch..." th:field="*{fitchRating}" class="form-control" required />
 				<input type="text" placeholder="Entrez un N° de commande..." th:field="*{orderNumber}" class="form-control" required />
 			</div>
 			<div>

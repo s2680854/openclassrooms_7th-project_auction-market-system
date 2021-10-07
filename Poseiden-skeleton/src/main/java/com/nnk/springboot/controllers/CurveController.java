@@ -8,6 +8,9 @@ import com.nnk.springboot.service.curvepoint.CurvePointUpdateService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -32,6 +35,16 @@ public class CurveController {
 
     @GetMapping("/curvePoint/list")
     public String home(Model model) {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        if (username.contains("@")) {
+            model.addAttribute("username", username);
+        } else {
+            OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
+            model.addAttribute("username", oAuth2User.getAttributes().get("email"));
+        }
+        logger.debug("[add bidList] authentication name: " + username);
 
         Collection<CurvePoint> curvePoints = curvePointReadService.getCurvePoints();
         model.addAttribute("curvePoints", curvePoints);
@@ -61,7 +74,7 @@ public class CurveController {
         logger.debug("[validate] curve point: " + curvePoint);
         curvePointCreationService.createCurvePoint(curvePoint);
 
-        return "curvePoint/add";
+        return "redirect:/curvePoint/list";
     }
 
     @GetMapping("/curvePoint/update/{id}")
@@ -88,10 +101,18 @@ public class CurveController {
         return "redirect:/curvePoint/list";
     }
 
-    @GetMapping("/curvePoint/delete/{id}")
+    @DeleteMapping("/curvePoint/delete/{id}")
     public String deleteBid(@PathVariable("id") Long id, Model model) {
 
         curvePointDeletionService.deleteCurvePointById(id);
+
+        return "redirect:/curvePoint/list";
+    }
+
+    @DeleteMapping("/curvePoint/delete")
+    public String deleteAll() {
+
+        curvePointDeletionService.deleteCurvePoints();
 
         return "redirect:/curvePoint/list";
     }
