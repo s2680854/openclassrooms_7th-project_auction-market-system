@@ -1,10 +1,10 @@
 package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.domain.Trade;
-import com.nnk.springboot.service.trade.TradeCreationService;
-import com.nnk.springboot.service.trade.TradeDeletionService;
-import com.nnk.springboot.service.trade.TradeReadService;
-import com.nnk.springboot.service.trade.TradeUpdateService;
+import com.nnk.springboot.controller.trade.TradeCreationService;
+import com.nnk.springboot.controller.trade.TradeDeletionService;
+import com.nnk.springboot.controller.trade.TradeReadService;
+import com.nnk.springboot.controller.trade.TradeUpdateService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,10 +1,10 @@
 package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.domain.Rule;
-import com.nnk.springboot.service.rule.RuleCreationService;
-import com.nnk.springboot.service.rule.RuleDeleteService;
-import com.nnk.springboot.service.rule.RuleReadService;
-import com.nnk.springboot.service.rule.RuleUpdateService;
+import com.nnk.springboot.controller.rule.RuleCreationService;
+import com.nnk.springboot.controller.rule.RuleDeleteService;
+import com.nnk.springboot.controller.rule.RuleReadService;
+import com.nnk.springboot.controller.rule.RuleUpdateService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;

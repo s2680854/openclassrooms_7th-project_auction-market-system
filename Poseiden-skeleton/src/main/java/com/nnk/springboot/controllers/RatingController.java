@@ -1,10 +1,10 @@
 package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.domain.Rating;
-import com.nnk.springboot.service.rating.RatingCreationgService;
-import com.nnk.springboot.service.rating.RatingDeletionService;
-import com.nnk.springboot.service.rating.RatingReadService;
-import com.nnk.springboot.service.rating.RatingUpdateService;
+import com.nnk.springboot.controller.rating.RatingCreationgService;
+import com.nnk.springboot.controller.rating.RatingDeletionService;
+import com.nnk.springboot.controller.rating.RatingReadService;
+import com.nnk.springboot.controller.rating.RatingUpdateService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;

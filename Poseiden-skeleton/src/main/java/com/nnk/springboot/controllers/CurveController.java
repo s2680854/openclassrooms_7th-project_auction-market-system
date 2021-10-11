@@ -1,10 +1,10 @@
 package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.domain.CurvePoint;
-import com.nnk.springboot.service.curvepoint.CurvePointCreationService;
-import com.nnk.springboot.service.curvepoint.CurvePointDeletionService;
-import com.nnk.springboot.service.curvepoint.CurvePointReadService;
-import com.nnk.springboot.service.curvepoint.CurvePointUpdateService;
+import com.nnk.springboot.controller.curvepoint.CurvePointCreationService;
+import com.nnk.springboot.controller.curvepoint.CurvePointDeletionService;
+import com.nnk.springboot.controller.curvepoint.CurvePointReadService;
+import com.nnk.springboot.controller.curvepoint.CurvePointUpdateService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;

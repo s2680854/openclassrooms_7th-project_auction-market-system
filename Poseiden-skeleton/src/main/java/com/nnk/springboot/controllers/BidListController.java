@@ -1,18 +1,15 @@
 package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.domain.BidsList;
-import com.nnk.springboot.domain.User;
-import com.nnk.springboot.service.bidslist.BidsListCreationService;
-import com.nnk.springboot.service.bidslist.BidsListDeletionService;
-import com.nnk.springboot.service.bidslist.BidsListReadService;
-import com.nnk.springboot.service.bidslist.BidsListUpdateService;
+import com.nnk.springboot.controller.bidslist.BidsListCreationService;
+import com.nnk.springboot.controller.bidslist.BidsListDeletionService;
+import com.nnk.springboot.controller.bidslist.BidsListReadService;
+import com.nnk.springboot.controller.bidslist.BidsListUpdateService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,9 +17,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.security.Principal;
 import java.util.Collection;
-import java.util.Map;
 
 @Controller
 public class BidListController {
