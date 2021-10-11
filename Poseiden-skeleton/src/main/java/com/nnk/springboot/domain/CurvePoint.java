@@ -22,7 +22,9 @@ public class CurvePoint {
     @NotBlank(message = "Value is mandatory")
     private double value;
 
+    @Temporal(TemporalType.TIMESTAMP)
     private Timestamp asOfDate;
+    @Temporal(TemporalType.TIMESTAMP)
     private Timestamp creationDate;
 
     public CurvePoint(@NotBlank(message = "ID is mandatory") int curveId,
