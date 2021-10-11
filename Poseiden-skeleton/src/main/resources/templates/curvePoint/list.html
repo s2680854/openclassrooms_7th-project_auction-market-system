@@ -3,7 +3,7 @@
 	  xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="utf-8"/>
-<title>Home</title>
+<title>Liste des courbes | Le Boursier</title>
 <link rel="stylesheet" href="../../css/bootstrap.min.css" >
 </head>
 <body>
@@ -18,14 +18,14 @@
 			<a href="/ruleName/list">Rule</a></b>
 		</div>
 		<div class="col-6 text-right">
-			Logged in user: <b th:inline="text"  class="user"> [[${username}]] </b>
+			Authentifié(e) en tant que : <b th:inline="text"  class="user"> [[${username}]] </b>
 			<form th:action="@{/logout}" method="POST">
-				<a th:method="GET" th:href="@{/}" class="btn btn-primary btn-sm">Home</a>
-				<input type="submit" class="btn badge-secondary btn-sm" value="Logout"/>
+				<a th:method="GET" th:href="@{/}" class="btn btn-primary btn-sm">Accueil</a>
+				<input type="submit" class="btn badge-secondary btn-sm" value="Se déconnecter"/>
 			</form>
 		</div>
 	</div>
-	<div class="row"><h2>Curve Point List</h2></div>
+	<div class="row"><h2>Liste des courbes</h2></div>
 	<div class="row">
 		<form action="#" th:action="@{'/curvePoint/delete'}" th:method="delete" >
 			<a href="/curvePoint/add" class="btn btn-primary btn-sm" style="margin-right: 10px;margin-bottom: 10px;">Add New</a>
@@ -44,15 +44,15 @@
 			</thead>
 			<tbody>
 			<tr th:each="curvePoint: ${curvePoints}">
-				<td th:text="${curvePoint.id}">Id</td>
-				<td th:text="${curvePoint.curveId}">CurvePointId</td>
-				<td th:text="${curvePoint.term}">Term</td>
-				<td th:text="${curvePoint.value}">Value</td>
+				<td th:text="${curvePoint.id}">ID</td>
+				<td th:text="${curvePoint.curveId}">ID de Courbe</td>
+				<td th:text="${curvePoint.term}">Terme</td>
+				<td th:text="${curvePoint.value}">Valeur</td>
 				<td style="width: 15%" class="text-center">
 					<form action="#" th:action="@{'/curvePoint/delete/{id}'(id=${curvePoint.id})}" th:method="delete" >
-						<a th:href="@{/curvePoint/update/{id}(id=${curvePoint.id})}" class="btn btn-primary btn-sm">Edit</a>
+						<a th:href="@{/curvePoint/update/{id}(id=${curvePoint.id})}" class="btn btn-primary btn-sm">Modifier</a>
 						<input type="hidden" name="_method" value="delete" />
-						<button type="submit" id="submitButton" class="btn btn-danger btn-sm">Delete</button>
+						<button type="submit" id="submitButton" class="btn btn-danger btn-sm">Supprimer</button>
 					</form>
 				</td>
 			</tr>
