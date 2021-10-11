@@ -11,29 +11,19 @@ import java.security.Principal;
 public class HomeController {
 
 	@RequestMapping("/")
-	public String home(Model model)
-	{
+	public String home(Model model) {
+
 		return "home";
 	}
 
 	@RequestMapping("/admin/home")
-	public String adminHome(Model model)
-	{
+	public String adminHome(Model model) {
 
 		return "redirect:/bidList/list";
 	}
 
 	@RequestMapping("/*")
-	public String getGithub(Principal user){
-
-		/*@GetMapping("/user")
-
-		public Map<String, Object> user(@AuthenticationPrincipal OAuth2User principal)
-		{
-
-			return Collections.singletonMap("name", principal.getAttribute("name"));
-
-		}*/
+	public String getGithub(Principal user) {
 
 		return "redirect:/bidList/list";
 	}

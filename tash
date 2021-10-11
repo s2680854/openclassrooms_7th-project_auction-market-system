@@ -1,0 +1,41 @@
+[1mdiff --git a/Poseiden-skeleton/src/main/java/com/nnk/springboot/configuration/SpringSecurityConfig.java b/Poseiden-skeleton/src/main/java/com/nnk/springboot/configuration/SpringSecurityConfig.java[m
+[1mindex 66ee04e..40b2908 100644[m
+[1m--- a/Poseiden-skeleton/src/main/java/com/nnk/springboot/configuration/SpringSecurityConfig.java[m
+[1m+++ b/Poseiden-skeleton/src/main/java/com/nnk/springboot/configuration/SpringSecurityConfig.java[m
+[36m@@ -74,27 +74,16 @@[m [mpublic class SpringSecurityConfig extends WebSecurityConfigurerAdapter {[m
+     @Override[m
+     protected void configure(HttpSecurity http) throws Exception {[m
+ [m
+[31m-        http.httpBasic()[m
+[31m-                .authenticationEntryPoint(new NoPopupBasicAuthenticationEntryPoint())[m
+[31m-                .and()[m
+[32m+[m[32m        http.csrf().disable()// Enabling Postman POST requests[m
+[32m+[m[32m                .httpBasic().disable()[m
+                 .authorizeRequests()[m
+[31m-                .antMatchers("/authenticate").permitAll()[m
+[31m-                .antMatchers("/").permitAll()[m
+[31m-                .antMatchers("/bidList/*", "/curvePoint/*", "/rating/*", "/ruleName/*", "/trade/*")[m
+[31m-                .authenticated()[m
+[31m-                .and()[m
+[31m-                .formLogin()[m
+[31m-                .defaultSuccessUrl("/bidList/list")[m
+[31m-                .usernameParameter("email")[m
+[31m-                .permitAll()[m
+[31m-                .and()[m
+[31m-                .oauth2Login()[m
+[31m-                .defaultSuccessUrl("/bidList/list")[m
+[31m-                .and()[m
+[31m-                .logout().logoutSuccessUrl("/").permitAll()[m
+[31m-                .and()[m
+[31m-                .csrf().disable() // Enabling Postman POST requests[m
+[31m-        .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()[m
+[32m+[m[32m                .antMatchers("/", "/authenticate").permitAll()[m
+[32m+[m[32m                .antMatchers("/bidList/*", "/curvePoint/*", "/rating/*", "/ruleName/*", "/trade/*").authenticated()[m
+[32m+[m[32m                .and().formLogin().defaultSuccessUrl("/bidList/list").usernameParameter("email").permitAll()[m
+[32m+[m[32m                .and().oauth2Login().defaultSuccessUrl("/bidList/list")[m
+[32m+[m[32m                .and().logout().logoutSuccessUrl("/").permitAll()[m
+[32m+[m[32m        .and().exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint)[m
+[32m+[m[32m                .and().sessionManagement()[m
+                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);[m
+         // Add a filter to validate the tokens with every request[m
+         http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);[m

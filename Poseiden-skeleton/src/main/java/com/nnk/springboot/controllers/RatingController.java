@@ -40,15 +40,16 @@ public class RatingController {
         String username = authentication.getName();
         if (username.contains("@")) {
             model.addAttribute("username", username);
+            model.addAttribute("username", username);
         } else {
             OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
             model.addAttribute("username", oAuth2User.getAttributes().get("email"));
         }
-        logger.debug("[add bidList] authentication name: " + username);
+        logger.debug("[adding rating] authentication name: " + username);
 
         Collection<Rating> ratings = ratingReadService.getRatings();
         model.addAttribute("ratings", ratings);
-        logger.debug("[home] rating list: " + ratings);
+        logger.debug("[adding rating] list: " + ratings);
 
         return "rating/list";
     }
@@ -58,7 +59,7 @@ public class RatingController {
 
         Rating rating = new Rating();
         model.addAttribute(rating);
-        logger.debug("[add] rating: " + rating);
+        logger.debug("[reading bids] rating: " + rating);
 
         return "rating/add";
     }
@@ -72,7 +73,7 @@ public class RatingController {
         }
 
         model.addAttribute(rating);
-        logger.debug("[validate] rating: " + rating);
+        logger.debug("[validating rating] rating: " + rating);
         ratingCreationgService.createRating(rating);
 
         return "redirect:/rating/list";
@@ -83,7 +84,7 @@ public class RatingController {
 
         // TODO: check if I have to update
         Rating rating = ratingReadService.getRatingById(id);
-        logger.debug("[get update] rating: " + rating);
+        logger.debug("[updating rating form] rating: " + rating);
         model.addAttribute("rating", rating);
 
         return "rating/update";
@@ -97,7 +98,7 @@ public class RatingController {
             return "rating/add";
         }
 
-        logger.debug("[post update] rating: " + rating);
+        logger.debug("[updating rating] rating: " + rating);
         ratingUpdateService.updateRating(rating);
 
         return "redirect:/rating/list";
@@ -106,6 +107,7 @@ public class RatingController {
     @DeleteMapping("/rating/delete/{id}")
     public String deleteRating(@PathVariable("id") Long id, Model model) {
 
+        logger.debug("[delete rating] rating: " + id);
         ratingDeletionService.deleteRatingById(id);
 
         return "redirect:/rating/list";
@@ -114,6 +116,7 @@ public class RatingController {
     @DeleteMapping("/rating/delete")
     public String deleteAll() {
 
+        logger.debug("[delete rating] ratings: all");
         ratingDeletionService.deleteRatings();
 
         return "redirect:/rating/list";

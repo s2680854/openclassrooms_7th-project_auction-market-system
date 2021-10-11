@@ -29,25 +29,45 @@ public class BidsList {
     @Size(max=35)
     private String type;
     @NotBlank(message = "Quantity is mandatory")
+    @Size(min=0)
     private double bidQuantity;
 
+    @Size(min=0)
     private double askQuantity;
+    @Size(min=0)
     private double bid;
+    @Size(min=0)
     private double ask;
+    @Size(max=35)
     private String benchmark;
+    @Temporal(TemporalType.TIMESTAMP)
     private Timestamp bidsListDate;
+    @Size(max=35)
     private String commentary;
+    @Size(max=35)
     private String security;
+    @Size(max=35)
     private String status;
+    @Size(max=35)
     private String trader;
+    @Size(max=35)
     private String book;
+    @Size(max=35)
     private String creationName;
+    @Size(max=35)
+    @Temporal(TemporalType.TIMESTAMP)
     private Timestamp creationDate;
+    @Size(max=35)
     private String revisionName;
+    @Temporal(TemporalType.TIMESTAMP)
     private Timestamp revisionDate;
+    @Size(max=35)
     private String dealName;
+    @Size(max=35)
     private String dealType;
+    @Size(max=35)
     private String sourceListId;
+    @Size(max=35)
     private String side;
 
     public BidsList(@NotBlank(message = "Account is mandatory") String account,
