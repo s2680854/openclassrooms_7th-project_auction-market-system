@@ -40,7 +40,6 @@ public class BidsList {
     private double ask;
     @Size(max=35)
     private String benchmark;
-    @Temporal(TemporalType.TIMESTAMP)
     private Timestamp bidsListDate;
     @Size(max=35)
     private String commentary;
@@ -55,11 +54,9 @@ public class BidsList {
     @Size(max=35)
     private String creationName;
     @Size(max=35)
-    @Temporal(TemporalType.TIMESTAMP)
     private Timestamp creationDate;
     @Size(max=35)
     private String revisionName;
-    @Temporal(TemporalType.TIMESTAMP)
     private Timestamp revisionDate;
     @Size(max=35)
     private String dealName;
