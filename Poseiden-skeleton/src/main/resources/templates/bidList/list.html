@@ -11,26 +11,26 @@
 	<div class="row">
 		<div class="col-6">
 			Menu :
-			<b><a href="/bidList/list">Bid List</a>&nbsp;|&nbsp;
-			<a href="/curvePoint/list">Curve Points</a>&nbsp;|&nbsp;
-			<a href="/rating/list">Ratings</a>&nbsp;|&nbsp;
-			<a href="/trade/list">Trade</a>&nbsp;|&nbsp;
-			<a href="/ruleName/list">Rule</a></b>
+			<b><a href="/bidList/list">Liste des offres</a>&nbsp;|&nbsp;
+			<a href="/curvePoint/list">Courbes</a>&nbsp;|&nbsp;
+			<a href="/rating/list">Taux</a>&nbsp;|&nbsp;
+			<a href="/trade/list">Achats & Ventes</a>&nbsp;|&nbsp;
+			<a href="/ruleName/list">Règle</a></b>
 		</div>
 		<div class="col-6 text-right">
-			Logged in user: <b th:inline="text"  class="user"> [[${username}]] </b>
+			Authentifié(e) en tant que : <b th:inline="text"  class="user"> [[${username}]] </b>
 			<form th:action="@{/logout}" method="POST">
-				<a th:method="GET" th:href="@{/}" class="btn btn-primary btn-sm">Home</a>
-				<input type="submit" class="btn badge-secondary btn-sm" value="Logout"/>
+				<a th:method="GET" th:href="@{/}" class="btn btn-primary btn-sm">Accueil</a>
+				<input type="submit" class="btn badge-secondary btn-sm" value="Se déconnecter"/>
 			</form>
 		</div>
 	</div>
-	<div class="row"><h2>Bid List</h2></div>
+	<div class="row"><h2>Liste des offres</h2></div>
 	<div class="row">
 		<form action="#" th:action="@{'/bidList/delete'}" th:method="delete" >
-			<a href="/bidList/add" class="btn btn-primary btn-sm" style="margin-right: 10px;margin-bottom: 10px;">Add New</a>
+			<a href="/bidList/add" class="btn btn-primary btn-sm" style="margin-right: 10px;margin-bottom: 10px;">Ajouter une offre</a>
 			<input type="hidden" name="_method" value="delete" />
-			<button type="submit" id="submitAllButton" class="btn btn-danger btn-sm" style="margin-right: 10px;margin-bottom: 10px;">Delete All</button>
+			<button type="submit" id="submitAllButton" class="btn btn-danger btn-sm" style="margin-right: 10px;margin-bottom: 10px;">Tout supprimer</button>
 		</form>
 		<table class="table table-striped">
 			<thead>
@@ -44,16 +44,16 @@
 			</thead>
 			<tbody>
 				<tr th:each="bid: ${bidsList}">
-					<td th:text="${bid.id}">Id</td>
-					<td th:text="${bid.account}">Account</td>
-					<td th:text="${bid.commentary}">Type</td>
-					<td th:text="${bid.bidQuantity}">Bid Quantity</td>
-					<td th:text="${bid.type}">Action</td>
+					<td th:text="${bid.id}">ID</td>
+					<td th:text="${bid.account}">Compte</td>
+					<td th:text="${bid.commentary}">Description</td>
+					<td th:text="${bid.bidQuantity}">Quantité</td>
+					<td th:text="${bid.type}">Type</td>
 					<td style="width: 15%" class="text-center">
 						<form action="#" th:action="@{'/bidList/delete/{id}'(id=${bid.id})}" th:method="delete" >
-							<a th:href="@{/bidList/update/{id}(id=${bid.id})}" class="btn btn-primary btn-sm">Edit</a>
+							<a th:href="@{/bidList/update/{id}(id=${bid.id})}" class="btn btn-primary btn-sm">Modifier</a>
 							<input type="hidden" name="_method" value="delete" />
-							<button type="submit" id="submitButton" class="btn btn-danger btn-sm">Delete</button>
+							<button type="submit" id="submitButton" class="btn btn-danger btn-sm">Supprimer</button>
 						</form>
 					</td>
 				</tr>
