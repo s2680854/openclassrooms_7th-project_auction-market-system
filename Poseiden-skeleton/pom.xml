@@ -121,8 +121,9 @@
 			</executions>
 			<configuration>
 				<excludes>
-					<!-- Excludes Front Coverage (Thymeleaf) -->
+					<!-- Excludes Front/OAuth2 Generation Coverage (Thymeleaf) -->
 					<exclude>**/*LoginController.class</exclude>
+					<exclude>**/*HomeController.class</exclude>
 				</excludes>
 			</configuration>
 		</plugin>
