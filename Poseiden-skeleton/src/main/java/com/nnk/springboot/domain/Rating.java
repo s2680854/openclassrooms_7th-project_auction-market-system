@@ -27,7 +27,7 @@ public class Rating {
     @Size(min=50)
     private String fitchRating;
     @NotBlank(message = "Order Number is mandatory")
-    @Size(min=50)
+    @Size(min=0)
     private int orderNumber;
 
     public Rating(@NotBlank(message = "Moody's Rating is mandatory") String moodysRating,
