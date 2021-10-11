@@ -44,11 +44,11 @@ public class CurveController {
             OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
             model.addAttribute("username", oAuth2User.getAttributes().get("email"));
         }
-        logger.debug("[add bidList] authentication name: " + username);
+        logger.debug("[add curve point] authentication name: " + username);
 
         Collection<CurvePoint> curvePoints = curvePointReadService.getCurvePoints();
         model.addAttribute("curvePoints", curvePoints);
-        logger.debug("[home] curvePoints: " + curvePoints);
+        logger.debug("[reading curve point] curve point: " + curvePoints);
 
         return "curvePoint/list";
     }
@@ -58,7 +58,7 @@ public class CurveController {
 
         CurvePoint curvePoint = new CurvePoint();
         model.addAttribute(curvePoint);
-        logger.debug("[add] curve point: " + curvePoint);
+        logger.debug("[adding curve point] curve point: " + curvePoint);
 
         return "curvePoint/add";
     }
@@ -71,7 +71,7 @@ public class CurveController {
         }
 
         model.addAttribute(curvePoint);
-        logger.debug("[validate] curve point: " + curvePoint);
+        logger.debug("[validating curve point] curve point: " + curvePoint);
         curvePointCreationService.createCurvePoint(curvePoint);
 
         return "redirect:/curvePoint/list";
@@ -81,7 +81,7 @@ public class CurveController {
     public String showUpdateForm(@PathVariable("id") Long id, Model model) {
 
         CurvePoint curvePoint = curvePointReadService.getCurvePoint(id);
-        logger.debug("[get update] curve point: " + curvePoint);
+        logger.debug("[updating curve point form] show update form id: " + id);
         model.addAttribute("curvePoint", curvePoint);
 
         return "curvePoint/update";
@@ -95,7 +95,7 @@ public class CurveController {
             return "curvePoint/add";
         }
 
-        logger.debug("[post update] curve point: " + curvePoint);
+        logger.debug("[updating curve point]  curve point: " + curvePoint);
         curvePointUpdateService.updateCurvePoint(curvePoint);
 
         return "redirect:/curvePoint/list";
@@ -104,6 +104,7 @@ public class CurveController {
     @DeleteMapping("/curvePoint/delete/{id}")
     public String deleteBid(@PathVariable("id") Long id, Model model) {
 
+        logger.debug("[deleting curve point]  id: " + id);
         curvePointDeletionService.deleteCurvePointById(id);
 
         return "redirect:/curvePoint/list";
@@ -112,6 +113,7 @@ public class CurveController {
     @DeleteMapping("/curvePoint/delete")
     public String deleteAll() {
 
+        logger.debug("[deleting curve point] curve points: all");
         curvePointDeletionService.deleteCurvePoints();
 
         return "redirect:/curvePoint/list";
