@@ -49,7 +49,7 @@ public class BidListController {
             OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
             model.addAttribute("username", oAuth2User.getAttributes().get("email"));
         }
-        logger.debug("[add bidList] authentication name: " + username);
+        logger.debug("[adding bidList] authentication name: " + username);
 
         /*Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String authenticationName = authentication.getName();
