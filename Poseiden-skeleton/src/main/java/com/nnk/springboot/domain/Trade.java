@@ -24,19 +24,26 @@ public class Trade {
     @Size(min=35)
     private String type;
 
+    @Size(min=0)
     private double buyQuantity;
+    @Size(min=0)
     private double sellQuantity;
+    @Size(min=0)
     private double buyPrice;
+    @Size(min=0)
     private double sellPrice;
     private String benchmark;
+    @Temporal(TemporalType.TIMESTAMP)
     private Timestamp tradeDate;
     private String security;
     private String status;
     private String trader;
     private String book;
     private String creationName;
+    @Temporal(TemporalType.TIMESTAMP)
     private Timestamp creationDate;
     private String revisionName;
+    @Temporal(TemporalType.TIMESTAMP)
     private Timestamp revisionDate;
     private String dealName;
     private String dealType;
