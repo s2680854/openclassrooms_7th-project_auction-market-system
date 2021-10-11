@@ -58,7 +58,7 @@ public class BidListController {
         Collection<BidsList> bidsList = bidsListReadService.getBidsListByEmail(authentication.getName());*/
         Collection<BidsList> bidsList = bidsListReadService.getBidsLists();
         model.addAttribute("bidsList", bidsList);
-        logger.debug("[home] bids list: " + bidsList);
+        logger.debug("[reading bids] bids: " + bidsList);
 
         return "bidList/list";
     }
@@ -66,19 +66,18 @@ public class BidListController {
     @GetMapping("/bidList/add")
     public String addBidForm(Model model) {
 
+        BidsList bid = new BidsList();
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
         if (!username.contains("@")) {
             OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
             username = oAuth2User.getAttributes().get("email").toString();
         }
+        logger.debug("[adding bid] username: " + username);
         model.addAttribute("username", username);
-        logger.debug("[add bidList] username: " + username);
 
-        BidsList bid = new BidsList();
         bid.setAccount(username);
         model.addAttribute(bid);
-        logger.debug("[add] bid: " + bid);
 
         return "bidList/add";
     }
@@ -87,14 +86,14 @@ public class BidListController {
     public String validate(@Valid BidsList bid, BindingResult result, Model model) {
 
 
-        logger.debug("[validate bid] account: " + bid.getAccount());
+        logger.debug("[validating bid] account: " + bid.getAccount());
         model.addAttribute(bid);
 
         if (result.hasErrors()) {
             return "bidList/add";
         }
 
-        logger.debug("[validate] bid: " + bid);
+        logger.debug("[validating bid] bid: " + bid);
         bidsListCreationService.createBidsList(bid);
 
         return "redirect:/bidList/list";
@@ -103,8 +102,8 @@ public class BidListController {
     @GetMapping("/bidList/update/{id}")
     public String showUpdateForm(@PathVariable("id") Long id, Model model) {
 
+        logger.debug("[updating bid form] show update form id: " + id);
         BidsList bid = bidsListReadService.getBidsListById(id);
-        logger.debug("[get update] bid: " + bid);
         model.addAttribute("bid", bid);
 
         return "bidList/update";
@@ -118,30 +117,18 @@ public class BidListController {
             return "bidList/add";
         }
 
-        logger.debug("[post update] bid: " + bidsList);
+        logger.debug("[updating bid]  id: " + id);
         bidsListUpdateService.updateBidsList(bidsList);
 
         return "redirect:/bidList/list";
     }
 
-    /*@DeleteMapping("/bidList/delete/{id}")
-    public String deleteBid(@PathVariable("id") Long id) {
-
-        bidsListDeletionService.deleteBidsListById(id);
-
-        return "";
-    }*/
-
-    /*4
-
-The th:method="delete" creates the hidden input field automatically for you. If you add it manually as well you will have it twice. Check the source code.
-
-I still got the POST Error message after the recommendations here. I found out Spring ignores those hidden fields by default. The solution is to activate it in your application.properties file:
-*/
-
     @RequestMapping(value="/bidList/delete/{id}", method = RequestMethod.DELETE)
     public String deleteBid(@PathVariable Long id) {
+
         bidsListDeletionService.deleteBidsListById(id);
+        logger.debug("[deleting bid] id: " + id);
+
         return "redirect:/bidList/list";
     }
 
@@ -149,6 +136,7 @@ I still got the POST Error message after the recommendations here. I found out S
     public String deleteAll() {
 
         bidsListDeletionService.deleteBidsLists();
+        logger.debug("[deleting bid] bids: all");
 
         return "redirect:/bidList/list";
     }
