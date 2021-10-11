@@ -3,7 +3,7 @@
 	  xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="utf-8"/>
-<title>Home</title>
+<title>Liste des régles | Le Boursier</title>
 <link rel="stylesheet" href="../../css/bootstrap.min.css" >
 </head>
 <body>
@@ -11,21 +11,21 @@
 	<div class="row">
 		<div class="col-6">
 			Menu :
-			<b><a href="/bidList/list">Bid List</a>&nbsp;|&nbsp;
-			<a href="/curvePoint/list">Curve Points</a>&nbsp;|&nbsp;
-			<a href="/rating/list">Ratings</a>&nbsp;|&nbsp;
-			<a href="/trade/list">Trade</a>&nbsp;|&nbsp;
-			<a href="/ruleName/list">Rule</a></b>
+			<b><a href="/bidList/list">Liste des offres</a>&nbsp;|&nbsp;
+				<a href="/curvePoint/list">Courbes</a>&nbsp;|&nbsp;
+				<a href="/rating/list">Taux</a>&nbsp;|&nbsp;
+				<a href="/trade/list">Marché</a>&nbsp;|&nbsp;
+				<a href="/ruleName/list">Règle</a></b>
 		</div>
 		<div class="col-6 text-right">
-			Logged in user: <b th:inline="text"  class="user"> [[${username}]] </b>
+			Authentifié(e) en tant que : <b th:inline="text"  class="user"> [[${username}]] </b>
 			<form th:action="@{/logout}" method="POST">
-				<a th:method="GET" th:href="@{/}" class="btn btn-primary btn-sm">Home</a>
-				<input type="submit" class="btn badge-secondary btn-sm" value="Logout"/>
+				<a th:method="GET" th:href="@{/}" class="btn btn-primary btn-sm">Accueil</a>
+				<input type="submit" class="btn badge-secondary btn-sm" value="Se déconnecter"/>
 			</form>
 		</div>
 	</div>
-	<div class="row"><h2>Rule List</h2></div>
+	<div class="row"><h2>Liste des régles</h2></div>
 	<div class="row">
 		<form action="#" th:action="@{'/ruleName/delete'}" th:method="delete" >
 			<a href="/ruleName/add" class="btn btn-primary btn-sm" style="margin-right: 10px;margin-bottom: 10px;">Add New</a>
@@ -35,30 +35,29 @@
 		<table class="table table-striped">
 			<thead>
 				<tr>
-					<th>Id</th>
-					<th>Name</th>
+					<th>ID</th>
+					<th>Nom</th>
 					<th>Description</th>
-					<th>json</th>
-					<th>template</th>
-					<th>sql</th>
-					<th>sqlPart</th>
-					<th>Action</th>
+					<th>JSON</th>
+					<th>Template</th>
+					<th>SQL String</th>
+					<th>SQL Part</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr th:each="rule: ${rules}">
-					<td th:text="${rule.id}">Id</td>
-					<td th:text="${rule.name}">Name</td>
+					<td th:text="${rule.id}">ID</td>
+					<td th:text="${rule.name}">Nom</td>
 					<td th:text="${rule.description}">Description</td>
-					<td th:text="${rule.json}">json</td>
-					<td th:text="${rule.template}">template</td>
+					<td th:text="${rule.json}">JSON</td>
+					<td th:text="${rule.template}">Template</td>
 					<td th:text="${rule.sqlStr}">SQL String</td>
 					<td th:text="${rule.sqlPart}">SQL Part</td>
 					<td style="width: 15%" class="text-center">
 						<form action="#" th:action="@{'/ruleName/delete/{id}'(id=${rule.id})}" th:method="delete" >
-							<a th:href="@{/ruleName/update/{id}(id=${rule.id})}" class="btn btn-primary btn-sm">Edit</a>
+							<a th:href="@{/ruleName/update/{id}(id=${rule.id})}" class="btn btn-primary btn-sm">Modifier</a>
 							<input type="hidden" name="_method" value="delete" />
-							<button type="submit" id="submitButton" class="btn btn-danger btn-sm">Delete</button>
+							<button type="submit" id="submitButton" class="btn btn-danger btn-sm">Supprimer</button>
 						</form>
 					</td>
 				</tr>

@@ -3,7 +3,7 @@
 	  xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="utf-8"/>
-<title>Home</title>
+<title>Liste des utilisateurs | Le Boursier</title>
 <link rel="stylesheet" type="text/css" href="../../css/bootstrap.min.css">
 </head>
 <body>
@@ -14,12 +14,12 @@
 		</div>
 		<div class="col-6 text-right" style="margin-top: 10px;">
 			<form th:action="@{/login}" method="GET">
-				<input type="submit" class="btn badge-primary btn-sm" value="Login"/>
-				<a th:href="@{/}" class="btn btn-secondary btn-sm">Home</a>
+				<input type="submit" class="btn badge-primary btn-sm" value="Se connecter"/>
+				<a th:href="@{/}" class="btn btn-secondary btn-sm">Accueil</a>
 			</form>
 		</div>
 	</div>
-	<div class="row"><h2>User List</h2></div>
+	<div class="row"><h2>Liste des utilisateurs</h2></div>
 	<div class="row">
 		<form action="#" th:action="@{'/user/delete'}" th:method="delete" >
 			<a href="/user/add" class="btn btn-primary btn-sm" style="margin-right: 10px;margin-bottom: 10px;">Add New</a>
@@ -29,11 +29,10 @@
 		<table class="table table-striped">
 			<thead>
 				<tr>
-					<th>Id</th>
-					<th>Full Name</th>
-					<th>User Name</th>
+					<th>ID</th>
+					<th>Nom complet</th>
+					<th>Courriel</th>
 					<th>Role</th>
-					<th>Action</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -44,9 +43,9 @@
 					<td style="width: 25%" th:text="${user.role}"></td>
 					<td style="width: 15%" class="text-center">
 						<form action="#" th:action="@{'/user/delete/{id}'(id=${user.id})}" th:method="delete" >
-							<a th:href="@{/user/update/{id}(id=${user.id})}" class="btn btn-primary btn-sm">Edit</a>
+							<a th:href="@{/user/update/{id}(id=${user.id})}" class="btn btn-primary btn-sm">Modifier</a>
 							<input type="hidden" name="_method" value="delete" />
-							<button type="submit" id="submitButton" class="btn btn-danger btn-sm">Delete</button>
+							<button type="submit" id="submitButton" class="btn btn-danger btn-sm">Supprimer</button>
 						</form>
 					</td>
 				</tr>
