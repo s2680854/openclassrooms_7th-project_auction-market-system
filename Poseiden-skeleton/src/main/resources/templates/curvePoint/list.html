@@ -11,11 +11,11 @@
 	<div class="row">
 		<div class="col-6">
 			Menu :
-			<b><a href="/bidList/list">Bid List</a>&nbsp;|&nbsp;
-			<a href="/curvePoint/list">Curve Points</a>&nbsp;|&nbsp;
-			<a href="/rating/list">Ratings</a>&nbsp;|&nbsp;
-			<a href="/trade/list">Trade</a>&nbsp;|&nbsp;
-			<a href="/ruleName/list">Rule</a></b>
+			<b><a href="/bidList/list">Liste des offres</a>&nbsp;|&nbsp;
+				<a href="/curvePoint/list">Courbes</a>&nbsp;|&nbsp;
+				<a href="/rating/list">Taux</a>&nbsp;|&nbsp;
+				<a href="/trade/list">Marché</a>&nbsp;|&nbsp;
+				<a href="/ruleName/list">Règle</a></b>
 		</div>
 		<div class="col-6 text-right">
 			Authentifié(e) en tant que : <b th:inline="text"  class="user"> [[${username}]] </b>
@@ -35,11 +35,10 @@
 		<table class="table table-striped">
 			<thead>
 				<tr>
-					<th>Id</th>
-					<th>CurvePointId</th>
-					<th>Term</th>
-					<th>Value</th>
-					<th>Action</th>
+					<th>ID</th>
+					<th>ID de Courbe</th>
+					<th>Terme</th>
+					<th>Valeur</th>
 				</tr>
 			</thead>
 			<tbody>
