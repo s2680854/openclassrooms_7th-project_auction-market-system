@@ -76,7 +76,7 @@ public class UserControllerTest {
 
         mockMvc.perform(delete("/user/delete/" + id))
                 .andExpect(status().is(302))
-                .andExpect(view().name("user/list"));
+                .andExpect(view().name("redirect:/user/list"));
     }
 
     @Test
@@ -84,6 +84,6 @@ public class UserControllerTest {
 
         mockMvc.perform(delete("/user/delete"))
                 .andExpect(status().is(302))
-                .andExpect(view().name("user/list"));
+                .andExpect(view().name("redirect:/user/list"));
     }
 }
