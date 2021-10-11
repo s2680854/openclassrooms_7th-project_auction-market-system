@@ -28,9 +28,9 @@
 	<div class="row"><h2>Liste des régles</h2></div>
 	<div class="row">
 		<form action="#" th:action="@{'/ruleName/delete'}" th:method="delete" >
-			<a href="/ruleName/add" class="btn btn-primary btn-sm" style="margin-right: 10px;margin-bottom: 10px;">Add New</a>
+			<a href="/ruleName/add" class="btn btn-primary btn-sm" style="margin-right: 10px;margin-bottom: 10px;">Ajouter une règle</a>
 			<input type="hidden" name="_method" value="delete" />
-			<button type="submit" id="submitAllButton" class="btn btn-danger btn-sm" style="margin-right: 10px;margin-bottom: 10px;">Delete All</button>
+			<button type="submit" id="submitAllButton" class="btn btn-danger btn-sm" style="margin-right: 10px;margin-bottom: 10px;">Tout supprimer</button>
 		</form>
 		<table class="table table-striped">
 			<thead>
@@ -54,8 +54,8 @@
 					<td th:text="${rule.sqlStr}">SQL String</td>
 					<td th:text="${rule.sqlPart}">SQL Part</td>
 					<td style="width: 15%" class="text-center">
-						<form action="#" th:action="@{'/ruleName/delete/{id}'(id=${rule.id})}" th:method="delete" >
-							<a th:href="@{/ruleName/update/{id}(id=${rule.id})}" class="btn btn-primary btn-sm">Modifier</a>
+						<form action="#" th:action="@{'/ruleName/delete/{id}'(id=${rule.id})}" th:method="delete" style="display: flex;">
+							<a th:href="@{/ruleName/update/{id}(id=${rule.id})}" class="btn btn-primary btn-sm"  style="margin-right: 10px;">Modifier</a>
 							<input type="hidden" name="_method" value="delete" />
 							<button type="submit" id="submitButton" class="btn btn-danger btn-sm">Supprimer</button>
 						</form>

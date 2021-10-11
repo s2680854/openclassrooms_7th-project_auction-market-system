@@ -28,9 +28,9 @@
 	<div class="row"><h2>Liste des courbes</h2></div>
 	<div class="row">
 		<form action="#" th:action="@{'/curvePoint/delete'}" th:method="delete" >
-			<a href="/curvePoint/add" class="btn btn-primary btn-sm" style="margin-right: 10px;margin-bottom: 10px;">Add New</a>
+			<a href="/curvePoint/add" class="btn btn-primary btn-sm" style="margin-right: 10px;margin-bottom: 10px;">Ajouter une courbe</a>
 			<input type="hidden" name="_method" value="delete" />
-			<button type="submit" id="submitAllButton" class="btn btn-danger btn-sm" style="margin-right: 10px;margin-bottom: 10px;">Delete All</button>
+			<button type="submit" id="submitAllButton" class="btn btn-danger btn-sm" style="margin-right: 10px;margin-bottom: 10px;">Tout supprimer</button>
 		</form>
 		<table class="table table-striped">
 			<thead>
@@ -48,8 +48,8 @@
 				<td th:text="${curvePoint.term}">Terme</td>
 				<td th:text="${curvePoint.value}">Valeur</td>
 				<td style="width: 15%" class="text-center">
-					<form action="#" th:action="@{'/curvePoint/delete/{id}'(id=${curvePoint.id})}" th:method="delete" >
-						<a th:href="@{/curvePoint/update/{id}(id=${curvePoint.id})}" class="btn btn-primary btn-sm">Modifier</a>
+					<form action="#" th:action="@{'/curvePoint/delete/{id}'(id=${curvePoint.id})}" th:method="delete" style="display: flex;">
+						<a th:href="@{/curvePoint/update/{id}(id=${curvePoint.id})}" class="btn btn-primary btn-sm"  style="margin-right: 10px;">Modifier</a>
 						<input type="hidden" name="_method" value="delete" />
 						<button type="submit" id="submitButton" class="btn btn-danger btn-sm">Supprimer</button>
 					</form>
