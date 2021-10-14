@@ -38,7 +38,7 @@ public class TradeControllerTest {
     public void shouldGetTradeList() throws Exception {
 
         mockMvc.perform(get("/trade/list"))
-                .andExpect(status().isOk())
+                .andExpect(status().is(401))
                 .andExpect(view().name("trade/list"));
     }
 
@@ -46,13 +46,14 @@ public class TradeControllerTest {
     public void shouldAddTrade() throws Exception {
 
         mockMvc.perform(get("/trade/add"))
-                .andExpect(status().isOk())
+                .andExpect(status().is(401))
                 .andExpect(view().name("trade/add"));
     }
 
     @Test
     public void shouldShowUpdateTradeForm() throws Exception {
 
+        tradeRepository.deleteAll();
         Trade trade = new Trade();
         trade.setAccount("david@test.com");
         trade.setType("Amazon");
@@ -67,6 +68,7 @@ public class TradeControllerTest {
     @Test
     public void shouldDeleteTrade() throws Exception {
 
+        tradeRepository.deleteAll();
         Trade trade = new Trade();
         trade.setAccount("david@test.com");
         trade.setType("Free");
@@ -74,7 +76,7 @@ public class TradeControllerTest {
         Long id = tradeRepository.findByType("Free").getId();
 
         mockMvc.perform(delete("/trade/delete/" + id))
-                .andExpect(status().is(302))
+                .andExpect(status().is(401))
                 .andExpect(view().name("redirect:/trade/list"));
     }
 
@@ -82,7 +84,7 @@ public class TradeControllerTest {
     public void shouldDeleteTradeList() throws Exception {
 
         mockMvc.perform(delete("/trade/delete"))
-                .andExpect(status().is(302))
+                .andExpect(status().is(401))
                 .andExpect(view().name("redirect:/trade/list"));
     }
 }
