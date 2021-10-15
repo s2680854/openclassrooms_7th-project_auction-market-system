@@ -1,6 +1,5 @@
 package com.nnk.springboot.service;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nnk.springboot.domain.User;
 import com.nnk.springboot.repositories.UserRepository;
 import com.nnk.springboot.service.user.UserCreationService;
@@ -16,14 +15,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -32,8 +29,6 @@ public class UserServiceTest {
 
     @Autowired
     private MockMvc mockMvc;
-    @Autowired
-    private ObjectMapper objectMapper;
     @MockBean
     private UserCreationService userCreationService;
     @MockBean
@@ -71,38 +66,28 @@ public class UserServiceTest {
         user.setRole("ADMIN");
         user.setId(userRepository.findByEmail("grinngotts@jkr.com").getId());
 
-        List<User> users = new ArrayList<>();
-        users.add(user);
+        Collection<User> actualList = new ArrayList<>();
+        actualList.add(user);
 
-        Mockito.when(userReadService.getUsers()).thenReturn(users);
+        Collection<User> expectedList = userReadService.getUsers();
 
-        MvcResult mvcResult = mockMvc.perform(get("/user")).andExpect(status().isOk()).andReturn();
-
-        String actualResponse = mvcResult.getResponse().getContentAsString();
-        String expectedResponse = objectMapper.writeValueAsString(users);
-
-        assertEquals(actualResponse, expectedResponse);
+        assertEquals(actualList, expectedList);
     }
 
     @Test
     public void shouldGetUserById() throws Exception {
 
-        Long userId = userRepository.findByEmail("grinngotts@jkr.com").getId();
+        Long id = userRepository.findByEmail("grinngotts@jkr.com").getId();
 
-        User user = new User();
-        user.setUsername("grinngotts@jkr.com");
-        user.setPassword("1234567");
-        user.setFullname("Grinngott's");
-        user.setRole("ADMIN");
+        User expected = new User();
+        expected.setUsername("grinngotts@jkr.com");
+        expected.setPassword("1234567");
+        expected.setFullname("Grinngott's");
+        expected.setRole("ADMIN");
 
-        Mockito.when(userReadService.getUser(userId)).thenReturn(user);
+        User actual = userReadService.getUser(id);
 
-        MvcResult mvcResult = mockMvc.perform(get("/user/" + userId)).andExpect(status().isOk()).andReturn();
-
-        String actualResponse = mvcResult.getResponse().getContentAsString();
-        String expectedResponse = objectMapper.writeValueAsString(user);
-
-        assertEquals(actualResponse, expectedResponse);
+        assertEquals(expected, actual);
     }
 
 
@@ -113,7 +98,7 @@ public class UserServiceTest {
 
         Mockito.doNothing().when(userDeletionService).deleteUserById(userId);
 
-        mockMvc.perform(delete("/user/" + userId)).andExpect(status().isOk());
+        mockMvc.perform(delete("/user/delete/" + userId)).andExpect(status().isOk());
 
         Mockito.verify(userDeletionService, Mockito.times(1)).deleteUserById(userId);
     }
@@ -123,7 +108,7 @@ public class UserServiceTest {
 
         Mockito.doNothing().when(userDeletionService).deleteUsers();
 
-        mockMvc.perform(delete("/user")).andExpect(status().isOk());
+        mockMvc.perform(delete("/user/delete")).andExpect(status().isOk());
 
         Mockito.verify(userDeletionService, Mockito.times(1)).deleteUsers();
     }
