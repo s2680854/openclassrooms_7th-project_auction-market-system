@@ -1,10 +1,10 @@
 package com.nnk.springboot.controller;
 
 import com.nnk.springboot.domain.BidsList;
-import com.nnk.springboot.service.bidslist.BidsListCreationService;
-import com.nnk.springboot.service.bidslist.BidsListDeletionService;
-import com.nnk.springboot.service.bidslist.BidsListReadService;
-import com.nnk.springboot.service.bidslist.BidsListUpdateService;
+import com.nnk.springboot.controllers.bidslist.BidsListCreationService;
+import com.nnk.springboot.controllers.bidslist.BidsListDeletionService;
+import com.nnk.springboot.controllers.bidslist.BidsListReadService;
+import com.nnk.springboot.controllers.bidslist.BidsListUpdateService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;

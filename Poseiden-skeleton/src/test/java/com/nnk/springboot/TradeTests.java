@@ -39,6 +39,6 @@ public class TradeTests {
 		Long id = trade.getId();
 		tradeRepository.delete(trade);
 		Optional<Trade> tradeList = tradeRepository.findById(id);
-		assertTrue(tradeList.isPresent());
+		assertFalse(tradeList.isPresent());
 	}
 }
