@@ -1,10 +1,10 @@
 package com.nnk.springboot.controller;
 
 import com.nnk.springboot.domain.User;
-import com.nnk.springboot.controllers.user.UserCreationService;
-import com.nnk.springboot.controllers.user.UserDeletionService;
-import com.nnk.springboot.controllers.user.UserReadService;
-import com.nnk.springboot.controllers.user.UserUpdateService;
+import com.nnk.springboot.service.user.UserCreationService;
+import com.nnk.springboot.service.user.UserDeletionService;
+import com.nnk.springboot.service.user.UserReadService;
+import com.nnk.springboot.service.user.UserUpdateService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
