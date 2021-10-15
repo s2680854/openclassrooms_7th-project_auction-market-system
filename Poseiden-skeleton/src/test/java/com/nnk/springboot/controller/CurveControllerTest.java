@@ -1,22 +1,17 @@
 package com.nnk.springboot.controller;
 
 import com.nnk.springboot.controllers.CurveController;
-import com.nnk.springboot.controllers.UserController;
 import com.nnk.springboot.domain.CurvePoint;
-import com.nnk.springboot.domain.User;
 import com.nnk.springboot.repositories.CurvePointRepository;
-import com.nnk.springboot.repositories.UserRepository;
 import org.aspectj.lang.annotation.Before;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
@@ -36,22 +31,6 @@ public class CurveControllerTest {
 
         curveController = new CurveController();
         mockMvc = MockMvcBuilders.standaloneSetup(curveController).build();
-    }
-
-    @Test
-    public void shouldGetCurveList() throws Exception {
-
-        mockMvc.perform(get("/curvePoint/list"))
-                .andExpect(status().is(401))
-                .andExpect(view().name("curvePoint/list"));
-    }
-
-    @Test
-    public void shouldAddCurve() throws Exception {
-
-        mockMvc.perform(get("/curvePoint/add"))
-                .andExpect(status().is(401))
-                .andExpect(view().name("curvePoint/add"));
     }
 
     @Test
@@ -75,15 +54,6 @@ public class CurveControllerTest {
         Long id = curvePointRepository.findByCurveId(1).getId();
 
         mockMvc.perform(delete("/curvePoint/delete/" + id))
-                .andExpect(status().is(401))
-                .andExpect(view().name("redirect:/curvePoint/list"));
-    }
-
-    @Test
-    public void shouldDeleteCurveList() throws Exception {
-
-        mockMvc.perform(delete("/curvePoint/delete"))
-                .andExpect(status().is(401))
                 .andExpect(view().name("redirect:/curvePoint/list"));
     }
 }

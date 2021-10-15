@@ -35,22 +35,6 @@ public class TradeControllerTest {
     }
 
     @Test
-    public void shouldGetTradeList() throws Exception {
-
-        mockMvc.perform(get("/trade/list"))
-                .andExpect(status().is(401))
-                .andExpect(view().name("trade/list"));
-    }
-
-    @Test
-    public void shouldAddTrade() throws Exception {
-
-        mockMvc.perform(get("/trade/add"))
-                .andExpect(status().is(401))
-                .andExpect(view().name("trade/add"));
-    }
-
-    @Test
     public void shouldShowUpdateTradeForm() throws Exception {
 
         tradeRepository.deleteAll();
@@ -76,15 +60,6 @@ public class TradeControllerTest {
         Long id = tradeRepository.findByType("Free").getId();
 
         mockMvc.perform(delete("/trade/delete/" + id))
-                .andExpect(status().is(401))
-                .andExpect(view().name("redirect:/trade/list"));
-    }
-
-    @Test
-    public void shouldDeleteTradeList() throws Exception {
-
-        mockMvc.perform(delete("/trade/delete"))
-                .andExpect(status().is(401))
                 .andExpect(view().name("redirect:/trade/list"));
     }
 }

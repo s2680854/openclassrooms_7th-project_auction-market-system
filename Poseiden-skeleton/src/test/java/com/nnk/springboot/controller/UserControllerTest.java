@@ -75,7 +75,6 @@ public class UserControllerTest {
         Long id = userRepository.findByEmail("david@test.com").getId();
 
         mockMvc.perform(delete("/user/delete/" + id))
-                .andExpect(status().is(302))
                 .andExpect(view().name("redirect:/user/list"));
     }
 
@@ -83,7 +82,6 @@ public class UserControllerTest {
     public void shouldDeleteUserList() throws Exception {
 
         mockMvc.perform(delete("/user/delete"))
-                .andExpect(status().is(302))
                 .andExpect(view().name("redirect:/user/list"));
     }
 }
