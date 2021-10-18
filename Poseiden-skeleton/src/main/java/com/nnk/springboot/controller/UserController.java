@@ -15,6 +15,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Optional;
 
 @Controller
 public class UserController {
@@ -62,7 +63,15 @@ public class UserController {
 
     @GetMapping("/user/update/{id}")
     public String showUpdateForm(@PathVariable("id") Long id, Model model) {
-        User user = userReadService.getUser(id);
+
+        Optional<User> optional = userReadService.getUser(id);
+        User user = new User();
+        if (optional.isPresent()) {
+            user.setUsername(optional.get().getUsername());
+            user.setFullname(optional.get().getFullname());
+            user.setRole(optional.get().getRole());
+        }
+
         user.setPassword("");
         model.addAttribute("user", user);
         return "user/update";
@@ -85,8 +94,8 @@ public class UserController {
 
     @DeleteMapping("/user/delete/{id}")
     public String deleteUser(@PathVariable("id") Long id, Model model) {
-        User user = userReadService.getUser(id);
-        userDeletionService.deleteUserById(user.getId());
+
+        userDeletionService.deleteUserById(id);
         model.addAttribute("users", userReadService.getUsers());
         return "redirect:/user/list";
     }

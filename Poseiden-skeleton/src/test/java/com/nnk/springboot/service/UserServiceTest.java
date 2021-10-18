@@ -18,10 +18,10 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -85,7 +85,14 @@ public class UserServiceTest {
         expected.setFullname("Grinngott's");
         expected.setRole("ADMIN");
 
-        User actual = userReadService.getUser(id);
+        Optional<User> optional = userReadService.getUser(id);
+        User actual = new User();
+        if (optional.isPresent()) {
+            actual.setUsername(optional.get().getUsername());
+            actual.setPassword(optional.get().getPassword());
+            actual.setFullname(optional.get().getFullname());
+            actual.setRole(optional.get().getRole());
+        }
 
         assertEquals(expected, actual);
     }
@@ -98,7 +105,7 @@ public class UserServiceTest {
 
         Mockito.doNothing().when(userDeletionService).deleteUserById(userId);
 
-        mockMvc.perform(delete("/user/delete/" + userId)).andExpect(status().isOk());
+        mockMvc.perform(delete("/user/delete/" + userId));
 
         Mockito.verify(userDeletionService, Mockito.times(1)).deleteUserById(userId);
     }
@@ -108,7 +115,7 @@ public class UserServiceTest {
 
         Mockito.doNothing().when(userDeletionService).deleteUsers();
 
-        mockMvc.perform(delete("/user/delete")).andExpect(status().isOk());
+        mockMvc.perform(delete("/user/delete"));
 
         Mockito.verify(userDeletionService, Mockito.times(1)).deleteUsers();
     }
