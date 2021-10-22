@@ -76,7 +76,16 @@ public class UserControllerTest {
     @Test
     public void shouldDeleteUser() throws Exception {
 
-        Long id = userRepository.findByEmail("david@test.com").getId();
+        User user = new User();
+        user.setUsername("grinngotts2@jkr.com");
+        user.setPassword("1234567");
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String encodedPassword = passwordEncoder.encode(user.getPassword());
+        user.setPassword(encodedPassword);
+        user.setFullname("Grinngott's");
+        user.setRole("ADMIN");
+        userRepository.save(user);
+        Long id = userRepository.findByEmail("grinngotts2@jkr.com").getId();
 
         mockMvc.perform(delete("/user/delete/" + id))
                 .andExpect(view().name("redirect:/user/list"));
