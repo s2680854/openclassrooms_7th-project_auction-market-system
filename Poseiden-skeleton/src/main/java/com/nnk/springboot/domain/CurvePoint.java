@@ -34,6 +34,54 @@ public class CurvePoint {
 
     public CurvePoint() {  }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public int getCurveId() {
+        return curveId;
+    }
+
+    public void setCurveId(int curveId) {
+        this.curveId = curveId;
+    }
+
+    public double getTerm() {
+        return term;
+    }
+
+    public void setTerm(double term) {
+        this.term = term;
+    }
+
+    public double getValue() {
+        return value;
+    }
+
+    public void setValue(double value) {
+        this.value = value;
+    }
+
+    public Timestamp getAsOfDate() {
+        return asOfDate;
+    }
+
+    public void setAsOfDate(Timestamp asOfDate) {
+        this.asOfDate = asOfDate;
+    }
+
+    public Timestamp getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(Timestamp creationDate) {
+        this.creationDate = creationDate;
+    }
+
     @Override
     public String toString() {
         return "CurvePoint{" +
