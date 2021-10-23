@@ -11,7 +11,6 @@ import javax.validation.constraints.Size;
 import java.sql.Date;
 import java.sql.Timestamp;
 
-@Data
 @Entity
 @Table(name = "bidlist")
 public class BidsList {
@@ -76,4 +75,32 @@ public class BidsList {
     }
 
     public BidsList() {  }
+
+    @Override
+    public String toString() {
+        return "BidsList{" +
+                "id=" + id +
+                ", account='" + account + '\'' +
+                ", type='" + type + '\'' +
+                ", bidQuantity=" + bidQuantity +
+                ", askQuantity=" + askQuantity +
+                ", bid=" + bid +
+                ", ask=" + ask +
+                ", benchmark='" + benchmark + '\'' +
+                ", bidsListDate=" + bidsListDate +
+                ", commentary='" + commentary + '\'' +
+                ", security='" + security + '\'' +
+                ", status='" + status + '\'' +
+                ", trader='" + trader + '\'' +
+                ", book='" + book + '\'' +
+                ", creationName='" + creationName + '\'' +
+                ", creationDate=" + creationDate +
+                ", revisionName='" + revisionName + '\'' +
+                ", revisionDate=" + revisionDate +
+                ", dealName='" + dealName + '\'' +
+                ", dealType='" + dealType + '\'' +
+                ", sourceListId='" + sourceListId + '\'' +
+                ", side='" + side + '\'' +
+                '}';
+    }
 }

@@ -7,7 +7,6 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.sql.Timestamp;
 
-@Data
 @Entity
 @Table(name = "rulename")
 public class Rule {
@@ -49,5 +48,18 @@ public class Rule {
         this.sqlPart = sqlPart;
     }
 
-    public Rule() {  };
+    public Rule() {  }
+
+    @Override
+    public String toString() {
+        return "Rule{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", json='" + json + '\'' +
+                ", template='" + template + '\'' +
+                ", sqlStr='" + sqlStr + '\'' +
+                ", sqlPart='" + sqlPart + '\'' +
+                '}';
+    }
 }

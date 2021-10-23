@@ -8,7 +8,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.sql.Timestamp;
 
-@Data
 @Entity
 @Table(name = "rating")
 public class Rating {
@@ -40,5 +39,16 @@ public class Rating {
         this.orderNumber = orderNumber;
     }
 
-    public Rating() {  };
+    public Rating() {  }
+
+    @Override
+    public String toString() {
+        return "Rating{" +
+                "id=" + id +
+                ", moodysRating='" + moodysRating + '\'' +
+                ", sandPRating='" + sandPRating + '\'' +
+                ", fitchRating='" + fitchRating + '\'' +
+                ", orderNumber=" + orderNumber +
+                '}';
+    }
 }

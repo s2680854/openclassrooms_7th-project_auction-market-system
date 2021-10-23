@@ -8,7 +8,6 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.sql.Timestamp;
 
-@Data
 @Entity
 @Table(name = "trade")
 public class Trade {
@@ -53,5 +52,32 @@ public class Trade {
         this.type = type;
     }
 
-    public Trade() {  };
+    public Trade() {  }
+
+    @Override
+    public String toString() {
+        return "Trade{" +
+                "id=" + id +
+                ", account='" + account + '\'' +
+                ", type='" + type + '\'' +
+                ", buyQuantity=" + buyQuantity +
+                ", sellQuantity=" + sellQuantity +
+                ", buyPrice=" + buyPrice +
+                ", sellPrice=" + sellPrice +
+                ", benchmark='" + benchmark + '\'' +
+                ", tradeDate=" + tradeDate +
+                ", security='" + security + '\'' +
+                ", status='" + status + '\'' +
+                ", trader='" + trader + '\'' +
+                ", book='" + book + '\'' +
+                ", creationName='" + creationName + '\'' +
+                ", creationDate=" + creationDate +
+                ", revisionName='" + revisionName + '\'' +
+                ", revisionDate=" + revisionDate +
+                ", dealName='" + dealName + '\'' +
+                ", dealType='" + dealType + '\'' +
+                ", sourceListId='" + sourceListId + '\'' +
+                ", side='" + side + '\'' +
+                '}';
+    }
 }

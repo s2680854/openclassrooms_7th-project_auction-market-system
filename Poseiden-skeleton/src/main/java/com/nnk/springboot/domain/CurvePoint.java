@@ -6,7 +6,6 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.sql.Timestamp;
 
-@Data
 @Entity
 @Table(name = "curvepoint")
 public class CurvePoint {
@@ -33,5 +32,17 @@ public class CurvePoint {
         this.value = value;
     }
 
-    public CurvePoint() {  };
+    public CurvePoint() {  }
+
+    @Override
+    public String toString() {
+        return "CurvePoint{" +
+                "id=" + id +
+                ", curveId=" + curveId +
+                ", term=" + term +
+                ", value=" + value +
+                ", asOfDate=" + asOfDate +
+                ", creationDate=" + creationDate +
+                '}';
+    }
 }
