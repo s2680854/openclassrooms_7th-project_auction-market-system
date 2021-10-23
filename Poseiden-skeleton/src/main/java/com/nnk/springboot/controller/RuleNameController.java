@@ -2,7 +2,7 @@ package com.nnk.springboot.controller;
 
 import com.nnk.springboot.domain.Rule;
 import com.nnk.springboot.service.rule.RuleCreationService;
-import com.nnk.springboot.service.rule.RuleDeleteService;
+import com.nnk.springboot.service.rule.RuleDeletionService;
 import com.nnk.springboot.service.rule.RuleReadService;
 import com.nnk.springboot.service.rule.RuleUpdateService;
 import org.apache.logging.log4j.LogManager;
@@ -31,7 +31,7 @@ public class RuleNameController {
     @Autowired
     private RuleUpdateService ruleUpdateService;
     @Autowired
-    private RuleDeleteService ruleDeleteService;
+    private RuleDeletionService ruleDeleteService;
 
     @GetMapping("/ruleName/list")
     public String home(Model model) {

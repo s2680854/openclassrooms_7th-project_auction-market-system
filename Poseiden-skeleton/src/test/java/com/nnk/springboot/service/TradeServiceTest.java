@@ -4,10 +4,8 @@ import com.nnk.springboot.domain.Trade;
 import com.nnk.springboot.domain.User;
 import com.nnk.springboot.repositories.TradeRepository;
 import com.nnk.springboot.repositories.UserRepository;
-import com.nnk.springboot.service.trade.TradeCreationService;
 import com.nnk.springboot.service.trade.TradeDeletionService;
 import com.nnk.springboot.service.trade.TradeReadService;
-import com.nnk.springboot.service.trade.TradeUpdateService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -32,11 +30,7 @@ public class TradeServiceTest {
     @Autowired
     private MockMvc mockMvc;
     @MockBean
-    private TradeCreationService tradeCreationService;
-    @MockBean
     private TradeReadService tradeReadService;
-    @MockBean
-    private TradeUpdateService tradeUpdateService;
     @MockBean
     private TradeDeletionService tradeDeletionService;
     @Autowired

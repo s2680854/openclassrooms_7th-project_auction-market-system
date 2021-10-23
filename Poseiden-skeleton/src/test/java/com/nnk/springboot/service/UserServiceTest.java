@@ -2,10 +2,8 @@ package com.nnk.springboot.service;
 
 import com.nnk.springboot.domain.User;
 import com.nnk.springboot.repositories.UserRepository;
-import com.nnk.springboot.service.user.UserCreationService;
 import com.nnk.springboot.service.user.UserDeletionService;
 import com.nnk.springboot.service.user.UserReadService;
-import com.nnk.springboot.service.user.UserUpdateService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -30,11 +28,7 @@ public class UserServiceTest {
     @Autowired
     private MockMvc mockMvc;
     @MockBean
-    private UserCreationService userCreationService;
-    @MockBean
     private UserReadService userReadService;
-    @MockBean
-    private UserUpdateService userUpdateService;
     @MockBean
     private UserDeletionService userDeletionService;
     @Autowired
