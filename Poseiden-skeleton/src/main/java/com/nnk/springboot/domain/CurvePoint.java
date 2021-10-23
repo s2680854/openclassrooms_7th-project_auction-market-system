@@ -5,6 +5,7 @@ import lombok.Data;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.sql.Timestamp;
+import java.util.Objects;
 
 @Entity
 @Table(name = "curvepoint")
@@ -92,5 +93,13 @@ public class CurvePoint {
                 ", asOfDate=" + asOfDate +
                 ", creationDate=" + creationDate +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CurvePoint that = (CurvePoint) o;
+        return curveId == that.curveId && Double.compare(that.term, term) == 0 && Double.compare(that.value, value) == 0 && Objects.equals(asOfDate, that.asOfDate) && Objects.equals(creationDate, that.creationDate);
     }
 }

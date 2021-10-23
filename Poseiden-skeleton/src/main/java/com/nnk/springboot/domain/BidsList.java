@@ -10,6 +10,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.Objects;
 
 @Entity
 @Table(name = "bidlist")
@@ -278,5 +279,13 @@ public class BidsList {
                 ", sourceListId='" + sourceListId + '\'' +
                 ", side='" + side + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        BidsList bidsList = (BidsList) o;
+        return Double.compare(bidsList.bidQuantity, bidQuantity) == 0 && Double.compare(bidsList.askQuantity, askQuantity) == 0 && Double.compare(bidsList.bid, bid) == 0 && Double.compare(bidsList.ask, ask) == 0 && Objects.equals(account, bidsList.account) && Objects.equals(type, bidsList.type) && Objects.equals(benchmark, bidsList.benchmark) && Objects.equals(bidsListDate, bidsList.bidsListDate) && Objects.equals(commentary, bidsList.commentary) && Objects.equals(security, bidsList.security) && Objects.equals(status, bidsList.status) && Objects.equals(trader, bidsList.trader) && Objects.equals(book, bidsList.book) && Objects.equals(creationName, bidsList.creationName) && Objects.equals(creationDate, bidsList.creationDate) && Objects.equals(revisionName, bidsList.revisionName) && Objects.equals(revisionDate, bidsList.revisionDate) && Objects.equals(dealName, bidsList.dealName) && Objects.equals(dealType, bidsList.dealType) && Objects.equals(sourceListId, bidsList.sourceListId) && Objects.equals(side, bidsList.side);
     }
 }

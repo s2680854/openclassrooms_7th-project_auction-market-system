@@ -6,6 +6,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.sql.Timestamp;
+import java.util.Objects;
 
 @Entity
 @Table(name = "rulename")
@@ -117,5 +118,13 @@ public class Rule {
                 ", sqlStr='" + sqlStr + '\'' +
                 ", sqlPart='" + sqlPart + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Rule rule = (Rule) o;
+        return Objects.equals(name, rule.name) && Objects.equals(description, rule.description) && Objects.equals(json, rule.json) && Objects.equals(template, rule.template) && Objects.equals(sqlStr, rule.sqlStr) && Objects.equals(sqlPart, rule.sqlPart);
     }
 }

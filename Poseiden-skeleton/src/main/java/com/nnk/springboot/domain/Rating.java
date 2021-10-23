@@ -7,6 +7,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.sql.Timestamp;
+import java.util.Objects;
 
 @Entity
 @Table(name = "rating")
@@ -90,5 +91,13 @@ public class Rating {
                 ", fitchRating='" + fitchRating + '\'' +
                 ", orderNumber=" + orderNumber +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Rating rating = (Rating) o;
+        return orderNumber == rating.orderNumber && Objects.equals(moodysRating, rating.moodysRating) && Objects.equals(sandPRating, rating.sandPRating) && Objects.equals(fitchRating, rating.fitchRating);
     }
 }

@@ -7,6 +7,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.sql.Timestamp;
+import java.util.Objects;
 
 @Entity
 @Table(name = "trade")
@@ -247,5 +248,13 @@ public class Trade {
                 ", sourceListId='" + sourceListId + '\'' +
                 ", side='" + side + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Trade trade = (Trade) o;
+        return Double.compare(trade.buyQuantity, buyQuantity) == 0 && Double.compare(trade.sellQuantity, sellQuantity) == 0 && Double.compare(trade.buyPrice, buyPrice) == 0 && Double.compare(trade.sellPrice, sellPrice) == 0 && Objects.equals(account, trade.account) && Objects.equals(type, trade.type) && Objects.equals(benchmark, trade.benchmark) && Objects.equals(tradeDate, trade.tradeDate) && Objects.equals(security, trade.security) && Objects.equals(status, trade.status) && Objects.equals(trader, trade.trader) && Objects.equals(book, trade.book) && Objects.equals(creationName, trade.creationName) && Objects.equals(creationDate, trade.creationDate) && Objects.equals(revisionName, trade.revisionName) && Objects.equals(revisionDate, trade.revisionDate) && Objects.equals(dealName, trade.dealName) && Objects.equals(dealType, trade.dealType) && Objects.equals(sourceListId, trade.sourceListId) && Objects.equals(side, trade.side);
     }
 }
