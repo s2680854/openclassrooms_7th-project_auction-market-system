@@ -5,9 +5,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface CurvePointRepository extends JpaRepository<CurvePoint, Long> {
 
-    @Query("SELECT u FROM CurvePoint u WHERE u.curveId = ?1")
-    CurvePoint findByCurveId(Integer id);
+    Optional<CurvePoint> findByCurveId(Integer id);
 }

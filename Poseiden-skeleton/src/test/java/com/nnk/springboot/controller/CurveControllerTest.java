@@ -40,7 +40,7 @@ public class CurveControllerTest {
         curvePoint.setTerm(0.5d);
         curvePoint.setValue(10d);
         curvePointRepository.save(curvePoint);
-        Long id = curvePointRepository.findByCurveId(1).getId();
+        Long id = curvePointRepository.findByCurveId(1).get().getId();
 
         mockMvc.perform(get("/curvePoint/update/" + id))
                 .andExpect(status().isOk())
@@ -50,7 +50,7 @@ public class CurveControllerTest {
     @Test
     public void shouldDeleteCurve() throws Exception {
 
-        Long id = curvePointRepository.findByCurveId(1).getId();
+        Long id = curvePointRepository.findByCurveId(1).get().getId();
 
         mockMvc.perform(delete("/curvePoint/delete/" + id))
                 .andExpect(view().name("redirect:/curvePoint/list"));

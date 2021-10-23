@@ -52,7 +52,7 @@ public class CurveServiceTest {
         curvePoint.setValue(10d);
         curvePointRepository.save(curvePoint);
         Long id = 1L;
-        try {id = curvePointRepository.findByCurveId(1).getId();} catch (Exception e) {}
+        try {id = curvePointRepository.findByCurveId(1).get().getId();} catch (Exception e) {}
 
         CurvePoint expected = new CurvePoint();
 
@@ -77,7 +77,7 @@ public class CurveServiceTest {
         curvePoint.setTerm(0.5d);
         curvePoint.setValue(10d);
         curvePointRepository.save(curvePoint);
-        Long curvePointId = curvePointRepository.findByCurveId(2).getId();
+        Long curvePointId = curvePointRepository.findByCurveId(2).get().getId();
 
         Mockito.doNothing().when(curvePointDeletionService).deleteCurvePointById(curvePointId);
 
