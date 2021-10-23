@@ -41,7 +41,7 @@ public class TradeControllerTest {
         trade.setAccount("david@test.com");
         trade.setType("Amazon");
         tradeRepository.save(trade);
-        Long id = tradeRepository.findByType("Amazon").getId();
+        Long id = tradeRepository.findByType("Amazon").get().getId();
 
         mockMvc.perform(get("/trade/update/" + id))
                 .andExpect(status().isOk())
@@ -56,7 +56,7 @@ public class TradeControllerTest {
         trade.setAccount("david@test.com");
         trade.setType("Free");
         tradeRepository.save(trade);
-        Long id = tradeRepository.findByType("Free").getId();
+        Long id = tradeRepository.findByType("Free").get().getId();
 
         mockMvc.perform(delete("/trade/delete/" + id))
                 .andExpect(view().name("redirect:/trade/list"));

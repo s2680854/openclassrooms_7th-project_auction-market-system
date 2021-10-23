@@ -73,7 +73,7 @@ public class TradeServiceTest {
         trade.setType("Amazon");
         tradeRepository.save(trade);
         Long id = 1L;
-        try {id = tradeRepository.findByType("Amazon").getId();} catch (Exception e) {}
+        try {id = tradeRepository.findByType("Amazon").get().getId();} catch (Exception e) {}
 
         Trade expected = new Trade();
 
@@ -96,7 +96,7 @@ public class TradeServiceTest {
         trade.setAccount("grinngotts@jkr.com");
         trade.setType("Cdiscount");
         tradeRepository.save(trade);
-        Long tradeId = tradeRepository.findByType("Cdiscount").getId();
+        Long tradeId = tradeRepository.findByType("Cdiscount").get().getId();
 
         Mockito.doNothing().when(tradeDeletionService).deleteTradeById(tradeId);
 

@@ -5,9 +5,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface TradeRepository extends JpaRepository<Trade, Long> {
 
-    @Query("SELECT u FROM Trade u WHERE u.type = ?1")
-    Trade findByType(String type);
+    Optional<Trade> findByType(String type);
 }
