@@ -54,6 +54,7 @@ public class RatingServiceTest {
         ratingRepository.save(rating);
         Long id = 1L;
         try {id = ratingRepository.findByOrderNumber(1).getId();} catch (Exception e) {}
+        rating.setId(id);
 
         Rating expected = new Rating();
 

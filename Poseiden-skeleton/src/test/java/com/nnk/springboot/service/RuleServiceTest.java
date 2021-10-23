@@ -56,6 +56,7 @@ public class RuleServiceTest {
         ruleRepository.save(rule);
         Long id = 1L;
         try {id = ruleRepository.findByName("Exchange").getId();} catch (Exception e) {}
+        rule.setId(id);
 
         Rule expected = new Rule();
 

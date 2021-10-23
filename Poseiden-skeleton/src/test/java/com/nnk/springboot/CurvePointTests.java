@@ -35,7 +35,7 @@ public class CurvePointTests {
 		assertTrue(listResult.size() > 0);
 
 		//Find By ID
-		Optional<CurvePoint> optional = curvePointRepository.findByCurveId(10);
+		Optional<CurvePoint> optional = curvePointRepository.findByCurveId(20);
 		CurvePoint actual = new CurvePoint();
 		if (optional.isPresent()) {
 			actual.setId(optional.get().getId());

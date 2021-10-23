@@ -71,6 +71,7 @@ public class UserServiceTest {
         Optional<User> optional = userReadService.getUser(id);
         User actual = new User();
         if (optional.isPresent()) {
+            actual.setId(optional.get().getId());
             actual.setUsername(optional.get().getUsername());
             actual.setPassword(optional.get().getPassword());
             actual.setFullname(optional.get().getFullname());
