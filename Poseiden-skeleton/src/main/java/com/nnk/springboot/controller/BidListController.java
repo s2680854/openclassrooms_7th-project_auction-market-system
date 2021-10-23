@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.Collection;
+import java.util.Optional;
 
 @Controller
 public class BidListController {
@@ -98,7 +99,12 @@ public class BidListController {
     public String showUpdateForm(@PathVariable("id") Long id, Model model) {
 
         logger.debug("[updating bid form] show update form id: " + id);
-        BidsList bid = bidsListReadService.getBidsListById(id);
+        Optional<BidsList> optional = bidsListReadService.getBidsListById(id);
+        BidsList bid = new BidsList();
+        if (optional.isPresent()) {
+            bid = optional.get();
+        }
+
         model.addAttribute("bid", bid);
 
         return "bidList/update";

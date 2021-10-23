@@ -42,7 +42,7 @@ public class BidControllerTest {
         bid.setType("0");
         bid.setBidQuantity(0d);
         bidsListRepository.save(bid);
-        Long id = bidsListRepository.findByAccount("david@test.com").getId();
+        Long id = bidsListRepository.findByAccount("david@test.com").get().getId();
 
         mockMvc.perform(get("/bidList/update/" + id))
                 .andExpect(status().isOk())
@@ -58,7 +58,7 @@ public class BidControllerTest {
         bid.setType("0");
         bid.setBidQuantity(0d);
         bidsListRepository.save(bid);
-        Long id = bidsListRepository.findByAccount("david@test.com").getId();
+        Long id = bidsListRepository.findByAccount("david@test.com").get().getId();
 
         mockMvc.perform(delete("/bidList/delete/" + id))
                 .andExpect(view().name("redirect:/bidList/list"));

@@ -73,16 +73,17 @@ public class BidServiceTest {
         bidList.setType("0");
         bidList.setBidQuantity(0d);
         bidListRepository.save(bidList);
-        Long id = 1L;
-        try {id = bidListRepository.findByAccount("grinngotts@jkr.com").getId();} catch (Exception e) {}
+        Long id = bidListRepository.findByAccount("grinngotts@jkr.com").get().getId();
 
         BidsList expected = new BidsList();
 
-        Optional<BidsList> optional = Optional.ofNullable(bidListReadService.getBidsListById(id));
+        Optional<BidsList> optional = bidListReadService.getBidsListById(id);
         BidsList actual = new BidsList();
         if (optional.isPresent()) {
+
             actual.setAccount(optional.get().getAccount());
             actual.setType(optional.get().getType());
+            actual.setBidQuantity(optional.get().getBidQuantity());
         }
 
         assertEquals(expected, actual);
@@ -98,7 +99,7 @@ public class BidServiceTest {
         bidList.setType("0");
         bidList.setBidQuantity(0d);
         bidListRepository.save(bidList);
-        Long bidListId = bidListRepository.findByAccount("grinngotts@jkr.com").getId();
+        Long bidListId = bidListRepository.findByAccount("grinngotts@jkr.com").get().getId();
 
         Mockito.doNothing().when(bidListDeletionService).deleteBidsListById(bidListId);
 
