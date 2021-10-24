@@ -13,7 +13,7 @@ public class CurvePointReadService {
     @Autowired
     private CurvePointRepository curvePointRepository;
 
-    public CurvePoint getCurvePoint(Long id) {
+    public CurvePoint getCurvePointById(Long id) {
 
         return curvePointRepository.getById(id);
     }

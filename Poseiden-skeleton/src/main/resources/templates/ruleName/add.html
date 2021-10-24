@@ -3,18 +3,18 @@
 	  xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="utf-8"/>
-<title>Home</title>
+<title>Ajouter une règle | Le Boursier</title>
 <link rel="stylesheet" href="../../css/bootstrap.min.css" >
 </head>
 <body>
 <div class="container">
 
 	<div class="row">
-		<h2>Add New Rule</h2>
+		<h2>Ajouter une règle</h2>
 	</div>
 
 	<div class="row">
-		<form action="#" th:action="@{/rule/validate}" th:object="${rule}" method="post" class="form-horizontal" style="width: 100%">
+		<form action="#" th:action="@{/ruleName/validate}" th:object="${rule}" method="post" class="form-horizontal" style="width: 100%">
 			<div>
 				<input type="text" placeholder="Entrez une nom..." th:field="*{name}" class="form-control" required />
 				<input type="text" placeholder="Entrez une description..." th:field="*{description}" class="form-control" required />

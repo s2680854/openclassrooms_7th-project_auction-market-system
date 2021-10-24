@@ -3,48 +3,57 @@
 	  xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="utf-8"/>
-<title>Home</title>
+<title>Liste des courbes | Le Boursier</title>
 <link rel="stylesheet" href="../../css/bootstrap.min.css" >
 </head>
 <body>
 <div class="container">
 	<div class="row">
 		<div class="col-6">
-			<a href="/bidList/list">Bid List</a>&nbsp;|&nbsp;
-			<a href="/curvePoint/list">Curve Points</a>&nbsp;|&nbsp;
-			<a href="/rating/list">Ratings</a>&nbsp;|&nbsp;
-			<a href="/trade/list">Trade</a>&nbsp;|&nbsp;
-			<a href="/ruleName/list">Rule</a>
+			Menu :
+			<b><a href="/bidList/list">Liste des offres</a>&nbsp;|&nbsp;
+				<a href="/curvePoint/list">Courbes</a>&nbsp;|&nbsp;
+				<a href="/rating/list">Taux</a>&nbsp;|&nbsp;
+				<a href="/trade/list">Marché</a>&nbsp;|&nbsp;
+				<a href="/ruleName/list">Règle</a></b>
 		</div>
 		<div class="col-6 text-right">
-			Logged in user: <b th:inline="text"  class="user"> [[${#httpServletRequest.remoteUser}]] </b>
-			<form th:action="@{/app-logout}" method="POST">
-				<input type="submit" value="Logout"/>
+			Authentifié(e) en tant que : <b th:inline="text"  class="user"> [[${username}]] </b>
+			<form th:action="@{/logout}" method="POST">
+				<a th:method="GET" th:href="@{/}" class="btn btn-primary btn-sm">Accueil</a>
+				<input type="submit" class="btn badge-secondary btn-sm" value="Se déconnecter"/>
 			</form>
 		</div>
 	</div>
-	<div class="row"><h2>Curve Point List</h2></div>
+	<div class="row"><h2>Liste des courbes</h2></div>
 	<div class="row">
-		<a href="/curvePoint/add" class="btn btn-primary btn-sm">Add New</a>
-		<table class="table table-bordered">
+		<form action="#" th:action="@{'/curvePoint/delete'}" th:method="delete" >
+			<a href="/curvePoint/add" class="btn btn-primary btn-sm" style="margin-right: 10px;margin-bottom: 10px;">Ajouter une courbe</a>
+			<input type="hidden" name="_method" value="delete" />
+			<button type="submit" id="submitAllButton" class="btn btn-danger btn-sm" style="margin-right: 10px;margin-bottom: 10px;">Tout supprimer</button>
+		</form>
+		<table class="table table-striped">
 			<thead>
 				<tr>
-					<th>Id</th>
-					<th>CurvePointId</th>
-					<th>Term</th>
-					<th>Value</th>
-					<th>Action</th>
+					<th>ID</th>
+					<th>ID de Courbe</th>
+					<th>Terme</th>
+					<th>Valeur</th>
 				</tr>
 			</thead>
 			<tbody>
 			<tr th:each="curvePoint: ${curvePoints}">
-				<td th:text="${curvePoint.id}">Id</td>
-				<td th:text="${curvePoint.curveId}">CurvePointId</td>
-				<td th:text="${curvePoint.term}">Term</td>
-				<td th:text="${curvePoint.value}">Value</td>
-				<!-- <td th:text="${curvePoint.???}">Action</td> -->
-				<td><input th:action="@{/curvePoint/update/${curvePoint.id}}" class="btn btn-primary btn-sm" value="Modifier" /></td>
-				<td><input th:action="@{/curvePoint/delete/${curvePoint.id}}" class="btn btn-primary btn-sm" value="Supprimer" /></td>
+				<td th:text="${curvePoint.id}">ID</td>
+				<td th:text="${curvePoint.curveId}">ID de Courbe</td>
+				<td th:text="${curvePoint.term}">Terme</td>
+				<td th:text="${curvePoint.value}">Valeur</td>
+				<td style="width: 15%" class="text-center">
+					<form action="#" th:action="@{'/curvePoint/delete/{id}'(id=${curvePoint.id})}" th:method="delete" style="display: flex;">
+						<a th:href="@{/curvePoint/update/{id}(id=${curvePoint.id})}" class="btn btn-primary btn-sm"  style="margin-right: 10px;">Modifier</a>
+						<input type="hidden" name="_method" value="delete" />
+						<button type="submit" id="submitButton" class="btn btn-danger btn-sm">Supprimer</button>
+					</form>
+				</td>
 			</tr>
 			</tbody>
 		</table>

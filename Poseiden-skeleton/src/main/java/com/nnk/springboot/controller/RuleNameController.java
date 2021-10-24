@@ -1,13 +1,16 @@
-package com.nnk.springboot.controllers;
+package com.nnk.springboot.controller;
 
 import com.nnk.springboot.domain.Rule;
 import com.nnk.springboot.service.rule.RuleCreationService;
-import com.nnk.springboot.service.rule.RuleDeleteService;
+import com.nnk.springboot.service.rule.RuleDeletionService;
 import com.nnk.springboot.service.rule.RuleReadService;
 import com.nnk.springboot.service.rule.RuleUpdateService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,7 +20,7 @@ import javax.validation.Valid;
 import java.util.Collection;
 
 @Controller
-public class RuleController {
+public class RuleNameController {
 
     private Logger logger = LogManager.getLogger(LoginController.class);
 
@@ -28,10 +31,25 @@ public class RuleController {
     @Autowired
     private RuleUpdateService ruleUpdateService;
     @Autowired
-    private RuleDeleteService ruleDeleteService;
+    private RuleDeletionService ruleDeleteService;
 
     @GetMapping("/ruleName/list")
     public String home(Model model) {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = "";
+        try {username = authentication.getName();} catch (Exception e) {}
+        if (username.contains("@")) {
+            model.addAttribute("username", username);
+        } else {
+            String email = "NONE";
+            try {
+                OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
+                email = oAuth2User.getAttributes().get("email").toString();
+            } catch (Exception e) {}
+            model.addAttribute("username", email);
+        }
+        logger.debug("[add bidList] authentication name: " + username);
 
         Collection<Rule> rules = ruleReadService.getRules();
         model.addAttribute("rules", rules);
@@ -62,7 +80,7 @@ public class RuleController {
         logger.debug("[validate] rule: " + rule);
         ruleCreationService.createRule(rule);
 
-        return "ruleName/add";
+        return "redirect:/ruleName/list";
     }
 
     @GetMapping("/ruleName/update/{id}")
@@ -90,10 +108,18 @@ public class RuleController {
         return "redirect:/ruleName/list";
     }
 
-    @GetMapping("/ruleName/delete/{id}")
+    @DeleteMapping("/ruleName/delete/{id}")
     public String deleteRuleName(@PathVariable("id") Long id, Model model) {
 
         ruleDeleteService.deleteRuleById(id);
+
+        return "redirect:/ruleName/list";
+    }
+
+    @DeleteMapping("/ruleName/delete")
+    public String deleteAll() {
+
+        ruleDeleteService.deleteRules();
 
         return "redirect:/ruleName/list";
     }

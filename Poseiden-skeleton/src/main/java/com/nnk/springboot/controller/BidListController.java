@@ -1,4 +1,4 @@
-package com.nnk.springboot.controllers;
+package com.nnk.springboot.controller;
 
 import com.nnk.springboot.domain.BidsList;
 import com.nnk.springboot.service.bidslist.BidsListCreationService;
@@ -10,6 +10,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,9 +18,10 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.Collection;
+import java.util.Optional;
 
 @Controller
-public class BidsListController {
+public class BidListController {
 
     private Logger logger = LogManager.getLogger(LoginController.class);
 
@@ -35,6 +37,19 @@ public class BidsListController {
     @GetMapping("/bidList/list")
     public String home(Model model) {
 
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = "";
+        try {username = authentication.getName();} catch (Exception e) {}
+        if (username.contains("@")) {
+            model.addAttribute("username", username);
+        } else {
+            try {
+                OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
+                model.addAttribute("username", oAuth2User.getAttributes().get("email"));
+            } catch (Exception e) {}
+        }
+        logger.debug("[adding bidList] authentication name: " + username);
+
         /*Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String authenticationName = authentication.getName();
         logger.debug("[home] authentication name: " + authenticationName);
@@ -42,7 +57,7 @@ public class BidsListController {
         Collection<BidsList> bidsList = bidsListReadService.getBidsListByEmail(authentication.getName());*/
         Collection<BidsList> bidsList = bidsListReadService.getBidsLists();
         model.addAttribute("bidsList", bidsList);
-        logger.debug("[home] bids list: " + bidsList);
+        logger.debug("[reading bids] bids: " + bidsList);
 
         return "bidList/list";
     }
@@ -50,14 +65,21 @@ public class BidsListController {
     @GetMapping("/bidList/add")
     public String addBidForm(Model model) {
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String authenticationName = authentication.getName();
-        logger.debug("[home] authentication name: " + authenticationName);
-
         BidsList bid = new BidsList();
-        bid.setAccount(authenticationName);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = "NONE";
+        try {username = authentication.getName();} catch (Exception e) {}
+        if (!username.contains("@")) {
+            try {
+                OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
+                username = oAuth2User.getAttributes().get("email").toString();
+        } catch (Exception e) {}
+        }
+        logger.debug("[adding bid] username: " + username);
+        model.addAttribute("username", username);
+
+        bid.setAccount(username);
         model.addAttribute(bid);
-        logger.debug("[add] bid: " + bid);
 
         return "bidList/add";
     }
@@ -65,24 +87,30 @@ public class BidsListController {
     @PostMapping("/bidList/validate")
     public String validate(@Valid BidsList bid, BindingResult result, Model model) {
 
-        // TODO: check if we must return to add
+
+        logger.debug("[validating bid] account: " + bid.getAccount());
+        model.addAttribute(bid);
+
         if (result.hasErrors()) {
             return "bidList/add";
         }
 
-        model.addAttribute(bid);
-        logger.debug("[validate] bid: " + bid);
+        logger.debug("[validating bid] bid: " + bid);
         bidsListCreationService.createBidsList(bid);
 
-        return "redirect:/bidList/add";
+        return "redirect:/bidList/list";
     }
 
     @GetMapping("/bidList/update/{id}")
     public String showUpdateForm(@PathVariable("id") Long id, Model model) {
 
-        // TODO: check if I have to update
-        BidsList bid = bidsListReadService.getBidsListById(id);
-        logger.debug("[get update] bid: " + bid);
+        logger.debug("[updating bid form] show update form id: " + id);
+        Optional<BidsList> optional = bidsListReadService.getBidsListById(id);
+        BidsList bid = new BidsList();
+        if (optional.isPresent()) {
+            bid = optional.get();
+        }
+
         model.addAttribute("bid", bid);
 
         return "bidList/update";
@@ -96,16 +124,26 @@ public class BidsListController {
             return "bidList/add";
         }
 
-        logger.debug("[post update] bid: " + bidsList);
+        logger.debug("[updating bid]  id: " + id);
         bidsListUpdateService.updateBidsList(bidsList);
 
         return "redirect:/bidList/list";
     }
 
-    @GetMapping("/bidList/delete/{id}")
-    public String deleteBid(@PathVariable("id") Long id, Model model) {
+    @RequestMapping(value="/bidList/delete/{id}", method = RequestMethod.DELETE)
+    public String deleteBid(@PathVariable Long id) {
 
         bidsListDeletionService.deleteBidsListById(id);
+        logger.debug("[deleting bid] id: " + id);
+
+        return "redirect:/bidList/list";
+    }
+
+    @DeleteMapping("/bidList/delete")
+    public String deleteAll() {
+
+        bidsListDeletionService.deleteBidsLists();
+        logger.debug("[deleting bid] bids: all");
 
         return "redirect:/bidList/list";
     }

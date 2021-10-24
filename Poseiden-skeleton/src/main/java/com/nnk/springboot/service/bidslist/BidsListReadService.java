@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.Optional;
 
 @Service
 public class BidsListReadService {
@@ -13,9 +14,9 @@ public class BidsListReadService {
     @Autowired
     private BidsListRepository bidsListRepository;
 
-    public BidsList getBidsListById(Long id) {
+    public Optional<BidsList> getBidsListById(Long id) {
 
-        return bidsListRepository.getById(id);
+        return bidsListRepository.findById(id);
     }
 
     public Collection<BidsList> getBidsLists() {
