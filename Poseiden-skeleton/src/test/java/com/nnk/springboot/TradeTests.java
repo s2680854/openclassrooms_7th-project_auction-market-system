@@ -57,9 +57,9 @@ public class TradeTests {
 			actual.setRevisionName(optional.get().getRevisionName());
 			actual.setRevisionDate(optional.get().getRevisionDate());
 			actual.setDealName(optional.get().getDealName());
-			actual.setDealType(optional.get().getDealName());
-			actual.setSourceListId(optional.get().getDealType());
-			actual.setSide(optional.get().getSourceListId());
+			actual.setDealType(optional.get().getDealType());
+			actual.setSourceListId(optional.get().getSourceListId());
+			actual.setSide(optional.get().getSide());
 		}
 		assertEquals(trade, actual);
 

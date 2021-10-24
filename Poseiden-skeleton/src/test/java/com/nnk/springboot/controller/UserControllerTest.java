@@ -12,14 +12,16 @@ import org.springframework.security.config.oauth2.client.CommonOAuth2Provider;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.util.MultiValueMap;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 @SpringBootTest
-@AutoConfigureMockMvc
+@AutoConfigureMockMvc(addFilters=false)
 public class UserControllerTest {
 
     @Autowired
@@ -71,6 +73,58 @@ public class UserControllerTest {
         mockMvc.perform(get("/user/update/" + id))
                 .andExpect(status().isOk())
                 .andExpect(view().name("user/update"));
+    }
+
+    @Test
+    public void shouldValidateUser() throws Exception {
+
+        User user = new User();
+        user.setUsername("grinngotts3@jkr.com");
+        user.setPassword("1234567");
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String encodedPassword = passwordEncoder.encode(user.getPassword());
+        user.setPassword(encodedPassword);
+        user.setFullname("Grinngott's");
+        user.setRole("ADMIN");
+        userRepository.save(user);
+
+        user.setRole("USER");
+        Long id = userRepository.findByEmail("grinngotts3@jkr.com").getId();
+        user.setId(id);
+
+        mockMvc.perform(post("/user/validate")
+                .param("id", user.getId().toString())
+                .param("username", user.getUsername())
+                .param("password", user.getPassword())
+                .param("fullame", user.getFullname())
+                .param("role", user.getRole()))
+                .andExpect(view().name("redirect:/user/list"));
+    }
+
+    @Test
+    public void shouldUpdateUser() throws Exception {
+
+        User user = new User();
+        user.setUsername("grinngotts0@jkr.com");
+        user.setPassword("1234567");
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String encodedPassword = passwordEncoder.encode(user.getPassword());
+        user.setPassword(encodedPassword);
+        user.setFullname("Grinngott's");
+        user.setRole("ADMIN");
+        userRepository.save(user);
+
+        user.setRole("USER");
+        Long id = userRepository.findByEmail("grinngotts0@jkr.com").getId();
+        user.setId(id);
+
+        mockMvc.perform(post("/user/update/" + id)
+                        .param("id", user.getId().toString())
+                        .param("username", user.getUsername())
+                        .param("password", user.getPassword())
+                        .param("fullame", user.getFullname())
+                        .param("role", user.getRole()))
+                .andExpect(view().name("redirect:/user/list"));
     }
 
     @Test
