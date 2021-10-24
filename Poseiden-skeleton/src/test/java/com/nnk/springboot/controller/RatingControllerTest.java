@@ -10,13 +10,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 @SpringBootTest
-@AutoConfigureMockMvc
+@AutoConfigureMockMvc(addFilters=false)
 public class RatingControllerTest {
 
     @Autowired
@@ -34,7 +34,23 @@ public class RatingControllerTest {
     }
 
     @Test
-    public void shouldShowUpdateTradeForm() throws Exception {
+    public void shouldGetRatingList() throws Exception {
+
+        mockMvc.perform(get("/rating/list"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("rating/list"));
+    }
+
+    @Test
+    public void shouldAddRating() throws Exception {
+
+        mockMvc.perform(get("/rating/add"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("rating/add"));
+    }
+
+    @Test
+    public void shouldShowUpdateRatingForm() throws Exception {
 
         ratingController.deleteAll();
         Rating rating = new Rating();
@@ -51,7 +67,68 @@ public class RatingControllerTest {
     }
 
     @Test
-    public void shouldDeleteTrade() throws Exception {
+    public void shouldValidateRating() throws Exception {
+
+        Rating rating = new Rating();
+        rating.setMoodysRating("0");
+        rating.setSandPRating("0");
+        rating.setFitchRating("0");
+        rating.setOrderNumber(4);
+        ratingRepository.save(rating);
+
+        rating.setMoodysRating("10");
+        Long id = ratingRepository.findByOrderNumber(4).getId();
+        rating.setId(id);
+
+        mockMvc.perform(post("/rating/validate")
+                        .param("id", rating.getId().toString())
+                        .param("moodysRating", rating.getMoodysRating())
+                        .param("sandPRating", rating.getSandPRating())
+                        .param("fitchRating", rating.getMoodysRating())
+                        .param("orderNumber", String.valueOf(rating.getOrderNumber())))
+                .andExpect(view().name("redirect:/rating/list"));
+    }
+
+    @Test
+    public void shouldUpdateRating() throws Exception {
+
+        Rating rating = new Rating();
+        rating.setMoodysRating("0");
+        rating.setSandPRating("0");
+        rating.setFitchRating("0");
+        rating.setOrderNumber(5);
+        ratingRepository.save(rating);
+
+        rating.setMoodysRating("5");
+        Long id = ratingRepository.findByOrderNumber(5).getId();
+        rating.setId(id);
+
+        mockMvc.perform(post("/rating/update/" + id)
+                        .param("id", rating.getId().toString())
+                        .param("moodysRating", rating.getMoodysRating())
+                        .param("sandPRating", rating.getSandPRating())
+                        .param("fitchRating", rating.getMoodysRating())
+                        .param("orderNumber", String.valueOf(rating.getOrderNumber())))
+                .andExpect(view().name("redirect:/rating/list"));
+    }
+
+    @Test
+    public void shouldDeleteRating() throws Exception {
+
+        Rating rating = new Rating();
+        rating.setMoodysRating("0");
+        rating.setSandPRating("0");
+        rating.setFitchRating("0");
+        rating.setOrderNumber(6);
+        ratingRepository.save(rating);
+        Long id = ratingRepository.findByOrderNumber(6).getId();
+
+        mockMvc.perform(delete("/rating/delete/" + id))
+                .andExpect(view().name("redirect:/rating/list"));
+    }
+
+    @Test
+    public void shouldDeleteRatingList() throws Exception {
 
         ratingController.deleteAll();
         Rating rating = new Rating();
