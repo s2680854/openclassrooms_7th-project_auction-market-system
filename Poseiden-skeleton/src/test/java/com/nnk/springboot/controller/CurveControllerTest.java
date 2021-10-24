@@ -66,6 +66,7 @@ public class CurveControllerTest {
     @Test
     public void shouldValidateCurvePoint() throws Exception {
 
+        curvePointRepository.deleteAll();
         CurvePoint curvePoint = new CurvePoint();
         curvePoint.setCurveId(3);
         curvePoint.setTerm(0.5d);
@@ -88,13 +89,13 @@ public class CurveControllerTest {
     public void shouldUpdateCurvePoint() throws Exception {
 
         CurvePoint curvePoint = new CurvePoint();
-        curvePoint.setCurveId(4);
+        curvePoint.setCurveId(8);
         curvePoint.setTerm(0.5d);
         curvePoint.setValue(10d);
         curvePointRepository.save(curvePoint);
 
         curvePoint.setTerm(0.25d);
-        Long id = curvePointRepository.findByCurveId(4).get().getId();
+        Long id = curvePointRepository.findByCurveId(8).get().getId();
         curvePoint.setId(id);
 
         mockMvc.perform(post("/curvePoint/update/" + id)
@@ -108,12 +109,13 @@ public class CurveControllerTest {
     @Test
     public void shouldDeleteCurvePoint() throws Exception {
 
+        curvePointRepository.deleteAll();
         CurvePoint curvePoint = new CurvePoint();
         curvePoint.setCurveId(5);
         curvePoint.setTerm(0.5d);
         curvePoint.setValue(10d);
         curvePointRepository.save(curvePoint);
-        Long id = curvePointRepository.findByCurveId(6).get().getId();
+        Long id = curvePointRepository.findByCurveId(5).get().getId();
 
         mockMvc.perform(delete("/curvePoint/delete/" + id))
                 .andExpect(view().name("redirect:/curvePoint/list"));
@@ -122,7 +124,13 @@ public class CurveControllerTest {
     @Test
     public void shouldDeleteCurveList() throws Exception {
 
-        Long id = curvePointRepository.findByCurveId(1).get().getId();
+        curvePointRepository.deleteAll();
+        CurvePoint curvePoint = new CurvePoint();
+        curvePoint.setCurveId(9);
+        curvePoint.setTerm(0.5d);
+        curvePoint.setValue(10d);
+        curvePointRepository.save(curvePoint);
+        Long id = curvePointRepository.findByCurveId(9).get().getId();
 
         mockMvc.perform(delete("/curvePoint/delete/" + id))
                 .andExpect(view().name("redirect:/curvePoint/list"));

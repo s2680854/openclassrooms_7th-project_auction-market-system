@@ -37,12 +37,15 @@ public class CurveController {
     public String home(Model model) {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getName();
+        String username = "NONE";
+        try {username = authentication.getName();} catch (Exception e) {}
         if (username.contains("@")) {
             model.addAttribute("username", username);
         } else {
-            OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
-            model.addAttribute("username", oAuth2User.getAttributes().get("email"));
+            try{
+                OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
+                model.addAttribute("username", oAuth2User.getAttributes().get("email"));
+        } catch (Exception e) {}
         }
         logger.debug("[add curve point] authentication name: " + username);
 

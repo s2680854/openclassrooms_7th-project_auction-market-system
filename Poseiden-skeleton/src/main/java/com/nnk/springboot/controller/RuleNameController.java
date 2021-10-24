@@ -42,8 +42,12 @@ public class RuleNameController {
         if (username.contains("@")) {
             model.addAttribute("username", username);
         } else {
-            OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
-            model.addAttribute("username", oAuth2User.getAttributes().get("email"));
+            String email = "NONE";
+            try {
+                OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
+                email = oAuth2User.getAttributes().get("email").toString();
+            } catch (Exception e) {}
+            model.addAttribute("username", email);
         }
         logger.debug("[add bidList] authentication name: " + username);
 
