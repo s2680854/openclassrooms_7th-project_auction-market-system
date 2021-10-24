@@ -65,7 +65,7 @@ public class TradeControllerTest {
     }
 
     @Test
-    public void shouldValidateUser() throws Exception {
+    public void shouldValidateTrade() throws Exception {
 
         Trade trade = new Trade();
         trade.setAccount("grinngotts@jkr.com");
@@ -84,7 +84,7 @@ public class TradeControllerTest {
     }
 
     @Test
-    public void shouldUpdateUser() throws Exception {
+    public void shouldUpdateTrade() throws Exception {
 
         Trade trade = new Trade();
         trade.setAccount("grinngotts@jkr.com");
