@@ -37,7 +37,8 @@ public class TradeController {
     public String home(Model model) {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getName();
+        String username = "";
+        try { username = authentication.getName();} catch (Exception e){}
         if (username.contains("@")) {
             model.addAttribute("username", username);
         } else {
