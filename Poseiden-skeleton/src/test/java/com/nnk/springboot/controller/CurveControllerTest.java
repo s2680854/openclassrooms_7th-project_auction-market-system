@@ -15,7 +15,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 @SpringBootTest
-@AutoConfigureMockMvc
+@AutoConfigureMockMvc(addFilters=false)
 public class CurveControllerTest {
 
     @Autowired
@@ -30,6 +30,22 @@ public class CurveControllerTest {
 
         curveController = new CurveController();
         mockMvc = MockMvcBuilders.standaloneSetup(curveController).build();
+    }
+
+    @Test
+    public void shouldGetCurvePointList() throws Exception {
+
+        mockMvc.perform(get("/curvePoint/list"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("curvePoint/list"));
+    }
+
+    @Test
+    public void shouldAddCurvePoint() throws Exception {
+
+        mockMvc.perform(get("/curvePoint/add"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("curvePoint/add"));
     }
 
     @Test
@@ -48,7 +64,63 @@ public class CurveControllerTest {
     }
 
     @Test
-    public void shouldDeleteCurve() throws Exception {
+    public void shouldValidateCurvePoint() throws Exception {
+
+        CurvePoint curvePoint = new CurvePoint();
+        curvePoint.setCurveId(3);
+        curvePoint.setTerm(0.5d);
+        curvePoint.setValue(10d);
+        curvePointRepository.save(curvePoint);
+
+        curvePoint.setTerm(0.35d);
+        Long id = curvePointRepository.findByCurveId(3).get().getId();
+        curvePoint.setId(id);
+
+        mockMvc.perform(post("/curvePoint/validate")
+                        .param("id", curvePoint.getId().toString())
+                        .param("curveId", String.valueOf(curvePoint.getCurveId()))
+                        .param("term", String.valueOf(curvePoint.getTerm()))
+                        .param("value", String.valueOf(curvePoint.getValue())))
+                .andExpect(view().name("redirect:/curvePoint/list"));
+    }
+
+    @Test
+    public void shouldUpdateCurvePoint() throws Exception {
+
+        CurvePoint curvePoint = new CurvePoint();
+        curvePoint.setCurveId(4);
+        curvePoint.setTerm(0.5d);
+        curvePoint.setValue(10d);
+        curvePointRepository.save(curvePoint);
+
+        curvePoint.setTerm(0.25d);
+        Long id = curvePointRepository.findByCurveId(4).get().getId();
+        curvePoint.setId(id);
+
+        mockMvc.perform(post("/curvePoint/update/" + id)
+                        .param("id", curvePoint.getId().toString())
+                        .param("curveId", String.valueOf(curvePoint.getCurveId()))
+                        .param("term", String.valueOf(curvePoint.getTerm()))
+                        .param("value", String.valueOf(curvePoint.getValue())))
+                .andExpect(view().name("redirect:/curvePoint/list"));
+    }
+
+    @Test
+    public void shouldDeleteCurvePoint() throws Exception {
+
+        CurvePoint curvePoint = new CurvePoint();
+        curvePoint.setCurveId(5);
+        curvePoint.setTerm(0.5d);
+        curvePoint.setValue(10d);
+        curvePointRepository.save(curvePoint);
+        Long id = curvePointRepository.findByCurveId(6).get().getId();
+
+        mockMvc.perform(delete("/curvePoint/delete/" + id))
+                .andExpect(view().name("redirect:/curvePoint/list"));
+    }
+
+    @Test
+    public void shouldDeleteCurveList() throws Exception {
 
         Long id = curvePointRepository.findByCurveId(1).get().getId();
 
