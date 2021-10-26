@@ -39,21 +39,21 @@ public class HomeController {
 	}
 
 	@RequestMapping("/*")
-	public String getGithub(Principal user, Model model) {
-
-
-		logger.debug("GitHub name: " + user.getName());
+	public String getGithub(Principal user) {
 
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
-		String username = oAuth2User.getAttributes().get("email").toString();
-		String name = oAuth2User.getAttributes().get("name").toString();
+		if (!authentication.getName().contains("@")) {
 
-		logger.debug("[github-login] email: " + username);
-		logger.debug("[github-login] name: " + name);
-		logger.debug("[github-login] optional: " + userRepository.findByEmail(username));
-		if (userRepository.findByEmail(username) != null) {
-			return "redirect:/login";
+			OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
+			String username = oAuth2User.getAttributes().get("email").toString();
+			String name = oAuth2User.getAttributes().get("name").toString();
+
+			logger.debug("[github-login] email: " + username);
+			logger.debug("[github-login] name: " + name);
+			logger.debug("[github-login] optional: " + userRepository.findByEmail(username));
+			if (userRepository.findByEmail(username) != null) {
+				return "redirect:/login";
+			}
 		}
 
 		return "redirect:/user/add";

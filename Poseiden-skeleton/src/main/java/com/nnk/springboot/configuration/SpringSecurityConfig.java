@@ -70,6 +70,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .and()
                 .logout().logoutSuccessUrl("/").permitAll()
+                .deleteCookies("JSESSIONID")
                 .and()
                 .csrf().disable(); // Enabling Postman POST requests
     }
