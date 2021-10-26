@@ -28,10 +28,10 @@ DROP TABLE IF EXISTS `bidlist`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `bidlist` (
-                           `bidlist_id` int unsigned NOT NULL AUTO_INCREMENT,
-                           `account` varchar(50) NOT NULL,
-                           `type` varchar(35) NOT NULL,
-                           `bid_quantity` float NOT NULL,
+                           `bidlist_id` int unsigned  AUTO_INCREMENT,
+                           `account` varchar(50) ,
+                           `type` varchar(35) ,
+                           `bid_quantity` float ,
                            `ask_quantity` float DEFAULT NULL,
                            `bid` float DEFAULT NULL,
                            `ask` float DEFAULT NULL,
@@ -80,12 +80,12 @@ DROP TABLE IF EXISTS `curvepoint`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `curvepoint` (
-                              `id` int unsigned NOT NULL AUTO_INCREMENT,
-                              `curve_id` int NOT NULL,
-                              `asOfDate` timestamp NOT NULL,
-                              `term` float NOT NULL,
-                              `value` float NOT NULL,
-                              `creationDate` timestamp NOT NULL,
+                              `id` int unsigned  AUTO_INCREMENT,
+                              `curve_id` int ,
+                              `asOfDate` timestamp,
+                              `term` float ,
+                              `value` float ,
+                              `creationDate` timestamp ,
                               `as_of_date` datetime(6) DEFAULT NULL,
                               `creation_date` datetime(6) DEFAULT NULL,
                               PRIMARY KEY (`id`)
@@ -131,14 +131,14 @@ DROP TABLE IF EXISTS `rating`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `rating` (
-                          `id` int unsigned NOT NULL AUTO_INCREMENT,
-                          `moodysRating` varchar(35) NOT NULL,
-                          `sandPRating` varchar(35) NOT NULL,
-                          `fitchRating` varchar(35) NOT NULL,
-                          `orderNumber` int NOT NULL,
+                          `id` int unsigned  AUTO_INCREMENT,
+                          `moodysRating` varchar(35) ,
+                          `sandPRating` varchar(35) ,
+                          `fitchRating` varchar(35) ,
+                          `orderNumber` int ,
                           `fitch_rating` varchar(255) DEFAULT NULL,
                           `moodys_rating` varchar(255) DEFAULT NULL,
-                          `order_number` int NOT NULL,
+                          `order_number` int ,
                           PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -160,8 +160,8 @@ DROP TABLE IF EXISTS `role`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `role` (
-                        `role_id` int unsigned NOT NULL AUTO_INCREMENT,
-                        `name` varchar(35) NOT NULL,
+                        `role_id` int unsigned  AUTO_INCREMENT,
+                        `name` varchar(35) ,
                         PRIMARY KEY (`role_id`),
                         UNIQUE KEY `name` (`name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -185,13 +185,13 @@ DROP TABLE IF EXISTS `rulename`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `rulename` (
-                            `id` int unsigned NOT NULL AUTO_INCREMENT,
-                            `name` varchar(35) NOT NULL,
-                            `description` varchar(100) NOT NULL,
-                            `json` varchar(255) NOT NULL,
-                            `template` varchar(50) NOT NULL,
-                            `sqlStr` varchar(255) NOT NULL,
-                            `sqlPart` varchar(255) NOT NULL,
+                            `id` int unsigned  AUTO_INCREMENT,
+                            `name` varchar(35) ,
+                            `description` varchar(100) ,
+                            `json` varchar(255) ,
+                            `template` varchar(50) ,
+                            `sqlStr` varchar(255) ,
+                            `sqlPart` varchar(255) ,
                             `sql_part` varchar(255) DEFAULT NULL,
                             `sql_str` varchar(255) DEFAULT NULL,
                             PRIMARY KEY (`id`)
@@ -215,38 +215,38 @@ DROP TABLE IF EXISTS `trade`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `trade` (
-                         `trade_id` int unsigned NOT NULL AUTO_INCREMENT,
-                         `type` varchar(35) NOT NULL,
-                         `buyQuantity` float NOT NULL,
-                         `sellQuantity` float NOT NULL,
-                         `buyPrice` float NOT NULL,
-                         `sellPrice` float NOT NULL,
-                         `benchmark` varchar(35) NOT NULL,
-                         `tradeDate` timestamp NOT NULL,
-                         `security` varchar(35) NOT NULL,
-                         `status` varchar(35) NOT NULL,
-                         `trader` varchar(35) NOT NULL,
-                         `book` varchar(35) NOT NULL,
-                         `creationName` varchar(35) NOT NULL,
-                         `creationDate` timestamp NOT NULL,
-                         `revisionName` varchar(35) NOT NULL,
-                         `revisionDate` timestamp NOT NULL,
-                         `dealName` varchar(35) NOT NULL,
-                         `dealType` varchar(35) NOT NULL,
-                         `sourceListId` varchar(35) NOT NULL,
-                         `side` varchar(35) NOT NULL,
-                         `id` bigint NOT NULL,
+                         `trade_id` int unsigned  AUTO_INCREMENT,
+                         `type` varchar(35) ,
+                         `buyQuantity` float ,
+                         `sellQuantity` float ,
+                         `buyPrice` float ,
+                         `sellPrice` float ,
+                         `benchmark` varchar(35) ,
+                         `tradeDate` timestamp ,
+                         `security` varchar(35) ,
+                         `status` varchar(35) ,
+                         `trader` varchar(35) ,
+                         `book` varchar(35) ,
+                         `creationName` varchar(35) ,
+                         `creationDate` timestamp ,
+                         `revisionName` varchar(35) ,
+                         `revisionDate` timestamp ,
+                         `dealName` varchar(35) ,
+                         `dealType` varchar(35) ,
+                         `sourceListId` varchar(35) ,
+                         `side` varchar(35) ,
+                         `id` bigint ,
                          `account` varchar(255) DEFAULT NULL,
-                         `buy_price` double NOT NULL,
-                         `buy_quantity` double NOT NULL,
+                         `buy_price` double ,
+                         `buy_quantity` double ,
                          `creation_date` datetime(6) DEFAULT NULL,
                          `creation_name` varchar(255) DEFAULT NULL,
                          `deal_name` varchar(255) DEFAULT NULL,
                          `deal_type` varchar(255) DEFAULT NULL,
                          `revision_date` datetime(6) DEFAULT NULL,
                          `revision_name` varchar(255) DEFAULT NULL,
-                         `sell_price` double NOT NULL,
-                         `sell_quantity` double NOT NULL,
+                         `sell_price` double ,
+                         `sell_quantity` double ,
                          `source_list_id` varchar(255) DEFAULT NULL,
                          `trade_date` datetime(6) DEFAULT NULL,
                          PRIMARY KEY (`trade_id`)
@@ -270,11 +270,11 @@ DROP TABLE IF EXISTS `users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `users` (
-                         `user_id` int unsigned NOT NULL AUTO_INCREMENT,
-                         `username` varchar(50) NOT NULL,
-                         `password` varchar(72) NOT NULL,
-                         `fullname` varchar(100) NOT NULL,
-                         `role` varchar(35) NOT NULL,
+                         `user_id` int unsigned  AUTO_INCREMENT,
+                         `username` varchar(50) ,
+                         `password` varchar(72) ,
+                         `fullname` varchar(100) ,
+                         `role` varchar(35) ,
                          PRIMARY KEY (`user_id`),
                          UNIQUE KEY `username` (`username`),
                          UNIQUE KEY `fullname` (`fullname`),
