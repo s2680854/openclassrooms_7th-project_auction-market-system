@@ -3,21 +3,28 @@
 	  xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="utf-8"/>
-	<title>Home</title>
+	<title>Modifier un taux | Le Boursier</title>
 	<link rel="stylesheet" href="../../css/bootstrap.min.css" >
 </head>
 <body>
 <div class="container">
 
 	<div class="row">
-		<h2>Update Rating</h2>
+		<h2>Modifier un taux</h2>
 	</div>
 
 	<div class="row">
 		<form action="#" th:action="@{/rating/update/{id}(id=${rating.id})}" th:object="${rating}" method="post" class="form-horizontal" style="width: 100%">
-			<!--
-			TODO: Create a form to edit the values of Rating, there are 2 buttons: Update data and Cancel to the Rating
-			 -->
+			<div>
+				<input type="text" placeholder="Entrez une taux..." th:field="*{moodysRating}" class="form-control" required />
+				<input type="text" placeholder="Entrez une taux..." th:field="*{sandPRating}" class="form-control" required />
+				<input type="text" placeholder="Entrez un taux..." th:field="*{fitchRating}" class="form-control" required />
+				<input type="text" placeholder="Entrez un N° de commande..." th:field="*{orderNumber}" class="form-control" required />
+			</div>
+			<div>
+				<input type="submit" class="btn btn-primary btn-sm" value="Enregistrer" />
+				<a href="/ratings/add" class="btn btn-secondary btn-sm">Annuler</a>
+			</div>
 		</form>
 	</div>
 

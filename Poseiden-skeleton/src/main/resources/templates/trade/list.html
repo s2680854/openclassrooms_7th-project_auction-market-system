@@ -3,41 +3,60 @@
 	  xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="utf-8"/>
-<title>Home</title>
+<title>Liste des marchés | Le Boursier</title>
 <link rel="stylesheet" href="../../css/bootstrap.min.css" >
 </head>
 <body>
 <div class="container">
 	<div class="row">
 		<div class="col-6">
-			<a href="/bidList/list">Bid List</a>&nbsp;|&nbsp;
-			<a href="/curvePoint/list">Curve Points</a>&nbsp;|&nbsp;
-			<a href="/rating/list">Ratings</a>&nbsp;|&nbsp;
-			<a href="/trade/list">Trade</a>&nbsp;|&nbsp;
-			<a href="/ruleName/list">Rule</a>
+			Menu :
+			<b><a href="/bidList/list">Liste des offres</a>&nbsp;|&nbsp;
+				<a href="/curvePoint/list">Courbes</a>&nbsp;|&nbsp;
+				<a href="/rating/list">Taux</a>&nbsp;|&nbsp;
+				<a href="/trade/list">Marché</a>&nbsp;|&nbsp;
+				<a href="/ruleName/list">Règle</a></b>
 		</div>
 		<div class="col-6 text-right">
-			Logged in user: <b th:inline="text"  class="user"> [[${#httpServletRequest.remoteUser}]] </b>
-			<form th:action="@{/app-logout}" method="POST">
-				<input type="submit" value="Logout"/>
+			Authentifié(e) en tant que : <b th:inline="text"  class="user"> [[${username}]] </b>
+			<form th:action="@{/logout}" method="POST">
+				<a th:method="GET" th:href="@{/}" class="btn btn-primary btn-sm">Accueil</a>
+				<input type="submit" class="btn badge-secondary btn-sm" value="Se déconnecter"/>
 			</form>
 		</div>
 	</div>
-	<div class="row"><h2>Trade List</h2></div>
+	<div class="row"><h2>Liste des marchés</h2></div>
 	<div class="row">
-		<a href="/trade/add" class="btn btn-primary btn-sm">Add New</a>
-		<table class="table table-bordered">
+		<form action="#" th:action="@{'/trade/delete'}" th:method="delete" >
+			<a href="/trade/add" class="btn btn-primary btn-sm" style="margin-right: 10px;margin-bottom: 10px;">Ajouter un marché</a>
+			<input type="hidden" name="_method" value="delete" />
+			<button type="submit" id="submitAllButton" class="btn btn-danger btn-sm" style="margin-right: 10px;margin-bottom: 10px;">Tout supprimer</button>
+		</form>
+		<table class="table table-striped">
 			<thead>
 				<tr>
-					<th>Id</th>
-					<th>Account</th>
+					<th>ID</th>
+					<th>Compte</th>
 					<th>Type</th>
-					<th>Buy Quantity</th>
+					<th>Quantité</th>
 					<th>Action</th>
 				</tr>
 			</thead>
 			<tbody>
-			<!-- TODO: Show all Trade to the table, the Action column will have Edit & Delete buttons -->
+				<tr th:each="trade: ${trades}">
+					<td th:text="${trade.id}">ID</td>
+					<td th:text="${trade.account}">Compte</td>
+					<td th:text="${trade.type}">Type</td>
+					<td th:text="${trade.buyQuantity}">Quantité</td>
+					<td th:text="${trade.dealName}">Action</td>
+					<td style="width: 15%" class="text-center">
+						<form action="#" th:action="@{'/trade/delete/{id}'(id=${trade.id})}" th:method="delete" style="display: flex">
+							<a th:href="@{/trade/update/{id}(id=${trade.id})}" class="btn btn-primary btn-sm"  style="margin-right: 10px;">Modifier</a>
+							<input type="hidden" name="_method" value="delete" />
+							<button type="submit" id="submitButton" class="btn btn-danger btn-sm">Supprimer</button>
+						</form>
+					</td>
+				</tr>
 			</tbody>
 		</table>
 	</div>

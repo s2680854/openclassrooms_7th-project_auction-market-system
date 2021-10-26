@@ -3,21 +3,28 @@
 	  xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="utf-8"/>
-<title>Home</title>
+<title>Ajouter une offre | Le Boursier</title>
 <link rel="stylesheet" href="../../css/bootstrap.min.css" >
 </head>
 <body>
 <div class="container">
 
 	<div class="row">
-		<h2>Add New Bid</h2>
+		<h2>Ajouter une offre</h2>
 	</div>
 
 	<div class="row">
-		<form action="#" th:action="@{/bidList/validate}" th:object="${bidList}" method="post" class="form-horizontal" style="width: 100%">
-			<!--
-			TODO: Create a form to input the values of Bid, there are 2 buttons: Save data and Cancel to the list Bid
-			 -->
+		<form action="#" th:action="@{/bidList/validate}" th:object="${bidsList}" method="post" class="form-horizontal" style="width: 100%">
+			<div>
+				<input type="hidden" th:field="*{account}" class="form-control" required />
+				<input type="text" placeholder="Entrez une description..." th:field="*{commentary}" class="form-control" required />
+				<input type="text" placeholder="Entrez une quantité..." th:field="*{bidQuantity}" class="form-control" required />
+				<input type="text" placeholder="Entrez un type..." th:field="*{type}" class="form-control" required />
+			</div>
+			<div>
+				<input type="submit" class="btn btn-primary btn-sm" value="Enregistrer" />
+				<a href="/bidList/list" class="btn btn-secondary btn-sm">Annuler</a>
+			</div>
 		</form>
 	</div>
 

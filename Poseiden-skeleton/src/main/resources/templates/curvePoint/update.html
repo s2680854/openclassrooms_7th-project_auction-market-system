@@ -3,20 +3,26 @@
 	  xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="utf-8"/>
-<title>Home</title>
+<title>Modifier une courbe | Le Boursier</title>
 <link rel="stylesheet" href="../../css/bootstrap.min.css" >
 </head>
 <body>
 <div class="container">
 	<div class="row">
-		<h2>Update CurvePoint</h2>
+		<h2>Modifier une courbe</h2>
 	</div>
 
 	<div class="row">
 		<form action="#" th:action="@{/curvePoint/update/{id}(id=${curvePoint.id})}" th:object="${curvePoint}" method="post" class="form-horizontal" style="width: 100%">
-			<!--
-			TODO: Create a form to edit the values of CurvePoint, there are 2 buttons: Update data and Cancel to the Curve Point
-			 -->
+			<div>
+				<!-- <input type="text" placeholder="Entrez un ID..." th:field="*{curveId}" class="form-control" required /> -->
+				<input type="text" placeholder="Entrez un term..." th:field="*{term}" class="form-control" required />
+				<input type="text" placeholder="Entrez une valeur..." th:field="*{value}" class="form-control" required />
+			</div>
+			<div>
+				<input type="submit" class="btn btn-primary btn-sm" value="Enregistrer" />
+				<a href="/bidsList/add" class="btn btn-secondary btn-sm">Annuler</a>
+			</div>
 		</form>
 	</div>
 

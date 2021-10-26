@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 public class TradeTests {
@@ -20,7 +20,7 @@ public class TradeTests {
 
 	@Test
 	public void tradeTest() {
-		Trade trade = new Trade("Trade Account", "Type");
+		Trade trade = new Trade("Trade Account", "Darty");
 
 		// Save
 		trade = tradeRepository.save(trade);
@@ -35,10 +35,38 @@ public class TradeTests {
 		List<Trade> listResult = tradeRepository.findAll();
 		assertTrue(listResult.size() > 0);
 
+		//Find By ID
+		Optional<Trade> optional = tradeRepository.findByType("Darty");
+		Trade actual = new Trade();
+		if (optional.isPresent()) {
+			actual.setId(optional.get().getId());
+			actual.setAccount(optional.get().getAccount());
+			actual.setType(optional.get().getType());
+			actual.setBuyQuantity(optional.get().getBuyQuantity());
+			actual.setSellQuantity(optional.get().getSellQuantity());
+			actual.setBuyPrice(optional.get().getBuyPrice());
+			actual.setSellPrice(optional.get().getSellPrice());
+			actual.setBenchmark(optional.get().getBenchmark());
+			actual.setTradeDate(optional.get().getTradeDate());
+			actual.setSecurity(optional.get().getSecurity());
+			actual.setStatus(optional.get().getStatus());
+			actual.setTrader(optional.get().getTrader());
+			actual.setBook(optional.get().getBook());
+			actual.setCreationName(optional.get().getCreationName());
+			actual.setCreationDate(optional.get().getCreationDate());
+			actual.setRevisionName(optional.get().getRevisionName());
+			actual.setRevisionDate(optional.get().getRevisionDate());
+			actual.setDealName(optional.get().getDealName());
+			actual.setDealType(optional.get().getDealType());
+			actual.setSourceListId(optional.get().getSourceListId());
+			actual.setSide(optional.get().getSide());
+		}
+		assertEquals(trade, actual);
+
 		// Delete
-		Integer id = trade.getTradeId();
+		Long id = trade.getId();
 		tradeRepository.delete(trade);
 		Optional<Trade> tradeList = tradeRepository.findById(id);
-		assertTrue(tradeList.isPresent());
+		assertFalse(tradeList.isPresent());
 	}
 }

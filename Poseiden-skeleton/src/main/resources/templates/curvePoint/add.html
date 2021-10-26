@@ -3,22 +3,26 @@
 	  xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="utf-8"/>
-<title>Home</title>
+<title>Ajouter une offre | Le Boursier</title>
 <link rel="stylesheet" href="../../css/bootstrap.min.css" >
 </head>
 <body>
 <div class="container">
 
 	<div class="row">
-		<h2>Add New Curve Point</h2>
+		<h2>Ajouter une offre</h2>
 	</div>
 
 	<div class="row">
 		<form action="#" th:action="@{/curvePoint/validate}" th:object="${curvePoint}" method="post" class="form-horizontal" style="width: 100%">
-			<!--
-			TODO: Create a form to input the values of CurvePoint, there are 2 buttons: Save data and Cancel to the list CurvePoint
-			 -->
-
+			<div>
+				<input type="text" placeholder="Entrez un terme..." th:field="*{term}" class="form-control" required />
+				<input type="text" placeholder="Entrez une valeur..." th:field="*{value}" class="form-control" required />
+			</div>
+			<div>
+				<input type="submit" class="btn btn-primary btn-sm" value="Enregistrer" />
+				<a href="/curvePoint/list" class="btn btn-secondary btn-sm">Annuler</a>
+			</div>
 		</form>
 	</div>
 
