@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+      <title>Non-Authorisé</title>
+</head>
+<body>
+   <h3>Accès dénié</h3>
+   <div>
+	    Utilisateur authentifié: <b th:inline="text"  class="user"> [[${#httpServletRequest.remoteUser}]] </b>
+	   <p>Veuillez vous connecter à un compte Administrateur.</p>
+       <form th:action="@{/app-logout}" method="POST" style="margin-top: 30px;">
+           <a th:method="GET" th:href="@{/}" class="btn btn-primary btn-sm">Accueil</a>
+	         <input type="submit" value="Se déconnecter."/>
+	    </form>
+   </div>
+</body>
+</html>   
