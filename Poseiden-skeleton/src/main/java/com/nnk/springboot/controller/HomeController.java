@@ -39,7 +39,7 @@ public class HomeController {
 	}
 
 	@RequestMapping("/*")
-	public String getGithub(Principal user) {
+	public String getGithub(Principal user, Model model) {
 
 
 		logger.debug("GitHub name: " + user.getName());
@@ -47,30 +47,15 @@ public class HomeController {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
 		String username = oAuth2User.getAttributes().get("email").toString();
+		String name = oAuth2User.getAttributes().get("name").toString();
 
-		logger.debug("GitHub username: " + username);
-
-		User userRetrived = userRepository.findByEmail(username);
-		if (userRetrived != null) {
-			logger.debug("userRetrived" + userRetrived);
-			logger.debug("[github-login]: has already an account");
-			authentication = new UsernamePasswordAuthenticationToken(userRetrived, userRetrived.getPassword());
-			SecurityContextHolder.getContext().setAuthentication(authentication);
-		} else {
-			logger.debug("[github-login]: create account");
-			User account = new User();
-			account.setUsername(username);
-			account.setFullname(oAuth2User.getAttributes().get("name").toString());
-			account.setPassword(oAuth2User.getAttributes().get("email").toString());
-			BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-			String encodedPassword = passwordEncoder.encode(account.getPassword());
-			account.setPassword(encodedPassword);
-			account.setRole("USER");
-			userRepository.save(account);
-			authentication = new UsernamePasswordAuthenticationToken(account, account.getUsername());
-			SecurityContextHolder.getContext().setAuthentication(authentication);
+		logger.debug("[github-login] email: " + username);
+		logger.debug("[github-login] name: " + name);
+		logger.debug("[github-login] optional: " + userRepository.findByEmail(username));
+		if (userRepository.findByEmail(username) != null) {
+			return "redirect:/login";
 		}
 
-		return "redirect:/bidList/list";
+		return "redirect:/user/add";
 	}
 }

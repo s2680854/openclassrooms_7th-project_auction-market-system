@@ -8,13 +8,17 @@ import com.nnk.springboot.service.user.UserUpdateService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.Optional;
 
 @Controller
@@ -43,6 +47,18 @@ public class UserController {
     public String addUser(Model model) {
 
         User user = new User();
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (!authentication.getName().contains("@")) {
+            OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
+            String username = oAuth2User.getAttributes().get("email").toString();
+            String name = oAuth2User.getAttributes().get("name").toString();
+            logger.debug("[github-login] email: " + username);
+            logger.debug("[github-login] name: " + name);
+            user.setUsername(username);
+            user.setFullname(name);
+        }
+
         model.addAttribute("user", user);
         logger.debug("[add] user: " + user);
 
@@ -56,6 +72,7 @@ public class UserController {
             user.setPassword(encoder.encode(user.getPassword()));
             userCreationService.createUser(user);
             model.addAttribute("users", userReadService.getUsers());
+
             return "redirect:/user/list";
         }
         return "redirect:/login";
