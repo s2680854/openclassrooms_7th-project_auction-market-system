@@ -40,6 +40,8 @@ public class BidListController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = "";
         try {username = authentication.getName();} catch (Exception e) {}
+
+        logger.debug("[bids list] username:" + username);
         if (username.contains("@")) {
             model.addAttribute("username", username);
         } else {
