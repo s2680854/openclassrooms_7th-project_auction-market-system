@@ -49,6 +49,7 @@ public class UserController {
         User user = new User();
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        logger.debug("[github-login] authentication name: " + authentication.getName());
         if (!authentication.getName().contains("@")) {
             OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
             String username = oAuth2User.getAttributes().get("email").toString();
