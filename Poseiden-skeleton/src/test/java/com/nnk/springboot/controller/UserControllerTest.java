@@ -61,7 +61,7 @@ public class UserControllerTest {
 
         User user = new User();
         user.setUsername("grinngotts@jkr.com");
-        user.setPassword("1234567");
+        user.setPassword("12345678");
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String encodedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encodedPassword);
@@ -80,7 +80,7 @@ public class UserControllerTest {
 
         User user = new User();
         user.setUsername("grinngotts3@jkr.com");
-        user.setPassword("1234567");
+        user.setPassword("12345678");
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String encodedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encodedPassword);
@@ -106,7 +106,7 @@ public class UserControllerTest {
 
         User user = new User();
         user.setUsername("grinngotts0@jkr.com");
-        user.setPassword("1234567");
+        user.setPassword("12345678");
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String encodedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encodedPassword);
@@ -132,7 +132,7 @@ public class UserControllerTest {
 
         User user = new User();
         user.setUsername("grinngotts2@jkr.com");
-        user.setPassword("1234567");
+        user.setPassword("12345678");
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String encodedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encodedPassword);

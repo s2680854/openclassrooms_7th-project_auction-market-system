@@ -22,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 
 @SpringBootTest
-@AutoConfigureMockMvc
+@AutoConfigureMockMvc(addFilters=false)
 public class UserServiceTest {
 
     @Autowired
@@ -41,7 +41,7 @@ public class UserServiceTest {
 
         User user = new User();
         user.setUsername("grinngotts@jkr.com");
-        user.setPassword("1234567");
+        user.setPassword("12345678");
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String encodedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encodedPassword);
