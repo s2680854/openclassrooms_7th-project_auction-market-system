@@ -13,7 +13,7 @@ import java.util.Objects;
 public class User {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    @Column(name = "id")
+    @Column(name = "user_id")
     private Long id;
 
     @NotBlank(message = "Username is mandatory")
