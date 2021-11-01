@@ -107,8 +107,6 @@ public class TradeServiceTest {
         Long id = 1L;
         try {id = tradeRepository.findByType("Amazon").get().getId();} catch (Exception e) {}
 
-        Trade expected = new Trade();
-
         Optional<Trade> optional = Optional.ofNullable(tradeReadService.getTradeById(id));
         Trade actual = new Trade();
         if (optional.isPresent()) {
@@ -116,7 +114,7 @@ public class TradeServiceTest {
             actual.setType(optional.get().getType());
         }
 
-        assertEquals(expected, actual);
+        assertEquals(trade, actual);
     }
 
     @Test

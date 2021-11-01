@@ -97,10 +97,14 @@ public class UserServiceTest {
     @Test
     public void shouldGetUserById() throws Exception {
 
+        User user = new User();
+        user.setUsername("grinngotts@jkr.com");
+        user.setId(userRepository.findByEmail(user.getUsername()).getId());
+        user.setPassword(userRepository.findByEmail(user.getUsername()).getPassword());
+        user.setFullname("Grinngott's");
+        user.setRole("ADMIN");
         Long id = 1L;
         try {id = userRepository.findByEmail("grinngotts@jkr.com").getId();} catch (Exception e) {}
-
-        User expected = new User();
 
         Optional<User> optional = userReadService.getUser(id);
         User actual = new User();
@@ -112,7 +116,7 @@ public class UserServiceTest {
             actual.setRole(optional.get().getRole());
         }
 
-        assertEquals(expected, actual);
+        assertEquals(user, actual);
     }
 
     @Test

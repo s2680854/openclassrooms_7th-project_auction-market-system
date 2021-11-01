@@ -51,6 +51,7 @@ public class CurveControllerTest {
     @Test
     public void shouldShowUpdateCurveForm() throws Exception {
 
+        curvePointRepository.deleteAll();
         CurvePoint curvePoint = new CurvePoint();
         curvePoint.setCurveId(1);
         curvePoint.setTerm(0.5d);
