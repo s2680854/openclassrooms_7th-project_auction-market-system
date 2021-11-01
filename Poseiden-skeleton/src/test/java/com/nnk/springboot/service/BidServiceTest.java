@@ -18,6 +18,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.web.servlet.MockMvc;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
@@ -26,6 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 
 @SpringBootTest
+@Transactional
 @AutoConfigureMockMvc(addFilters=false)
 public class BidServiceTest {
 
@@ -61,6 +63,22 @@ public class BidServiceTest {
     }
 
     @Test
+    public void shouldCreateBidsList() throws Exception {
+
+        bidListRepository.deleteAll();
+        BidsList bidList = new BidsList();
+        bidList.setAccount("grinngotts@jkr.com");
+        bidList.setType("0");
+        bidList.setBidQuantity(0d);
+        bidsListCreationService.createBidsList(bidList);
+        bidList.setId(bidListRepository.findByAccount(bidList.getAccount()).get().getId());
+
+        BidsList actual = bidListReadService.getBidsListById(bidList.getId()).get();
+
+        assertEquals(bidList, actual);
+    }
+
+    @Test
     public void shouldGetBidsLists() throws Exception {
 
         bidListRepository.deleteAll();
@@ -88,8 +106,6 @@ public class BidServiceTest {
         bidListRepository.save(bidList);
         Long id = bidListRepository.findByAccount("grinngotts@jkr.com").get().getId();
 
-        BidsList expected = new BidsList();
-
         Optional<BidsList> optional = bidListReadService.getBidsListById(id);
         BidsList actual = new BidsList();
         if (optional.isPresent()) {
@@ -99,9 +115,26 @@ public class BidServiceTest {
             actual.setBidQuantity(optional.get().getBidQuantity());
         }
 
-        assertEquals(expected, actual);
+        assertEquals(bidList, actual);
     }
 
+    @Test
+    public void shouldUpdateBidsList() throws Exception {
+
+        bidListRepository.deleteAll();
+        BidsList bidList = new BidsList();
+        bidList.setAccount("grinngotts@jkr.com");
+        bidList.setType("0");
+        bidList.setBidQuantity(0d);
+        bidsListCreationService.createBidsList(bidList);
+        bidList.setId(bidListRepository.findByAccount(bidList.getAccount()).get().getId());
+        bidList.setType("Boutique");
+        bidsListUpdateService.updateBidsList(bidList);
+
+        BidsList actual = bidListReadService.getBidsListById(bidList.getId()).get();
+
+        assertEquals(bidList, actual);
+    }
 
     @Test
     public void shouldDeleteBidsList() throws Exception {
