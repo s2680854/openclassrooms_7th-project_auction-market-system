@@ -14,6 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
@@ -22,6 +23,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 
 @SpringBootTest
+@Transactional
 @AutoConfigureMockMvc(addFilters=false)
 public class RuleServiceTest {
 
@@ -37,6 +39,25 @@ public class RuleServiceTest {
     private RuleDeletionService ruleDeletionService;
     @Autowired
     private RuleRepository ruleRepository;
+
+    @Test
+    public void shouldCreateRule() throws Exception {
+
+        ruleRepository.deleteAll();
+        Rule rule = new Rule();
+        rule.setDescription("0");
+        rule.setJson("0");
+        rule.setName("Exchange");
+        rule.setSqlStr("0");
+        rule.setSqlPart("0");
+        rule.setTemplate("0");
+        ruleCreationService.createRule(rule);
+        rule.setId(ruleRepository.findByName(rule.getName()).getId());
+
+        Rule actual = ruleReadService.getRuleById(rule.getId());
+
+        assertEquals(rule, actual);
+    }
 
     @Test
     public void shouldGetRules() throws Exception {
@@ -88,6 +109,28 @@ public class RuleServiceTest {
         }
 
         assertEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldUpdateRule() throws Exception {
+
+        ruleRepository.deleteAll();
+        Rule rule = new Rule();
+        rule.setDescription("0");
+        rule.setJson("0");
+        rule.setName("Exchange");
+        rule.setSqlStr("0");
+        rule.setSqlPart("0");
+        rule.setTemplate("0");
+        ruleCreationService.createRule(rule);
+        rule.setId(ruleRepository.findByName(rule.getName()).getId());
+
+
+        rule.setDescription("Autres");
+        ruleUpdateService.updateRule(rule);
+        Rule actual = ruleReadService.getRuleById(rule.getId());
+
+        assertEquals(rule, actual);
     }
 
 
