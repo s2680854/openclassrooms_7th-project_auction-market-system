@@ -2,8 +2,10 @@ package com.nnk.springboot.service;
 
 import com.nnk.springboot.domain.Rule;
 import com.nnk.springboot.repositories.RuleRepository;
+import com.nnk.springboot.service.rule.RuleCreationService;
 import com.nnk.springboot.service.rule.RuleDeletionService;
 import com.nnk.springboot.service.rule.RuleReadService;
+import com.nnk.springboot.service.rule.RuleUpdateService;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +27,12 @@ public class RuleServiceTest {
 
     @Autowired
     private MockMvc mockMvc;
-    @MockBean
+    @Autowired
     private RuleReadService ruleReadService;
+    @Autowired
+    private RuleUpdateService ruleUpdateService;
+    @Autowired
+    private RuleCreationService ruleCreationService;
     @MockBean
     private RuleDeletionService ruleDeletionService;
     @Autowired
@@ -35,7 +41,17 @@ public class RuleServiceTest {
     @Test
     public void shouldGetRules() throws Exception {
 
+        Rule rule = new Rule();
+        rule.setDescription("0");
+        rule.setJson("0");
+        rule.setName("Exchange");
+        rule.setSqlStr("0");
+        rule.setSqlPart("0");
+        rule.setTemplate("0");
+        ruleCreationService.createRule(rule);
+        rule.setId(ruleRepository.findByName(rule.getName()).getId());
         Collection<Rule> actualList = new ArrayList<>();
+        actualList.add(rule);
 
         Collection<Rule> expectedList = ruleReadService.getRules();
 
