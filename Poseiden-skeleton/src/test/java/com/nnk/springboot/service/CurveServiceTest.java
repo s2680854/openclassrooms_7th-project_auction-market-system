@@ -2,8 +2,10 @@ package com.nnk.springboot.service;
 
 import com.nnk.springboot.domain.CurvePoint;
 import com.nnk.springboot.repositories.CurvePointRepository;
+import com.nnk.springboot.service.curvepoint.CurvePointCreationService;
 import com.nnk.springboot.service.curvepoint.CurvePointDeletionService;
 import com.nnk.springboot.service.curvepoint.CurvePointReadService;
+import com.nnk.springboot.service.curvepoint.CurvePointUpdateService;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +27,12 @@ public class CurveServiceTest {
 
     @Autowired
     private MockMvc mockMvc;
-    @MockBean
+    @Autowired
+    private CurvePointCreationService curvePointCreationService;
+    @Autowired
     private CurvePointReadService curvePointReadService;
+    @Autowired
+    private CurvePointUpdateService curvePointUpdateService;
     @MockBean
     private CurvePointDeletionService curvePointDeletionService;
     @Autowired
@@ -35,7 +41,15 @@ public class CurveServiceTest {
     @Test
     public void shouldGetCurvePoints() throws Exception {
 
+        curvePointRepository.deleteAll();
+        CurvePoint curvePoint = new CurvePoint();
+        curvePoint.setCurveId(1);
+        curvePoint.setTerm(0.5d);
+        curvePoint.setValue(10d);
+        curvePointCreationService.createCurvePoint(curvePoint);
+        curvePoint.setId(curvePointRepository.findByCurveId(curvePoint.getCurveId()).get().getId());
         Collection<CurvePoint> actualList = new ArrayList<>();
+        actualList.add(curvePoint);
 
         Collection<CurvePoint> expectedList = curvePointReadService.getCurvePoints();
 
@@ -67,6 +81,23 @@ public class CurveServiceTest {
         assertEquals(expected, actual);
     }
 
+    @Test
+    public void shouldGetCurvePoints() throws Exception {
+
+        curvePointRepository.deleteAll();
+        CurvePoint curvePoint = new CurvePoint();
+        curvePoint.setCurveId(1);
+        curvePoint.setTerm(0.5d);
+        curvePoint.setValue(10d);
+        curvePointCreationService.createCurvePoint(curvePoint);
+        curvePoint.setId(curvePointRepository.findByCurveId(curvePoint.getCurveId()).get().getId());
+        Collection<CurvePoint> actualList = new ArrayList<>();
+        actualList.add(curvePoint);
+
+        Collection<CurvePoint> expectedList = curvePointReadService.getCurvePoints();
+
+        assertEquals(actualList, expectedList);
+    }
 
     @Test
     public void shouldDeleteCurvePoint() throws Exception {
