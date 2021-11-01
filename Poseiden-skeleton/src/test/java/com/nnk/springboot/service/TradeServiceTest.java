@@ -81,7 +81,15 @@ public class TradeServiceTest {
     @Test
     public void shouldGetTrades() throws Exception {
 
+        tradeRepository.deleteAll();
+        Trade trade = new Trade();
+        trade.setAccount("grinngotts@jkr.com");
+        trade.setType("Boulanger Electroménager");
+        trade.setStatus("ACTIVE");
+        trade = tradeCreationService.createTrade(trade);
+        trade.setId(tradeRepository.findByType(trade.getType()).get().getId());
         Collection<Trade> actualList = new ArrayList<>();
+        actualList.add(trade);
 
         Collection<Trade> expectedList = tradeReadService.getTrades();
 
