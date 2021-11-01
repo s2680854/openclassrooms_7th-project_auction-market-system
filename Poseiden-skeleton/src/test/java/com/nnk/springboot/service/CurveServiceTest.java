@@ -1,5 +1,6 @@
 package com.nnk.springboot.service;
 
+import com.nimbusds.jose.jwk.Curve;
 import com.nnk.springboot.domain.CurvePoint;
 import com.nnk.springboot.repositories.CurvePointRepository;
 import com.nnk.springboot.service.curvepoint.CurvePointCreationService;
@@ -14,6 +15,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
@@ -22,6 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 
 @SpringBootTest
+@Transactional
 @AutoConfigureMockMvc(addFilters=false)
 public class CurveServiceTest {
 
@@ -37,6 +40,22 @@ public class CurveServiceTest {
     private CurvePointDeletionService curvePointDeletionService;
     @Autowired
     private CurvePointRepository curvePointRepository;
+
+    @Test
+    public void shouldCreateCurvePoint() throws Exception {
+
+        curvePointRepository.deleteAll();
+        CurvePoint curvePoint = new CurvePoint();
+        curvePoint.setCurveId(1);
+        curvePoint.setTerm(0.5d);
+        curvePoint.setValue(10d);
+        curvePointCreationService.createCurvePoint(curvePoint);
+        curvePoint.setId(curvePointRepository.findByCurveId(curvePoint.getCurveId()).get().getId());
+
+        CurvePoint actual = curvePointReadService.getCurvePointById(curvePoint.getId());
+
+        assertEquals(curvePoint, actual);
+    }
 
     @Test
     public void shouldGetCurvePoints() throws Exception {
@@ -68,21 +87,19 @@ public class CurveServiceTest {
         Long id = 1L;
         try {id = curvePointRepository.findByCurveId(1).get().getId();} catch (Exception e) {}
 
-        CurvePoint expected = new CurvePoint();
-
         Optional<CurvePoint> optional = Optional.ofNullable(curvePointReadService.getCurvePointById(id));
         CurvePoint actual = new CurvePoint();
         if (optional.isPresent()) {
-            curvePoint.setCurveId(1);
-            curvePoint.setTerm(0.5d);
-            curvePoint.setValue(10d);
+            actual.setCurveId(1);
+            actual.setTerm(0.5d);
+            actual.setValue(10d);
         }
 
-        assertEquals(expected, actual);
+        assertEquals(curvePoint, actual);
     }
 
     @Test
-    public void shouldGetCurvePoints() throws Exception {
+    public void shouldUpdateCurvePoint() throws Exception {
 
         curvePointRepository.deleteAll();
         CurvePoint curvePoint = new CurvePoint();
@@ -91,12 +108,12 @@ public class CurveServiceTest {
         curvePoint.setValue(10d);
         curvePointCreationService.createCurvePoint(curvePoint);
         curvePoint.setId(curvePointRepository.findByCurveId(curvePoint.getCurveId()).get().getId());
-        Collection<CurvePoint> actualList = new ArrayList<>();
-        actualList.add(curvePoint);
+        curvePoint.setTerm(2d);
+        curvePointUpdateService.updateCurvePoint(curvePoint);
 
-        Collection<CurvePoint> expectedList = curvePointReadService.getCurvePoints();
+        CurvePoint actual = curvePointReadService.getCurvePointById(curvePoint.getId());
 
-        assertEquals(actualList, expectedList);
+        assertEquals(curvePoint, actual);
     }
 
     @Test
