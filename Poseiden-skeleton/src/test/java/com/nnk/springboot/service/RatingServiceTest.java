@@ -2,8 +2,10 @@ package com.nnk.springboot.service;
 
 import com.nnk.springboot.domain.Rating;
 import com.nnk.springboot.repositories.RatingRepository;
+import com.nnk.springboot.service.rating.RatingCreationgService;
 import com.nnk.springboot.service.rating.RatingDeletionService;
 import com.nnk.springboot.service.rating.RatingReadService;
+import com.nnk.springboot.service.rating.RatingUpdateService;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +27,12 @@ public class RatingServiceTest {
 
     @Autowired
     private MockMvc mockMvc;
-    @MockBean
+    @Autowired
+    private RatingCreationgService ratingCreationgService;
+    @Autowired
     private RatingReadService ratingReadService;
+    @Autowired
+    private RatingUpdateService ratingUpdateService;
     @MockBean
     private RatingDeletionService ratingDeletionService;
     @Autowired
@@ -35,7 +41,15 @@ public class RatingServiceTest {
     @Test
     public void shouldGetRatings() throws Exception {
 
+        Rating rating = new Rating();
+        rating.setMoodysRating("0");
+        rating.setSandPRating("0");
+        rating.setFitchRating("0");
+        rating.setOrderNumber(1);
+        ratingCreationgService.createRating(rating);
+        rating.setId(ratingRepository.findByOrderNumber(rating.getOrderNumber()).getId());
         Collection<Rating> actualList = new ArrayList<>();
+        actualList.add(rating);
 
         Collection<Rating> expectedList = ratingReadService.getRatings();
 

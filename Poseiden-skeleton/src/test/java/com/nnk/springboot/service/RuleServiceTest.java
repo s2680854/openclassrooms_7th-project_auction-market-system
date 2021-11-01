@@ -62,6 +62,7 @@ public class RuleServiceTest {
     @Test
     public void shouldGetRules() throws Exception {
 
+        ruleRepository.deleteAll();
         Rule rule = new Rule();
         rule.setDescription("0");
         rule.setJson("0");
@@ -95,8 +96,6 @@ public class RuleServiceTest {
         try {id = ruleRepository.findByName("Exchange").getId();} catch (Exception e) {}
         rule.setId(id);
 
-        Rule expected = new Rule();
-
         Optional<Rule> optional = Optional.ofNullable(ruleReadService.getRuleById(id));
         Rule actual = new Rule();
         if (optional.isPresent()) {
@@ -108,7 +107,7 @@ public class RuleServiceTest {
             actual.setTemplate(optional.get().getTemplate());
         }
 
-        assertEquals(expected, actual);
+        assertEquals(rule, actual);
     }
 
     @Test
