@@ -2,6 +2,7 @@ package com.nnk.springboot.service;
 
 import com.nnk.springboot.domain.User;
 import com.nnk.springboot.repositories.UserRepository;
+import com.nnk.springboot.service.user.UserCreationService;
 import com.nnk.springboot.service.user.UserDeletionService;
 import com.nnk.springboot.service.user.UserReadService;
 import org.junit.jupiter.api.BeforeEach;
@@ -27,7 +28,9 @@ public class UserServiceTest {
 
     @Autowired
     private MockMvc mockMvc;
-    @MockBean
+    @Autowired
+    private UserCreationService userCreationService;
+    @Autowired
     private UserReadService userReadService;
     @MockBean
     private UserDeletionService userDeletionService;
@@ -53,11 +56,19 @@ public class UserServiceTest {
     @Test
     public void shouldGetUsers() throws Exception {
 
-        Collection<User> actualList = new ArrayList<>();
+        User user = new User();
+        user.setId(userRepository.findByEmail("grinngotts@jkr.com").getId());
+        user.setUsername("grinngotts@jkr.com");
+        user.setPassword("12345678");
+        user.setPassword(userRepository.findByEmail("grinngotts@jkr.com").getPassword());
+        user.setFullname("Grinngott's");
+        user.setRole("ADMIN");
+        Collection<User> expected = new ArrayList<>();
+        expected.add(user);
 
-        Collection<User> expectedList = userReadService.getUsers();
+        Collection<User> actual = userReadService.getUsers();
 
-        assertEquals(actualList, expectedList);
+        assertEquals(expected, actual);
     }
 
     @Test
