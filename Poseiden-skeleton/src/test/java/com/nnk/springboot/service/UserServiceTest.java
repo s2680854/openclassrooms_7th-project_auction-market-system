@@ -5,6 +5,7 @@ import com.nnk.springboot.repositories.UserRepository;
 import com.nnk.springboot.service.user.UserCreationService;
 import com.nnk.springboot.service.user.UserDeletionService;
 import com.nnk.springboot.service.user.UserReadService;
+import com.nnk.springboot.service.user.UserUpdateService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -31,6 +32,8 @@ public class UserServiceTest {
     @Autowired
     private UserCreationService userCreationService;
     @Autowired
+    private UserUpdateService userUpdateService;
+    @Autowired
     private UserReadService userReadService;
     @MockBean
     private UserDeletionService userDeletionService;
@@ -51,6 +54,26 @@ public class UserServiceTest {
         user.setFullname("Grinngott's");
         user.setRole("ADMIN");
         userRepository.save(user);
+    }
+
+    @Test
+    public void shouldCreateUser() throws Exception {
+
+        User user = new User();
+        user.setUsername("granger@jkr.com");
+        user.setPassword("12345678");
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String encodedPassword = passwordEncoder.encode(user.getPassword());
+        user.setPassword(encodedPassword);
+        user.setFullname("Granger");
+        user.setRole("ADMIN");
+        userRepository.save(user);
+        user.setId(userRepository.findByEmail(user.getUsername()).getId());
+        user.setPassword(userRepository.findByEmail(user.getUsername()).getPassword());
+
+        User actual = userReadService.getUser(user.getId()).get();
+
+        assertEquals(user, actual);
     }
 
     @Test
@@ -92,6 +115,26 @@ public class UserServiceTest {
         assertEquals(expected, actual);
     }
 
+    @Test
+    public void shouldUpdateUser() throws Exception {
+
+        User user = new User();
+        user.setUsername("wisley@jkr.com");
+        user.setPassword("12345678");
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String encodedPassword = passwordEncoder.encode(user.getPassword());
+        user.setPassword(encodedPassword);
+        user.setFullname("Wisley");
+        user.setRole("ADMIN");
+        userRepository.save(user);
+        user.setId(userRepository.findByEmail(user.getUsername()).getId());
+        user.setPassword(userRepository.findByEmail(user.getUsername()).getPassword());
+
+        user.setFullname("Weasley");
+        User userUpdated = userUpdateService.updateUser(user);
+
+        assertEquals(user, userUpdated);
+    }
 
     @Test
     public void shouldDeleteUser() throws Exception {
