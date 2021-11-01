@@ -24,13 +24,9 @@ public class Trade {
     @Size(min=35)
     private String type;
 
-    @Size(min=0)
     private double buyQuantity;
-    @Size(min=0)
     private double sellQuantity;
-    @Size(min=0)
     private double buyPrice;
-    @Size(min=0)
     private double sellPrice;
     private String benchmark;
     private Timestamp tradeDate;

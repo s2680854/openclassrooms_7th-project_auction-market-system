@@ -2,8 +2,10 @@ package com.nnk.springboot.service;
 
 import com.nnk.springboot.domain.Rule;
 import com.nnk.springboot.repositories.RuleRepository;
+import com.nnk.springboot.service.rule.RuleCreationService;
 import com.nnk.springboot.service.rule.RuleDeletionService;
 import com.nnk.springboot.service.rule.RuleReadService;
+import com.nnk.springboot.service.rule.RuleUpdateService;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
@@ -20,22 +23,57 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 
 @SpringBootTest
+@Transactional
 @AutoConfigureMockMvc(addFilters=false)
 public class RuleServiceTest {
 
     @Autowired
     private MockMvc mockMvc;
-    @MockBean
+    @Autowired
     private RuleReadService ruleReadService;
+    @Autowired
+    private RuleUpdateService ruleUpdateService;
+    @Autowired
+    private RuleCreationService ruleCreationService;
     @MockBean
     private RuleDeletionService ruleDeletionService;
     @Autowired
     private RuleRepository ruleRepository;
 
     @Test
+    public void shouldCreateRule() throws Exception {
+
+        ruleRepository.deleteAll();
+        Rule rule = new Rule();
+        rule.setDescription("0");
+        rule.setJson("0");
+        rule.setName("Exchange");
+        rule.setSqlStr("0");
+        rule.setSqlPart("0");
+        rule.setTemplate("0");
+        ruleCreationService.createRule(rule);
+        rule.setId(ruleRepository.findByName(rule.getName()).getId());
+
+        Rule actual = ruleReadService.getRuleById(rule.getId());
+
+        assertEquals(rule, actual);
+    }
+
+    @Test
     public void shouldGetRules() throws Exception {
 
+        ruleRepository.deleteAll();
+        Rule rule = new Rule();
+        rule.setDescription("0");
+        rule.setJson("0");
+        rule.setName("Exchange");
+        rule.setSqlStr("0");
+        rule.setSqlPart("0");
+        rule.setTemplate("0");
+        ruleCreationService.createRule(rule);
+        rule.setId(ruleRepository.findByName(rule.getName()).getId());
         Collection<Rule> actualList = new ArrayList<>();
+        actualList.add(rule);
 
         Collection<Rule> expectedList = ruleReadService.getRules();
 
@@ -58,8 +96,6 @@ public class RuleServiceTest {
         try {id = ruleRepository.findByName("Exchange").getId();} catch (Exception e) {}
         rule.setId(id);
 
-        Rule expected = new Rule();
-
         Optional<Rule> optional = Optional.ofNullable(ruleReadService.getRuleById(id));
         Rule actual = new Rule();
         if (optional.isPresent()) {
@@ -71,7 +107,29 @@ public class RuleServiceTest {
             actual.setTemplate(optional.get().getTemplate());
         }
 
-        assertEquals(expected, actual);
+        assertEquals(rule, actual);
+    }
+
+    @Test
+    public void shouldUpdateRule() throws Exception {
+
+        ruleRepository.deleteAll();
+        Rule rule = new Rule();
+        rule.setDescription("0");
+        rule.setJson("0");
+        rule.setName("Exchange");
+        rule.setSqlStr("0");
+        rule.setSqlPart("0");
+        rule.setTemplate("0");
+        ruleCreationService.createRule(rule);
+        rule.setId(ruleRepository.findByName(rule.getName()).getId());
+
+
+        rule.setDescription("Autres");
+        ruleUpdateService.updateRule(rule);
+        Rule actual = ruleReadService.getRuleById(rule.getId());
+
+        assertEquals(rule, actual);
     }
 
 
