@@ -4,8 +4,10 @@ import com.nnk.springboot.domain.BidsList;
 import com.nnk.springboot.domain.User;
 import com.nnk.springboot.repositories.BidsListRepository;
 import com.nnk.springboot.repositories.UserRepository;
+import com.nnk.springboot.service.bidslist.BidsListCreationService;
 import com.nnk.springboot.service.bidslist.BidsListDeletionService;
 import com.nnk.springboot.service.bidslist.BidsListReadService;
+import com.nnk.springboot.service.bidslist.BidsListUpdateService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -29,8 +31,12 @@ public class BidServiceTest {
 
     @Autowired
     private MockMvc mockMvc;
-    @MockBean
+    @Autowired
+    private BidsListCreationService bidsListCreationService;
+    @Autowired
     private BidsListReadService bidListReadService;
+    @Autowired
+    private BidsListUpdateService bidsListUpdateService;
     @MockBean
     private BidsListDeletionService bidListDeletionService;
     @Autowired
@@ -57,7 +63,14 @@ public class BidServiceTest {
     @Test
     public void shouldGetBidsLists() throws Exception {
 
+        bidListRepository.deleteAll();
+        BidsList bidList = new BidsList();
+        bidList.setAccount("grinngotts@jkr.com");
+        bidList.setType("0");
+        bidList.setBidQuantity(0d);
+        bidsListCreationService.createBidsList(bidList);
         Collection<BidsList> actualList = new ArrayList<>();
+        actualList.add(bidList);
 
         Collection<BidsList> expectedList = bidListReadService.getBidsLists();
 
